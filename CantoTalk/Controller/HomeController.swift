@@ -16,41 +16,58 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         super.viewDidLoad()
         
         if let navBar = navigationController?.navigationBar {
-            navBar.tintColor = UIColor.blue
+            navBar.barTintColor = UIColor.cantoDarkBlue(a: 1)
             navBar.isTranslucent = false
         }
         
         let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 32, height: view.frame.height))
         titleLabel.text = "  Home"
-        titleLabel.textColor = UIColor.black
+        titleLabel.textColor = UIColor.cantoPink(a: 1)
         titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
         navigationItem.titleView = titleLabel
         
         setupCollectionView()
+        setupNavBar()
         
+    }
+    
+    func setupNavBar() {
+        let searchImage = UIImage(named: "search")?.withRenderingMode(.alwaysOriginal)
+        let searchBarButton = UIBarButtonItem(image: searchImage, style: .plain, target: self, action: #selector(handleSearch))
+        
+        navigationItem.rightBarButtonItem = searchBarButton
     }
     
     func setupCollectionView() {
         if let cv = collectionView {
             cv.register(WordCells.self, forCellWithReuseIdentifier: cellID)
-            cv.backgroundColor = UIColor.white
+            cv.backgroundColor = UIColor.cantoWhite(a: 1)
             cv.delegate = self
             cv.dataSource = self
         }
         
     }
+    
+    @objc func handleSearch() {
+        //open search input
+        print(123)
+    }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return 10
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! WordCells
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 50)
+        return CGSize(width: view.frame.width, height: 90)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 
     

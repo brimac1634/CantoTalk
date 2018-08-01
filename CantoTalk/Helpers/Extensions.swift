@@ -21,3 +21,21 @@ extension UIView {
     }
     
 }
+
+extension UIColor {
+    static func cantoDarkBlue(a: CGFloat) -> UIColor {
+        return UIColor(red: 6/255, green: 39/255, blue: 67/255, alpha: a)
+    }
+    
+    static func cantoPink(a: CGFloat) -> UIColor {
+        return UIColor(red: 255/255, green: 122/255, blue: 138/255, alpha: a)
+    }
+    
+    static func cantoWhite(a: CGFloat) -> UIColor {
+        return UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: a)
+    }
+    
+    static func cantoLightBlue(a: CGFloat) -> UIColor {
+        return UIColor(red: 17/255, green: 58/255, blue: 93/255, alpha: a)
+    }
+}
