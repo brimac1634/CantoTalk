@@ -28,6 +28,7 @@ class WordCells: BaseCell {
         let label = UILabel()
         label.text = "單車"
         label.font = UIFont.boldSystemFont(ofSize: 25)
+        label.adjustsFontSizeToFitWidth = true
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
@@ -43,6 +44,7 @@ class WordCells: BaseCell {
     let englishWordLabel: UILabel = {
         let label = UILabel()
         label.text = "bicycle"
+        label.adjustsFontSizeToFitWidth = true
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         label.numberOfLines = 3
         return label
@@ -51,13 +53,14 @@ class WordCells: BaseCell {
     let jyutpingLabel: UILabel = {
         let label = UILabel()
         label.text = "daan1 che1"
+        label.adjustsFontSizeToFitWidth = true
         label.textColor = UIColor.cantoDarkBlue(a: 0.8)
         return label
     }()
     
     let wordTypeLabel: UITextView = {
         let tV = UITextView()
-        tV.text = "adjective"
+        tV.text = "noun"
         tV.backgroundColor = UIColor.cantoWhite(a: 1)
         tV.textColor = UIColor.cantoLightBlue(a: 0.8)
         return tV

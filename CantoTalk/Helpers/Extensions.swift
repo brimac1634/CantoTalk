@@ -39,3 +39,33 @@ extension UIColor {
         return UIColor(red: 17/255, green: 58/255, blue: 93/255, alpha: a)
     }
 }
+
+extension HomeController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        //Todo
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
