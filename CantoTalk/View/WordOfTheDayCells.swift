@@ -31,7 +31,7 @@ class WordOfTheDayCells: BaseCell {
         
         addConstraintsWithFormat(format: "H:|[v0]|", views: entryView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: dateLabel)
-        addConstraintsWithFormat(format: "V:|-16-[v0(30)]-16-[v1]|", views: dateLabel, entryView)
+        addConstraintsWithFormat(format: "V:|-16-[v0(30)]-8-[v1]|", views: dateLabel, entryView)
         
         
     }

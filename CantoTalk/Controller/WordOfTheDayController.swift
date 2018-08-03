@@ -53,7 +53,7 @@ class WordOfTheDayController: SlideUpViewController, UICollectionViewDataSource,
         topBar.addConstraintsWithFormat(format: "V:|[v0]|", views: wordOfTheDayLabel)
         
         super.showEntryView(slideUpView: slideUpView)
-        slideView?.backgroundColor = UIColor.cantoPink(a: 0.8)
+        slideView?.backgroundColor = UIColor.cantoPink(a: 1)
         collectionView.delegate = self
         collectionView.dataSource = self
         

@@ -38,7 +38,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             let imageView = UIImageView()
             imageView.image = UIImage(named: "CantoTalkIcon")
             let imageDiameter = (window.frame.width / 2)
-            imageView.translatesAutoresizingMaskIntoConstraints = false
             imageView.frame.size = CGSize(width: imageDiameter, height: imageDiameter)
             imageView.center.x = window.frame.width / 2
             imageView.center.y = (window.frame.height / 2) - (imageDiameter / 2)

@@ -35,7 +35,7 @@ class WordCells: BaseCell {
     
     let classifierLabel: UILabel = {
         let label = UILabel()
-        label.text = "(架 ga3)"
+        label.text = "(cl:架 ga3)"
         label.font = UIFont.systemFont(ofSize: 15)
         label.backgroundColor = UIColor.cantoWhite(a: 1)
         label.textColor = UIColor.cantoDarkBlue(a: 1)
@@ -44,10 +44,21 @@ class WordCells: BaseCell {
     
     let englishWordLabel: UILabel = {
         let label = UILabel()
-        label.text = "bicycle"
+        label.text = "En: bicycle"
         label.adjustsFontSizeToFitWidth = true
+        label.font = UIFont.systemFont(ofSize: 18)
         label.textColor = UIColor.cantoDarkBlue(a: 1)
-        label.numberOfLines = 3
+        label.numberOfLines = 1
+        return label
+    }()
+    
+    let mandarinWordLabel: UILabel = {
+        let label = UILabel()
+        label.text = "普: 自行車"
+        label.adjustsFontSizeToFitWidth = true
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.textColor = UIColor.cantoDarkBlue(a: 1)
+        label.numberOfLines = 1
         return label
     }()
     
@@ -85,6 +96,7 @@ class WordCells: BaseCell {
         addSubview(classifierLabel)
         addSubview(jyutpingLabel)
         addSubview(englishWordLabel)
+        addSubview(mandarinWordLabel)
         addSubview(wordTypeLabel)
         addSubview(separatorView)
 
@@ -94,10 +106,11 @@ class WordCells: BaseCell {
         addConstraintsWithFormat(format: "H:|-16-[v0]-8-[v1(80)]", views: cantoWordLabel, classifierLabel)
         addConstraintsWithFormat(format: "H:|-16-[v0]-8-[v1(80)]", views: jyutpingLabel, wordTypeLabel)
         addConstraintsWithFormat(format: "H:|-\(halfCellWidth)-[v0]-16-|", views: englishWordLabel)
+        addConstraintsWithFormat(format: "H:|-\(halfCellWidth)-[v0]-16-|", views: mandarinWordLabel)
         
         addConstraintsWithFormat(format: "V:|-16-[v0(25)]-8-[v1(25)]-15-[v2(1)]", views: cantoWordLabel, jyutpingLabel, separatorView)
         addConstraintsWithFormat(format: "V:|-16-[v0(25)]-8-[v1(25)]-16-|", views: classifierLabel, wordTypeLabel)
-        addConstraintsWithFormat(format: "V:|-16-[v0]-17-|", views: englishWordLabel)
+        addConstraintsWithFormat(format: "V:|-16-[v0(25)]-8-[v1(25)]-16-|", views: englishWordLabel, mandarinWordLabel)
 
         
         
