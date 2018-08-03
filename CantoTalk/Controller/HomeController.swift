@@ -73,7 +73,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             backgroundView.clipsToBounds = true
         }
         
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
+//        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
         
         
         
