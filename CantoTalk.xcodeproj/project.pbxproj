@@ -18,6 +18,7 @@
 		D2D6A0772112FCA9002E0CCE /* WordOfTheDayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A0762112FCA9002E0CCE /* WordOfTheDayController.swift */; };
 		D2D6A079211300F2002E0CCE /* WordOfTheDayCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A078211300F2002E0CCE /* WordOfTheDayCells.swift */; };
 		D2D6A08121144C78002E0CCE /* SlideUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A08021144C78002E0CCE /* SlideUpViewController.swift */; };
+		D2D6A083211452A8002E0CCE /* DictionaryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A082211452A8002E0CCE /* DictionaryModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		D2D6A0762112FCA9002E0CCE /* WordOfTheDayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordOfTheDayController.swift; sourceTree = "<group>"; };
 		D2D6A078211300F2002E0CCE /* WordOfTheDayCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordOfTheDayCells.swift; sourceTree = "<group>"; };
 		D2D6A08021144C78002E0CCE /* SlideUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUpViewController.swift; sourceTree = "<group>"; };
+		D2D6A082211452A8002E0CCE /* DictionaryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 		D2D6A06421105AC7002E0CCE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D2D6A082211452A8002E0CCE /* DictionaryModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 				D2D6A06921105C87002E0CCE /* Extensions.swift in Sources */,
 				D2D6A05321105AA4002E0CCE /* AppDelegate.swift in Sources */,
 				D2D6A08121144C78002E0CCE /* SlideUpViewController.swift in Sources */,
+				D2D6A083211452A8002E0CCE /* DictionaryModel.swift in Sources */,
 				D2D6A079211300F2002E0CCE /* WordOfTheDayCells.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
