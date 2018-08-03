@@ -15,9 +15,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
+
         setupNavBar()
         setupCollectionView()
         setupSearchBar()
@@ -31,13 +29,17 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        showIconAnimation()
+
+    }
+    
+    func showIconAnimation() {
         if let window = UIApplication.shared.keyWindow {
             let imageView = UIImageView()
             imageView.image = UIImage(named: "CantoTalkIcon")
             let imageDiameter = (window.frame.width / 2)
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.frame = CGRect(x: 0, y: 0, width: imageDiameter, height: imageDiameter)
+            imageView.frame.size = CGSize(width: imageDiameter, height: imageDiameter)
             imageView.center.x = window.frame.width / 2
             imageView.center.y = (window.frame.height / 2) - (imageDiameter / 2)
             imageView.contentMode = .scaleAspectFill
@@ -45,16 +47,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             imageView.layer.masksToBounds = true
             
             view.addSubview(imageView)
-        
-            UIView.animate(withDuration: 1.5, delay: 0.5, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveLinear, animations: {
+            
+            UIView.animate(withDuration: 1, delay: 0.5, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveLinear, animations: {
                 imageView.alpha = 0
-    
+                
             }, completion: nil)
         }
-        
-        
-        
-
     }
     
     
@@ -65,7 +63,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "English/Cantonese/Jyutping"
-        searchController.searchBar.sizeToFit()
+        searchController.searchBar.sizeThatFits(CGSize(width: view.frame.width - 50, height: view.frame.height))
         searchController.searchBar.tintColor = UIColor.cantoPink(a: 1)
         
         let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField
@@ -97,24 +95,45 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         navigationItem.titleView = titleLabel
         
         
-//        let searchField = UISearchBar(frame: CGRect(x: view.frame.width / 2, y: 0, width: view.frame.width - 32 - 32, height: view.frame.height))
-//        searchField.placeholder = "English/Cantonese/Jyutping"
-//        searchField.isTranslucent = false
-//        searchField.sizeToFit()
-//        searchField.backgroundImage = UIImage()
-//        searchField.delegate = self
-//        navigationItem.titleView = searchField
+//        let menuImage = UIImage(named: "menu")?.withRenderingMode(.alwaysTemplate)
+//        let menuButton = UIBarButtonItem(image: menuImage, style: .plain, target: self, action: #selector(handleMenu))
         
         
-        let heartImage = UIImage(named: "heart")?.withRenderingMode(.alwaysTemplate)
+        let heartImage = UIImage(named: "heart_folder")?.withRenderingMode(.alwaysTemplate)
         let favoritesBarButton = UIBarButtonItem(image: heartImage, style: .plain, target: self, action: #selector(handleFavorites))
         
         let wordOfTheDayImage = UIImage(named: "check_calendar")?.withRenderingMode(.alwaysTemplate)
         let wordOfTheDayButton = UIBarButtonItem(image: wordOfTheDayImage, style: .plain, target: self, action: #selector(handleWordOfTheDay))
         
+
         navigationItem.rightBarButtonItems = [wordOfTheDayButton, favoritesBarButton]
         
     }
+    
+    @objc func handleMenu() {
+        print(789)
+    }
+    
+    @objc func handleFavorites() {
+        //open search input
+        print(123)
+    }
+    
+    @objc func handleWordOfTheDay() {
+//        let collectionView: UICollectionView = {
+//            let layout = UICollectionViewFlowLayout()
+//            layout.scrollDirection = .horizontal
+//            layout.minimumLineSpacing = 0
+//            let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+//            cv.backgroundColor = UIColor.cantoWhite(a: 1)
+//            cv.isPagingEnabled = true
+//            return cv
+//        }()
+        let view = UIView()
+        wordOfTheDayController.showEntryView(slideUpView: view)
+    }
+    
+    //MARK: - CollectionView Methods
     
     func setupCollectionView() {
         if let cv = collectionView {
@@ -126,20 +145,14 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
     }
     
-    @objc func handleFavorites() {
-        //open search input
-        print(123)
-    }
-    
-    @objc func handleWordOfTheDay() {
-        //show word of day view
-        print(456)
-    }
+
     
     let entryViewController = EntryViewController()
+    let wordOfTheDayController = WordOfTheDayController()
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        entryViewController.showEntryView()
+        let view = EntryView()
+        entryViewController.showEntryView(slideUpView: view)
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
