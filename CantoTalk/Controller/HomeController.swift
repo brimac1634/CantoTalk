@@ -64,6 +64,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         searchController.searchBar.placeholder = "English/Cantonese/Jyutping"
         searchController.searchBar.sizeThatFits(CGSize(width: view.frame.width - 50, height: view.frame.height))
         searchController.searchBar.tintColor = UIColor.cantoPink(a: 1)
+        searchController.hidesNavigationBarDuringPresentation = false
         
         let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField
         if let backgroundView = textField?.subviews.first {
@@ -72,11 +73,16 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             backgroundView.clipsToBounds = true
         }
         
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
         
         
         
         navigationItem.searchController = searchController
         definesPresentationContext = true
+    }
+    
+    @objc func dismissKeyboard() {
+        searchController.searchBar.endEditing(true)
     }
     
     func setupNavBar() {
