@@ -75,16 +75,5 @@ class WordOfTheDayController: SlideUpViewController, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
-//
-//    override init() {
-//        super.init()
-//
-//        collectionView.delegate = self
-//        collectionView.dataSource = self
-//
-//        collectionView.register(WordOfTheDayCells.self, forCellWithReuseIdentifier: cellID)
-//    }
-    
 
-    
 }

@@ -120,15 +120,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     @objc func handleWordOfTheDay() {
-//        let collectionView: UICollectionView = {
-//            let layout = UICollectionViewFlowLayout()
-//            layout.scrollDirection = .horizontal
-//            layout.minimumLineSpacing = 0
-//            let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//            cv.backgroundColor = UIColor.cantoWhite(a: 1)
-//            cv.isPagingEnabled = true
-//            return cv
-//        }()
         let view = UIView()
         wordOfTheDayController.showEntryView(slideUpView: view)
     }
@@ -147,12 +138,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
 
     
-    let entryViewController = EntryViewController()
+    let slideUpViewController = SlideUpViewController()
     let wordOfTheDayController = WordOfTheDayController()
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let view = EntryView()
-        entryViewController.showEntryView(slideUpView: view)
+        slideUpViewController.showEntryView(slideUpView: view)
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

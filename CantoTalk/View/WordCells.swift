@@ -33,12 +33,13 @@ class WordCells: BaseCell {
         return label
     }()
     
-    let classifierLabel: UITextView = {
-        let tV = UITextView()
-        tV.text = "(架 ga3)"
-        tV.backgroundColor = UIColor.cantoWhite(a: 1)
-        tV.textColor = UIColor.cantoDarkBlue(a: 1)
-        return tV
+    let classifierLabel: UILabel = {
+        let label = UILabel()
+        label.text = "(架 ga3)"
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.backgroundColor = UIColor.cantoWhite(a: 1)
+        label.textColor = UIColor.cantoDarkBlue(a: 1)
+        return label
     }()
     
     let englishWordLabel: UILabel = {
@@ -54,16 +55,17 @@ class WordCells: BaseCell {
         let label = UILabel()
         label.text = "daan1 che1"
         label.adjustsFontSizeToFitWidth = true
-        label.textColor = UIColor.cantoDarkBlue(a: 0.8)
+        label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
     
-    let wordTypeLabel: UITextView = {
-        let tV = UITextView()
-        tV.text = "noun"
-        tV.backgroundColor = UIColor.cantoWhite(a: 1)
-        tV.textColor = UIColor.cantoLightBlue(a: 0.8)
-        return tV
+    let wordTypeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "noun"
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.backgroundColor = UIColor.cantoWhite(a: 1)
+        label.textColor = UIColor.cantoLightBlue(a: 1)
+        return label
     }()
     
     
