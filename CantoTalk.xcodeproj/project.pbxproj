@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8AF88F06A050B72BA3F9F4FD /* Pods_CantoTalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D7916B28C01480D1110757F /* Pods_CantoTalk.framework */; };
 		D2D6A05321105AA4002E0CCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A05221105AA4002E0CCE /* AppDelegate.swift */; };
 		D2D6A05521105AA4002E0CCE /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A05421105AA4002E0CCE /* HomeController.swift */; };
 		D2D6A05821105AA5002E0CCE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2D6A05621105AA5002E0CCE /* Main.storyboard */; };
@@ -22,6 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D7916B28C01480D1110757F /* Pods_CantoTalk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CantoTalk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4663D8A86CF49ED59902881C /* Pods-CantoTalk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoTalk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CantoTalk/Pods-CantoTalk.debug.xcconfig"; sourceTree = "<group>"; };
+		A7F127D3C5D096AF1602DDE3 /* Pods-CantoTalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoTalk.release.xcconfig"; path = "Pods/Target Support Files/Pods-CantoTalk/Pods-CantoTalk.release.xcconfig"; sourceTree = "<group>"; };
 		D2D6A04F21105AA4002E0CCE /* CantoTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CantoTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2D6A05221105AA4002E0CCE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2D6A05421105AA4002E0CCE /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -43,17 +47,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AF88F06A050B72BA3F9F4FD /* Pods_CantoTalk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		456DBBAF427B551B17A1DA37 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4663D8A86CF49ED59902881C /* Pods-CantoTalk.debug.xcconfig */,
+				A7F127D3C5D096AF1602DDE3 /* Pods-CantoTalk.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		AC72BA16E76A5CCC19F1ADEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2D7916B28C01480D1110757F /* Pods_CantoTalk.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D2D6A04621105AA4002E0CCE = {
 			isa = PBXGroup;
 			children = (
 				D2D6A05121105AA4002E0CCE /* CantoTalk */,
 				D2D6A05021105AA4002E0CCE /* Products */,
+				456DBBAF427B551B17A1DA37 /* Pods */,
+				AC72BA16E76A5CCC19F1ADEA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -124,9 +148,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D2D6A06121105AA9002E0CCE /* Build configuration list for PBXNativeTarget "CantoTalk" */;
 			buildPhases = (
+				80C5849DD85B26B9947D9067 /* [CP] Check Pods Manifest.lock */,
 				D2D6A04B21105AA4002E0CCE /* Sources */,
 				D2D6A04C21105AA4002E0CCE /* Frameworks */,
 				D2D6A04D21105AA4002E0CCE /* Resources */,
+				551D9F643D418B862DD309EB /* [CP] Embed Pods Frameworks */,
+				1829CE03D1493031A41F8268 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -182,6 +209,62 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1829CE03D1493031A41F8268 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CantoTalk/Pods-CantoTalk-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		551D9F643D418B862DD309EB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-CantoTalk/Pods-CantoTalk-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CantoTalk/Pods-CantoTalk-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		80C5849DD85B26B9947D9067 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CantoTalk-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D2D6A04B21105AA4002E0CCE /* Sources */ = {
@@ -338,15 +421,13 @@
 		};
 		D2D6A06221105AA9002E0CCE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4663D8A86CF49ED59902881C /* Pods-CantoTalk.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AY47KJ5YA8;
 				INFOPLIST_FILE = CantoTalk/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brianmacpherson.CantoTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -356,15 +437,13 @@
 		};
 		D2D6A06321105AA9002E0CCE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A7F127D3C5D096AF1602DDE3 /* Pods-CantoTalk.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AY47KJ5YA8;
 				INFOPLIST_FILE = CantoTalk/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brianmacpherson.CantoTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
