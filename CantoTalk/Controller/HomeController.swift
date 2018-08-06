@@ -174,13 +174,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! WordCells
-        if let entry = entries {
-            cell.cantoWordLabel.text = entry[indexPath.item].cantoWord
-            cell.classifierLabel.text = entry[indexPath.item].classifier
-            cell.jyutpingLabel.text = entry[indexPath.item].jyutping
-            cell.wordTypeLabel.text = entry[indexPath.item].wordType
-            cell.englishWordLabel.text = entry[indexPath.item].englishWord
-            cell.mandarinWordLabel.text = entry[indexPath.item].mandarinWord
+        if let entry = entries?[indexPath.item] {
+            cell.selectedEntry = entry
         }
         
         return cell

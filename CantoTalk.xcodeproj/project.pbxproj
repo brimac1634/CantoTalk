@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8AF88F06A050B72BA3F9F4FD /* Pods_CantoTalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D7916B28C01480D1110757F /* Pods_CantoTalk.framework */; };
-		D27C0A5C2118164100E615EB /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D27C0A5B2118164100E615EB /* default.realm */; };
+		D27C0A6221184A9C00E615EB /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D27C0A6121184A9C00E615EB /* default.realm */; };
 		D2D6A05321105AA4002E0CCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A05221105AA4002E0CCE /* AppDelegate.swift */; };
 		D2D6A05521105AA4002E0CCE /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A05421105AA4002E0CCE /* HomeController.swift */; };
 		D2D6A05821105AA5002E0CCE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2D6A05621105AA5002E0CCE /* Main.storyboard */; };
@@ -27,7 +27,7 @@
 		2D7916B28C01480D1110757F /* Pods_CantoTalk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CantoTalk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4663D8A86CF49ED59902881C /* Pods-CantoTalk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoTalk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CantoTalk/Pods-CantoTalk.debug.xcconfig"; sourceTree = "<group>"; };
 		A7F127D3C5D096AF1602DDE3 /* Pods-CantoTalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoTalk.release.xcconfig"; path = "Pods/Target Support Files/Pods-CantoTalk/Pods-CantoTalk.release.xcconfig"; sourceTree = "<group>"; };
-		D27C0A5B2118164100E615EB /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
+		D27C0A6121184A9C00E615EB /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
 		D2D6A04F21105AA4002E0CCE /* CantoTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CantoTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2D6A05221105AA4002E0CCE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2D6A05421105AA4002E0CCE /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -76,7 +76,7 @@
 		D27C0A5A211803A000E615EB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D27C0A5B2118164100E615EB /* default.realm */,
+				D27C0A6121184A9C00E615EB /* default.realm */,
 				D2D6A05921105AA9002E0CCE /* Assets.xcassets */,
 			);
 			path = "Supporting Files";
@@ -214,7 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2D6A05D21105AA9002E0CCE /* LaunchScreen.storyboard in Resources */,
-				D27C0A5C2118164100E615EB /* default.realm in Resources */,
+				D27C0A6221184A9C00E615EB /* default.realm in Resources */,
 				D2D6A05A21105AA9002E0CCE /* Assets.xcassets in Resources */,
 				D2D6A05821105AA5002E0CCE /* Main.storyboard in Resources */,
 			);
