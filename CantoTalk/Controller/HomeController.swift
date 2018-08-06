@@ -13,6 +13,10 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     let cellID = "cellID"
     
+    let realm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: true))
+    
+    var entries: Results<Entries>?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,18 +24,25 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         setupNavBar()
         setupCollectionView()
         setupSearchBar()
+        loadData()
     
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.hidesSearchBarWhenScrolling = false
+//        configureRealm()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         showIconAnimation()
 
+    }
+    
+    func loadData() {
+        entries = realm.objects(Entries.self)
+        collectionView?.reloadData()
     }
     
     func showIconAnimation() {
@@ -149,16 +160,29 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let view = EntryView()
-        slideUpViewController.showEntryView(slideUpView: view)
+        if let entry = entries?[indexPath.item] {
+            view.selectedEntry = entry
+            slideUpViewController.showEntryView(slideUpView: view)
+        }
+        
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        guard let entries = entries?.count else {fatalError()}
+        return entries
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! WordCells
-        //set labels based on entries array
+        if let entry = entries {
+            cell.cantoWordLabel.text = entry[indexPath.item].cantoWord
+            cell.classifierLabel.text = entry[indexPath.item].classifier
+            cell.jyutpingLabel.text = entry[indexPath.item].jyutping
+            cell.wordTypeLabel.text = entry[indexPath.item].wordType
+            cell.englishWordLabel.text = entry[indexPath.item].englishWord
+            cell.mandarinWordLabel.text = entry[indexPath.item].mandarinWord
+        }
+        
         return cell
     }
     

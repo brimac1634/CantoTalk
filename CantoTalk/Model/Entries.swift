@@ -18,7 +18,9 @@ class Entries: Object {
     @objc dynamic var wordType : String = ""
     @objc dynamic var classifier : String?
     @objc dynamic var cantoSentence : String?
+    @objc dynamic var jyutpingSentence : String?
+    @objc dynamic var englishSentence : String?
     @objc dynamic var isFavorited : Bool = false
     @objc dynamic var dateFavorited : Date?
-    
 }
+

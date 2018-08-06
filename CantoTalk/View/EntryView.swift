@@ -15,6 +15,19 @@ class EntryView: UIView {
         setupView()
     }
     
+    var selectedEntry: Entries? {
+        didSet {
+            if let entry = selectedEntry {
+                cantoWordLabel.text = entry.cantoWord
+                classifierLabel.text = entry.classifier
+                jyutpingLabel.text = entry.jyutping
+                wordTypeLabel.text = entry.wordType
+                englishWordLabel.text = "En: \(entry.englishWord)"
+                mandarinWordLabel.text = "普: \(entry.mandarinWord)"
+            }
+        }
+    }
+    
     let cantoWordLabel: UILabel = {
         let label = UILabel()
         label.text = "單車"
