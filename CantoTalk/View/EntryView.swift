@@ -171,6 +171,7 @@ class EntryView: UIView {
             }
             isFavorited = false
             heartButton.tintColor = unselectedHeartColor
+
         }
         
         

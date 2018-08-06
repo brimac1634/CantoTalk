@@ -14,8 +14,10 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     let cellID = "cellID"
     
     let realm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: true))
+    let favoritesRealm = try! Realm()
     
     var entries: Results<Entries>?
+    var favoritesIsSelected: Bool?
     
     
     override func viewDidLoad() {
@@ -25,6 +27,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         setupCollectionView()
         setupSearchBar()
         loadData()
+        
+        favoritesIsSelected = false
     
     }
     
@@ -42,6 +46,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     func loadData() {
         entries = realm.objects(Entries.self)
+        collectionView?.reloadData()
+    }
+    
+    func loadFavorites() {
+        entries = favoritesRealm.objects(Entries.self).sorted(byKeyPath: "dateFavorited", ascending: false)
         collectionView?.reloadData()
     }
     
@@ -132,8 +141,13 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     @objc func handleFavorites() {
-        //open search input
-        print(123)
+        if favoritesIsSelected == false {
+            loadFavorites()
+            favoritesIsSelected = true
+        } else {
+            loadData()
+            favoritesIsSelected = false
+        }
     }
     
     @objc func handleWordOfTheDay() {
@@ -163,6 +177,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         if let entry = entries?[indexPath.item] {
             view.selectedEntry = entry
             slideUpViewController.showEntryView(slideUpView: view)
+            return
         }
         
     }

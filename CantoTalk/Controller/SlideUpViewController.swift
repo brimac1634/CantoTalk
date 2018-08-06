@@ -12,6 +12,7 @@ class SlideUpViewController: NSObject {
     
     let blackView = UIView()
     var whiteView: UIView?
+
     
     func showEntryView(slideUpView: UIView) {
         if let window = UIApplication.shared.keyWindow {
@@ -57,11 +58,7 @@ class SlideUpViewController: NSObject {
                 if let view = self.whiteView {
                     view.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: view.frame.height)
                 }
-                    
-                
             }
-            
-            
         }
         
     }
