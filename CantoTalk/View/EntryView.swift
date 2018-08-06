@@ -130,12 +130,18 @@ class EntryView: UIView {
     }()
     
     let heartButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let imageSize: CGSize = CGSize(width: 10, height: 10)
+        let button = UIButton(type: UIButtonType.custom)
         let image = UIImage(named: "heart")?.withRenderingMode(.alwaysTemplate)
-        button.setBackgroundImage(image, for: .normal)
-        button.contentMode = .center
-        button.imageView?.contentMode = .scaleAspectFit
+        button.frame = CGRect(x: 200, y: 200, width: 80, height: 80)
+        button.setImage(image, for: .normal)
         button.tintColor = UIColor.cantoLightBlue(a: 1)
+        button.imageEdgeInsets = UIEdgeInsetsMake(
+            (button.frame.size.height - imageSize.height) / 2,
+            (button.frame.size.width - imageSize.width) / 2,
+            (button.frame.size.height - imageSize.height) / 2,
+            (button.frame.size.width - imageSize.width) / 2)
+
         button.addTarget(self, action: #selector(handleFavorite), for: .touchUpInside)
         return button
     }()

@@ -82,7 +82,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "English/Cantonese/Jyutping"
+        searchController.searchBar.placeholder = "English/Cantonese/Mandarin/Jyutping"
         searchController.searchBar.sizeThatFits(CGSize(width: view.frame.width - 50, height: view.frame.height))
         searchController.searchBar.tintColor = UIColor.cantoPink(a: 1)
         searchController.hidesNavigationBarDuringPresentation = false
