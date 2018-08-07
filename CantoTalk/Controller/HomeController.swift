@@ -17,7 +17,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     let favoritesRealm = try! Realm()
     
     var entries: Results<Entries>?
-    var favoritesIsSelected: Bool?
     
     
     override func viewDidLoad() {
@@ -26,16 +25,17 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         setupNavBar()
         setupCollectionView()
         setupSearchBar()
+        setupMenuBar()
         loadData()
         
-        favoritesIsSelected = false
+        
     
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.hidesSearchBarWhenScrolling = false
-//        configureRealm()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -43,6 +43,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         showIconAnimation()
 
     }
+
     
     func loadData() {
         entries = realm.objects(Entries.self)
@@ -114,57 +115,60 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             navBar.tintColor = UIColor.cantoPink(a: 1)
         }
         
-        let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 32, height: view.frame.height))
-        titleLabel.text = "  CantoTalk"
+        let titleLabel = UILabel(frame: CGRect(x: view.frame.width / 2, y: 0, width: view.frame.width - 32, height: view.frame.height))
+        titleLabel.text = "CantoTalk"
+        titleLabel.textAlignment = .center
         titleLabel.textColor = UIColor.cantoPink(a: 1)
         titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
         navigationItem.titleView = titleLabel
         
+    }
+    
+    func scrollToMenuIndex(menuIndex: Int) {
+        let indexPath = IndexPath(item: menuIndex, section: 0)
+        collectionView?.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         
-//        let menuImage = UIImage(named: "menu")?.withRenderingMode(.alwaysTemplate)
-//        let menuButton = UIBarButtonItem(image: menuImage, style: .plain, target: self, action: #selector(handleMenu))
-        
-        
-        let heartImage = UIImage(named: "heart_folder")?.withRenderingMode(.alwaysTemplate)
-        let favoritesBarButton = UIBarButtonItem(image: heartImage, style: .plain, target: self, action: #selector(handleFavorites))
-        
-        let wordOfTheDayImage = UIImage(named: "check_calendar")?.withRenderingMode(.alwaysTemplate)
-        let wordOfTheDayButton = UIBarButtonItem(image: wordOfTheDayImage, style: .plain, target: self, action: #selector(handleWordOfTheDay))
-        
+    }
+    
+//    @objc func handleFavorites() {
+//        if favoritesIsSelected == false {
+//            loadFavorites()
+//            favoritesIsSelected = true
+//        } else {
+//            loadData()
+//            favoritesIsSelected = false
+//        }
+//    }
 
-        navigationItem.rightBarButtonItems = [wordOfTheDayButton, favoritesBarButton]
-        
-    }
-    
-    @objc func handleMenu() {
-        print(789)
-    }
-    
-    @objc func handleFavorites() {
-        if favoritesIsSelected == false {
-            loadFavorites()
-            favoritesIsSelected = true
-        } else {
-            loadData()
-            favoritesIsSelected = false
-        }
-    }
-    
-    @objc func handleWordOfTheDay() {
-        let view = UIView()
-        wordOfTheDayController.showEntryView(slideUpView: view)
-    }
     
     //MARK: - CollectionView Methods
     
     func setupCollectionView() {
+        if let flowlayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowlayout.scrollDirection = .horizontal
+            flowlayout.minimumLineSpacing = 0
+        }
         if let cv = collectionView {
-            cv.register(WordCells.self, forCellWithReuseIdentifier: cellID)
+            cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellID)
             cv.backgroundColor = UIColor.cantoWhite(a: 1)
+            cv.isPagingEnabled = true
             cv.delegate = self
             cv.dataSource = self
         }
         
+    }
+    
+    lazy var menuBar: MenuBar = {
+        let mb = MenuBar()
+        mb.homeController = self
+        return mb
+    }()
+    
+    private func setupMenuBar() {
+        view.addSubview(menuBar)
+        
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: menuBar)
+        view.addConstraintsWithFormat(format: "V:[v0(50)]|", views: menuBar)
     }
     
 
@@ -172,32 +176,36 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     let slideUpViewController = SlideUpViewController()
     let wordOfTheDayController = WordOfTheDayController()
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let view = EntryView()
-        if let entry = entries?[indexPath.item] {
-            view.selectedEntry = entry
-            slideUpViewController.showEntryView(slideUpView: view)
-            return
-        }
-        
+//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let view = EntryView()
+//        if let entry = entries?[indexPath.item] {
+//            view.selectedEntry = entry
+//            slideUpViewController.showEntryView(slideUpView: view)
+//            return
+//        }
+//        
+//    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        menuBar.horizontalBarLeftAnchorConstraint?.constant = scrollView.contentOffset.x / 4
+    }
+    
+    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let indexPath = IndexPath(item: Int(targetContentOffset.pointee.x / view.frame.width), section: 0)
+        menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let entries = entries?.count else {fatalError()}
-        return entries
+        return 4
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! WordCells
-        if let entry = entries?[indexPath.item] {
-            cell.selectedEntry = entry
-        }
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 90)
+        return CGSize(width: view.frame.width, height: view.frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

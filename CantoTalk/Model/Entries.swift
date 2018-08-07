@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 class Entries: Object {
+    @objc dynamic var entryID : Int = 0
     @objc dynamic var cantoWord : String = ""
     @objc dynamic var jyutping : String = ""
     @objc dynamic var wordType : String = ""

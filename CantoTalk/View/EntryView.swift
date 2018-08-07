@@ -30,16 +30,18 @@ class EntryView: UIView {
                 
                 
                 cantoWordLabel.text = entry.cantoWord
-                classifierLabel.text = entry.classifier
+                classifierLabel.text = "(cl: \(entry.classifier ?? ""))"
                 jyutpingLabel.text = entry.jyutping
                 wordTypeLabel.text = entry.wordType
                 englishWordLabel.text = "En: \(entry.englishWord)"
                 mandarinWordLabel.text = "普: \(entry.mandarinWord)"
-                cantoSentence.text = entry.cantoSentence
-                jyutpingSentence.text = entry.jyutpingSentence
-                englishSentence.text = entry.englishSentence
                 
-                currentEntry = favoritesRealm.objects(Entries.self).filter("cantoWord = '\(entry.cantoWord)'").first
+                cantoSentenceLabel.text = entry.cantoSentence ?? ""
+                jyutpingSentenceLabel.text = entry.jyutpingSentence ?? ""
+                englishSentenceLabel.text = entry.englishSentence ?? ""
+
+                
+                currentEntry = favoritesRealm.objects(Entries.self).filter("entryID = \(entry.entryID)").first
                 print(Realm.Configuration.defaultConfiguration.fileURL)
                 if currentEntry != nil {
                     isFavorited = true
@@ -66,6 +68,7 @@ class EntryView: UIView {
         let label = UILabel()
         label.text = "(架 ga3)"
         label.font = UIFont.systemFont(ofSize: 18)
+        label.textAlignment = .left
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
@@ -103,28 +106,35 @@ class EntryView: UIView {
         let label = UILabel()
         label.text = "noun"
         label.font = UIFont.systemFont(ofSize: 18)
+        label.textAlignment = .left
         label.textColor = UIColor.cantoLightBlue(a: 1)
         return label
     }()
     
-    let cantoSentence: UILabel = {
+    let cantoSentenceLabel: UILabel = {
         let label = UILabel()
         label.text = "我哋想租兩架單車"
-        label.font = UIFont.systemFont(ofSize: 22)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .thin)
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
     
-    let jyutpingSentence: UILabel = {
+    let jyutpingSentenceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 22)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .thin)
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
     
-    let englishSentence: UILabel = {
+    let englishSentenceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 22)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .thin)
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
@@ -183,7 +193,7 @@ class EntryView: UIView {
         
         
     }
-    
+
     
     func setupView() {
         
@@ -193,20 +203,20 @@ class EntryView: UIView {
         addSubview(englishWordLabel)
         addSubview(mandarinWordLabel)
         addSubview(wordTypeLabel)
-        addSubview(cantoSentence)
-        addSubview(jyutpingSentence)
-        addSubview(englishSentence)
+        addSubview(cantoSentenceLabel)
+        addSubview(jyutpingSentenceLabel)
+        addSubview(englishSentenceLabel)
         addSubview(heartButton)
         
-        addConstraintsWithFormat(format: "H:|-32-[v0]-8-[v1(80)]", views: cantoWordLabel, classifierLabel)
-        addConstraintsWithFormat(format: "H:|-32-[v0]-8-[v1(80)]", views: jyutpingLabel,wordTypeLabel)
-        addConstraintsWithFormat(format: "H:|-32-[v0]", views: englishWordLabel)
-        addConstraintsWithFormat(format: "H:|-32-[v0]", views: mandarinWordLabel)
-        addConstraintsWithFormat(format: "H:|-32-[v0]", views: cantoSentence)
-        addConstraintsWithFormat(format: "H:|-32-[v0]", views: jyutpingSentence)
-        addConstraintsWithFormat(format: "H:|-32-[v0]", views: englishSentence)
+        addConstraintsWithFormat(format: "H:|-32-[v0]-8-[v1(80)]|", views: cantoWordLabel, classifierLabel)
+        addConstraintsWithFormat(format: "H:|-32-[v0]-8-[v1(80)]|", views: jyutpingLabel,wordTypeLabel)
+        addConstraintsWithFormat(format: "H:|-32-[v0]-32-|", views: englishWordLabel)
+        addConstraintsWithFormat(format: "H:|-32-[v0]-32-|", views: mandarinWordLabel)
+        addConstraintsWithFormat(format: "H:|-32-[v0]-32-|", views: cantoSentenceLabel)
+        addConstraintsWithFormat(format: "H:|-32-[v0]-32-|", views: jyutpingSentenceLabel)
+        addConstraintsWithFormat(format: "H:|-32-[v0]-32-|", views: englishSentenceLabel)
         
-        addConstraintsWithFormat(format: "V:|-32-[v0(30)]-8-[v1(30)]-48-[v2(30)]-8-[v3(30)]-48-[v4(30)]-8-[v5(30)]-8-[v6(30)]", views: cantoWordLabel, jyutpingLabel, englishWordLabel, mandarinWordLabel, cantoSentence, jyutpingSentence, englishSentence)
+        addConstraintsWithFormat(format: "V:|-32-[v0(30)]-8-[v1(30)]-48-[v2(30)]-8-[v3(30)]-48-[v4(44)]-8-[v5(44)]-8-[v6(44)]", views: cantoWordLabel, jyutpingLabel, englishWordLabel, mandarinWordLabel, cantoSentenceLabel, jyutpingSentenceLabel, englishSentenceLabel)
         addConstraintsWithFormat(format: "V:|-32-[v0(30)]-8-[v1(30)]", views: classifierLabel, wordTypeLabel)
         
         addConstraintsWithFormat(format: "H:[v0]-32-|", views: heartButton)
