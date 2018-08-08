@@ -12,13 +12,10 @@ import RealmSwift
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
 
     let cellID = "cellID"
-    
-    let realm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: true))
-    let favoritesRealm = try! Realm()
-    
-    var entries: Results<Entries>?
-    
-    
+    let wordCollectionCellID = "wordCollectionCellID"
+    let favoritesCollectionCellID = "favoritesCollectionCellID"
+
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,10 +23,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         setupCollectionView()
         setupSearchBar()
         setupMenuBar()
-        loadData()
-        
-        
-    
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,16 +38,10 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     }
 
-    
-    func loadData() {
-        entries = realm.objects(Entries.self)
-        collectionView?.reloadData()
-    }
-    
-    func loadFavorites() {
-        entries = favoritesRealm.objects(Entries.self).sorted(byKeyPath: "dateFavorited", ascending: false)
-        collectionView?.reloadData()
-    }
+//    func loadFavorites() {
+//        entries = favoritesRealm.objects(Entries.self).sorted(byKeyPath: "dateFavorited", ascending: false)
+//        collectionView?.reloadData()
+//    }
     
     func showIconAnimation() {
         if let window = UIApplication.shared.keyWindow {
@@ -94,18 +82,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             backgroundView.layer.cornerRadius = 10
             backgroundView.clipsToBounds = true
         }
-        
-//        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
-        
-        
-        
+  
         navigationItem.searchController = searchController
         definesPresentationContext = true
     }
-    
-    @objc func dismissKeyboard() {
-        searchController.searchBar.endEditing(true)
-    }
+
     
     func setupNavBar() {
         
@@ -130,17 +111,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
     }
     
-//    @objc func handleFavorites() {
-//        if favoritesIsSelected == false {
-//            loadFavorites()
-//            favoritesIsSelected = true
-//        } else {
-//            loadData()
-//            favoritesIsSelected = false
-//        }
-//    }
-
-    
+ 
     //MARK: - CollectionView Methods
     
     func setupCollectionView() {
@@ -149,6 +120,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             flowlayout.minimumLineSpacing = 0
         }
         if let cv = collectionView {
+            cv.register(WordCollectionView.self, forCellWithReuseIdentifier: wordCollectionCellID)
+            cv.register(FavoritesCollectionView.self, forCellWithReuseIdentifier: favoritesCollectionCellID)
             cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellID)
             cv.backgroundColor = UIColor.cantoWhite(a: 1)
             cv.isPagingEnabled = true
@@ -174,7 +147,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     
     let slideUpViewController = SlideUpViewController()
-    let wordOfTheDayController = WordOfTheDayController()
+    let wordCollectionView = WordCollectionView()
+//    let wordOfTheDayController = WordOfTheDayController()
     
 //    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        let view = EntryView()
@@ -185,6 +159,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
 //        }
 //        
 //    }
+
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         menuBar.horizontalBarLeftAnchorConstraint?.constant = scrollView.contentOffset.x / 4
@@ -193,6 +168,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let indexPath = IndexPath(item: Int(targetContentOffset.pointee.x / view.frame.width), section: 0)
         menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -200,8 +176,16 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
-        return cell
+        if indexPath.item == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: wordCollectionCellID, for: indexPath)
+            return cell
+        } else if indexPath.item == 1 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: favoritesCollectionCellID, for: indexPath)
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

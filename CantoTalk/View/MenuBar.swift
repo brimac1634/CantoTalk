@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class MenuBar: BaseView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -23,9 +23,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     let imageStrings = ["search", "heart", "calendar", "settings"]
     var homeController: HomeController?
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
+    override func setupViews() {
         collectionView.register(MenuCell.self, forCellWithReuseIdentifier: cellID)
         
         addSubview(collectionView)
@@ -38,6 +36,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         
         setupHorizontalBar()
     }
+
     var horizontalBarLeftAnchorConstraint: NSLayoutConstraint?
     
     func setupHorizontalBar() {
@@ -87,10 +86,6 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     

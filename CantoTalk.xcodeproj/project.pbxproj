@@ -11,18 +11,19 @@
 		D28CD6572119889C001A613F /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D28CD6562119889C001A613F /* default.realm */; };
 		D28CD659211997AD001A613F /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD658211997AD001A613F /* MenuBar.swift */; };
 		D28CD65B2119A520001A613F /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD65A2119A520001A613F /* FavoritesController.swift */; };
-		D28CD65D2119AB1C001A613F /* TabCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD65C2119AB1C001A613F /* TabCells.swift */; };
+		D28CD65D2119AB1C001A613F /* FavoritesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD65C2119AB1C001A613F /* FavoritesCollectionView.swift */; };
 		D2D6A05321105AA4002E0CCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A05221105AA4002E0CCE /* AppDelegate.swift */; };
 		D2D6A05521105AA4002E0CCE /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A05421105AA4002E0CCE /* HomeController.swift */; };
 		D2D6A05821105AA5002E0CCE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2D6A05621105AA5002E0CCE /* Main.storyboard */; };
 		D2D6A05A21105AA9002E0CCE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2D6A05921105AA9002E0CCE /* Assets.xcassets */; };
 		D2D6A05D21105AA9002E0CCE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2D6A05B21105AA9002E0CCE /* LaunchScreen.storyboard */; };
 		D2D6A06921105C87002E0CCE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A06821105C87002E0CCE /* Extensions.swift */; };
-		D2D6A06B21106140002E0CCE /* WordCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A06A21106140002E0CCE /* WordCells.swift */; };
+		D2D6A06B21106140002E0CCE /* WordCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A06A21106140002E0CCE /* WordCollectionView.swift */; };
 		D2D6A06D2111A36C002E0CCE /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A06C2111A36C002E0CCE /* EntryView.swift */; };
 		D2D6A0772112FCA9002E0CCE /* WordOfTheDayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A0762112FCA9002E0CCE /* WordOfTheDayController.swift */; };
 		D2D6A08121144C78002E0CCE /* SlideUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A08021144C78002E0CCE /* SlideUpViewController.swift */; };
 		D2D6A083211452A8002E0CCE /* Entries.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A082211452A8002E0CCE /* Entries.swift */; };
+		D2F8FB99211A9CA700E260B9 /* BaseCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F8FB98211A9CA700E260B9 /* BaseCells.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,7 +33,7 @@
 		D28CD6562119889C001A613F /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
 		D28CD658211997AD001A613F /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		D28CD65A2119A520001A613F /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
-		D28CD65C2119AB1C001A613F /* TabCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCells.swift; sourceTree = "<group>"; };
+		D28CD65C2119AB1C001A613F /* FavoritesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCollectionView.swift; sourceTree = "<group>"; };
 		D2D6A04F21105AA4002E0CCE /* CantoTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CantoTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2D6A05221105AA4002E0CCE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2D6A05421105AA4002E0CCE /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -41,11 +42,12 @@
 		D2D6A05C21105AA9002E0CCE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D2D6A05E21105AA9002E0CCE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2D6A06821105C87002E0CCE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		D2D6A06A21106140002E0CCE /* WordCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordCells.swift; sourceTree = "<group>"; };
+		D2D6A06A21106140002E0CCE /* WordCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordCollectionView.swift; sourceTree = "<group>"; };
 		D2D6A06C2111A36C002E0CCE /* EntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
 		D2D6A0762112FCA9002E0CCE /* WordOfTheDayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordOfTheDayController.swift; sourceTree = "<group>"; };
 		D2D6A08021144C78002E0CCE /* SlideUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUpViewController.swift; sourceTree = "<group>"; };
 		D2D6A082211452A8002E0CCE /* Entries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entries.swift; sourceTree = "<group>"; };
+		D2F8FB98211A9CA700E260B9 /* BaseCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCells.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,10 +133,10 @@
 		D2D6A06521105ACE002E0CCE /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D2D6A06A21106140002E0CCE /* WordCells.swift */,
+				D2D6A06A21106140002E0CCE /* WordCollectionView.swift */,
+				D28CD65C2119AB1C001A613F /* FavoritesCollectionView.swift */,
 				D2D6A06C2111A36C002E0CCE /* EntryView.swift */,
 				D28CD658211997AD001A613F /* MenuBar.swift */,
-				D28CD65C2119AB1C001A613F /* TabCells.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -153,6 +155,7 @@
 		D2D6A06721105AE5002E0CCE /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				D2F8FB98211A9CA700E260B9 /* BaseCells.swift */,
 				D2D6A06821105C87002E0CCE /* Extensions.swift */,
 			);
 			path = Helpers;
@@ -290,13 +293,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2D6A05521105AA4002E0CCE /* HomeController.swift in Sources */,
-				D2D6A06B21106140002E0CCE /* WordCells.swift in Sources */,
+				D2D6A06B21106140002E0CCE /* WordCollectionView.swift in Sources */,
 				D2D6A0772112FCA9002E0CCE /* WordOfTheDayController.swift in Sources */,
-				D28CD65D2119AB1C001A613F /* TabCells.swift in Sources */,
+				D28CD65D2119AB1C001A613F /* FavoritesCollectionView.swift in Sources */,
 				D2D6A06D2111A36C002E0CCE /* EntryView.swift in Sources */,
 				D28CD65B2119A520001A613F /* FavoritesController.swift in Sources */,
 				D28CD659211997AD001A613F /* MenuBar.swift in Sources */,
 				D2D6A06921105C87002E0CCE /* Extensions.swift in Sources */,
+				D2F8FB99211A9CA700E260B9 /* BaseCells.swift in Sources */,
 				D2D6A05321105AA4002E0CCE /* AppDelegate.swift in Sources */,
 				D2D6A08121144C78002E0CCE /* SlideUpViewController.swift in Sources */,
 				D2D6A083211452A8002E0CCE /* Entries.swift in Sources */,

@@ -7,18 +7,67 @@
 //
 
 import UIKit
+import RealmSwift
 
-class BaseCell: UICollectionViewCell {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
+class WordCollectionView: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.backgroundColor = UIColor.cantoWhite(a: 1)
+        cv.delegate = self
+        cv.dataSource = self
+        return cv
+    }()
+    
+    
+    let mainRealm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: true))
+    
+    var entries: Results<Entries>?
+
+    let cellID = "cellID"
+    
+    override func setupViews() {
+        
+        collectionView.register(WordCells.self, forCellWithReuseIdentifier: cellID)
+        addSubview(collectionView)
+        
+        addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
+        addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
+        
+        loadData()
     }
     
-    func setupViews() {
+    func loadData() {
+        entries = mainRealm.objects(Entries.self)
+        collectionView.reloadData()
+        
     }
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let numberOfEntries = entries?.count ?? 0
+        return numberOfEntries
+        
     }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! WordCells
+        if let entry = entries?[indexPath.item] {
+            cell.cantoWordLabel.text = entry.cantoWord
+            cell.classifierLabel.text = entry.classifier
+            cell.jyutpingLabel.text = entry.jyutping
+            cell.wordTypeLabel.text = entry.wordType
+            cell.englishWordLabel.text = "En: \(entry.englishWord)"
+            cell.mandarinWordLabel.text = "普: \(entry.mandarinWord)"
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: frame.width, height: 90)
+    }
+
 }
 
 class WordCells: BaseCell {
