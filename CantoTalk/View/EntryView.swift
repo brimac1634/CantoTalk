@@ -162,6 +162,7 @@ class EntryView: UIView {
             try! favoritesRealm.write {
                 if let entry = selectedEntry {
                     let newFavorite = Entries()
+                    newFavorite.entryID = entry.entryID
                     newFavorite.cantoWord = entry.cantoWord
                     newFavorite.classifier = entry.classifier
                     newFavorite.jyutping = entry.jyutping
@@ -179,6 +180,7 @@ class EntryView: UIView {
             }
             isFavorited = true
             heartButton.tintColor = selectedHeartColor
+            favoriteCollectionView.loadData()
             
         } else {
             try! favoritesRealm.write {
@@ -188,6 +190,7 @@ class EntryView: UIView {
             }
             isFavorited = false
             heartButton.tintColor = unselectedHeartColor
+            favoriteCollectionView.loadData()
 
         }
         

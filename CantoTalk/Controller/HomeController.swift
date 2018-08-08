@@ -14,6 +14,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     let cellID = "cellID"
     let wordCollectionCellID = "wordCollectionCellID"
     let favoritesCollectionCellID = "favoritesCollectionCellID"
+    let favoritesCollectionView = FavoritesCollectionView()
 
  
     override func viewDidLoad() {

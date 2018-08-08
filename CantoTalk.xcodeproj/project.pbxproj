@@ -10,7 +10,6 @@
 		8AF88F06A050B72BA3F9F4FD /* Pods_CantoTalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D7916B28C01480D1110757F /* Pods_CantoTalk.framework */; };
 		D28CD6572119889C001A613F /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D28CD6562119889C001A613F /* default.realm */; };
 		D28CD659211997AD001A613F /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD658211997AD001A613F /* MenuBar.swift */; };
-		D28CD65B2119A520001A613F /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD65A2119A520001A613F /* FavoritesController.swift */; };
 		D28CD65D2119AB1C001A613F /* FavoritesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD65C2119AB1C001A613F /* FavoritesCollectionView.swift */; };
 		D2D6A05321105AA4002E0CCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A05221105AA4002E0CCE /* AppDelegate.swift */; };
 		D2D6A05521105AA4002E0CCE /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A05421105AA4002E0CCE /* HomeController.swift */; };
@@ -32,7 +31,6 @@
 		A7F127D3C5D096AF1602DDE3 /* Pods-CantoTalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoTalk.release.xcconfig"; path = "Pods/Target Support Files/Pods-CantoTalk/Pods-CantoTalk.release.xcconfig"; sourceTree = "<group>"; };
 		D28CD6562119889C001A613F /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
 		D28CD658211997AD001A613F /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
-		D28CD65A2119A520001A613F /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
 		D28CD65C2119AB1C001A613F /* FavoritesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCollectionView.swift; sourceTree = "<group>"; };
 		D2D6A04F21105AA4002E0CCE /* CantoTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CantoTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2D6A05221105AA4002E0CCE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -145,7 +143,6 @@
 			isa = PBXGroup;
 			children = (
 				D2D6A05421105AA4002E0CCE /* HomeController.swift */,
-				D28CD65A2119A520001A613F /* FavoritesController.swift */,
 				D2D6A0762112FCA9002E0CCE /* WordOfTheDayController.swift */,
 				D2D6A08021144C78002E0CCE /* SlideUpViewController.swift */,
 			);
@@ -297,7 +294,6 @@
 				D2D6A0772112FCA9002E0CCE /* WordOfTheDayController.swift in Sources */,
 				D28CD65D2119AB1C001A613F /* FavoritesCollectionView.swift in Sources */,
 				D2D6A06D2111A36C002E0CCE /* EntryView.swift in Sources */,
-				D28CD65B2119A520001A613F /* FavoritesController.swift in Sources */,
 				D28CD659211997AD001A613F /* MenuBar.swift in Sources */,
 				D2D6A06921105C87002E0CCE /* Extensions.swift in Sources */,
 				D2F8FB99211A9CA700E260B9 /* BaseCells.swift in Sources */,

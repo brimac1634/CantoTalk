@@ -44,6 +44,8 @@ class WordCollectionView: BaseCell, UICollectionViewDataSource, UICollectionView
         collectionView.reloadData()
         
     }
+    
+    
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let view = EntryView()
