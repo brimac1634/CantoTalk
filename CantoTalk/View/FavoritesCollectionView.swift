@@ -10,17 +10,9 @@ import UIKit
 import RealmSwift
 
 class FavoritesCollectionView: WordCollectionView  {
-    
-    let favoritesRealm = try! Realm()
-    
+
     override func setupViews() {
         super.setupViews()
     }
-    
-    override func loadData() {
-        entries = favoritesRealm.objects(Entries.self)
-        collectionView.reloadData()
-    }
-    
 
 }

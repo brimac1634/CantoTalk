@@ -11,6 +11,9 @@ import RealmSwift
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
 
+    let mainRealm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: true))
+    let favoritesRealm = try! Realm()
+    
     let cellID = "cellID"
     let wordCollectionCellID = "wordCollectionCellID"
     let favoritesCollectionCellID = "favoritesCollectionCellID"
@@ -149,18 +152,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     
     let wordCollectionView = WordCollectionView()
-//    let wordOfTheDayController = WordOfTheDayController()
-    
-//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let view = EntryView()
-//        if let entry = entries?[indexPath.item] {
-//            view.selectedEntry = entry
-//            slideUpViewController.showEntryView(slideUpView: view)
-//            return
-//        }
-//        
-//    }
-
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         menuBar.horizontalBarLeftAnchorConstraint?.constant = scrollView.contentOffset.x / 4
@@ -178,10 +169,14 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.item == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: wordCollectionCellID, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: wordCollectionCellID, for: indexPath) as! WordCollectionView
+            cell.entries = mainRealm.objects(Entries.self)
+            cell.collectionView.reloadData()
             return cell
         } else if indexPath.item == 1 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: favoritesCollectionCellID, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: favoritesCollectionCellID, for: indexPath) as! FavoritesCollectionView
+            cell.entries = favoritesRealm.objects(Entries.self)
+            cell.collectionView.reloadData()
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)

@@ -20,9 +20,6 @@ class WordCollectionView: BaseCell, UICollectionViewDataSource, UICollectionView
         return cv
     }()
     
-    
-    let mainRealm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: true))
-    
     var entries: Results<Entries>?
 
     let cellID = "cellID"
@@ -40,9 +37,7 @@ class WordCollectionView: BaseCell, UICollectionViewDataSource, UICollectionView
     }
     
     func loadData() {
-        entries = mainRealm.objects(Entries.self)
         collectionView.reloadData()
-        
     }
     
     
@@ -57,8 +52,7 @@ class WordCollectionView: BaseCell, UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let numberOfEntries = entries?.count ?? 0
-        return numberOfEntries
+        return entries?.count ?? 0
         
     }
     

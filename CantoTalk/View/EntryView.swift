@@ -18,6 +18,7 @@ class EntryView: UIView {
     
     let favoritesRealm = try! Realm()
     let favoriteCollectionView = FavoritesCollectionView()
+    let homeController = HomeController()
     let selectedHeartColor = UIColor.cantoPink(a: 1)
     let unselectedHeartColor = UIColor.cantoLightBlue(a: 1)
     var isFavorited: Bool?
@@ -180,8 +181,7 @@ class EntryView: UIView {
             }
             isFavorited = true
             heartButton.tintColor = selectedHeartColor
-            favoriteCollectionView.loadData()
-            
+
         } else {
             try! favoritesRealm.write {
                 if let entry = currentEntry {
@@ -190,12 +190,7 @@ class EntryView: UIView {
             }
             isFavorited = false
             heartButton.tintColor = unselectedHeartColor
-            favoriteCollectionView.loadData()
-
-        }
-        
-        
-        
+        } 
     }
 
     
