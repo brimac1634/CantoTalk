@@ -146,7 +146,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
 
     
-    let slideUpViewController = SlideUpViewController()
+    
     let wordCollectionView = WordCollectionView()
 //    let wordOfTheDayController = WordOfTheDayController()
     

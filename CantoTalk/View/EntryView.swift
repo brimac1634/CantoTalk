@@ -17,6 +17,7 @@ class EntryView: UIView {
     }
     
     let favoritesRealm = try! Realm()
+    let favoriteCollectionView = FavoritesCollectionView()
     let selectedHeartColor = UIColor.cantoPink(a: 1)
     let unselectedHeartColor = UIColor.cantoLightBlue(a: 1)
     var isFavorited: Bool?
@@ -142,7 +143,7 @@ class EntryView: UIView {
     let heartButton: UIButton = {
         let imageSize: CGSize = CGSize(width: 10, height: 10)
         let button = UIButton(type: UIButtonType.custom)
-        let image = UIImage(named: "heart")?.withRenderingMode(.alwaysTemplate)
+        let image = UIImage(named: "heart_solid")?.withRenderingMode(.alwaysTemplate)
         button.frame = CGRect(x: 200, y: 200, width: 80, height: 80)
         button.setImage(image, for: .normal)
         button.tintColor = UIColor.cantoLightBlue(a: 1)

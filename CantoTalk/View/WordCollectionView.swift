@@ -26,6 +26,7 @@ class WordCollectionView: BaseCell, UICollectionViewDataSource, UICollectionView
     var entries: Results<Entries>?
 
     let cellID = "cellID"
+    let slideUpViewController = SlideUpViewController()
     
     override func setupViews() {
         
@@ -44,6 +45,14 @@ class WordCollectionView: BaseCell, UICollectionViewDataSource, UICollectionView
         
     }
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let view = EntryView()
+        if let entry = entries?[indexPath.item] {
+            view.selectedEntry = entry
+            slideUpViewController.showEntryView(slideUpView: view)
+            return
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let numberOfEntries = entries?.count ?? 0
@@ -54,12 +63,7 @@ class WordCollectionView: BaseCell, UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! WordCells
         if let entry = entries?[indexPath.item] {
-            cell.cantoWordLabel.text = entry.cantoWord
-            cell.classifierLabel.text = entry.classifier
-            cell.jyutpingLabel.text = entry.jyutping
-            cell.wordTypeLabel.text = entry.wordType
-            cell.englishWordLabel.text = "En: \(entry.englishWord)"
-            cell.mandarinWordLabel.text = "普: \(entry.mandarinWord)"
+            cell.selectedEntry = entry
         }
         return cell
     }

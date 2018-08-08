@@ -21,4 +21,6 @@ class FavoritesCollectionView: WordCollectionView  {
         entries = favoritesRealm.objects(Entries.self)
         collectionView.reloadData()
     }
+    
+
 }
