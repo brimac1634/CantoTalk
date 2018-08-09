@@ -21,5 +21,14 @@ class FavoritesController: SearchController  {
         loadData()
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let view = EntryView()
+        if let entry = entries?[indexPath.item] {
+            view.selectedEntry = entry
+            view.favoritesController = self
+            slideUpViewController.showEntryView(slideUpView: view)
+            return
+        }
+    }
 
 }

@@ -9,17 +9,16 @@
 import UIKit
 import RealmSwift
 
-class EntryView: UIViewController {
+class EntryView: BaseView {
 
-
-    override func viewDidLoad() {
+    
+    override func setupViews() {
+        super.setupViews()
         setupView()
     }
 
-    
 
     let favoritesRealm = try! Realm()
-    var homeController: HomeController?
     var favoritesController: FavoritesController?
     let selectedHeartColor = UIColor.cantoPink(a: 1)
     let unselectedHeartColor = UIColor.cantoLightBlue(a: 1)
@@ -201,32 +200,31 @@ class EntryView: UIViewController {
 
     func setupView() {
         
-        view.backgroundColor = UIColor.cantoWhite(a: 1)
 
-        view.addSubview(cantoWordLabel)
-        view.addSubview(classifierLabel)
-        view.addSubview(jyutpingLabel)
-        view.addSubview(englishWordLabel)
-        view.addSubview(mandarinWordLabel)
-        view.addSubview(wordTypeLabel)
-        view.addSubview(cantoSentenceLabel)
-        view.addSubview(jyutpingSentenceLabel)
-        view.addSubview(englishSentenceLabel)
-        view.addSubview(heartButton)
+        addSubview(cantoWordLabel)
+        addSubview(classifierLabel)
+        addSubview(jyutpingLabel)
+        addSubview(englishWordLabel)
+        addSubview(mandarinWordLabel)
+        addSubview(wordTypeLabel)
+        addSubview(cantoSentenceLabel)
+        addSubview(jyutpingSentenceLabel)
+        addSubview(englishSentenceLabel)
+        addSubview(heartButton)
 
-        view.addConstraintsWithFormat(format: "H:|-32-[v0]-8-[v1(80)]|", views: cantoWordLabel, classifierLabel)
-        view.addConstraintsWithFormat(format: "H:|-32-[v0]-8-[v1(80)]|", views: jyutpingLabel,wordTypeLabel)
-        view.addConstraintsWithFormat(format: "H:|-32-[v0]-32-|", views: englishWordLabel)
-        view.addConstraintsWithFormat(format: "H:|-32-[v0]-32-|", views: mandarinWordLabel)
-        view.addConstraintsWithFormat(format: "H:|-32-[v0]-32-|", views: cantoSentenceLabel)
-        view.addConstraintsWithFormat(format: "H:|-32-[v0]-32-|", views: jyutpingSentenceLabel)
-        view.addConstraintsWithFormat(format: "H:|-32-[v0]-32-|", views: englishSentenceLabel)
+        addConstraintsWithFormat(format: "H:|-32-[v0]-8-[v1(80)]|", views: cantoWordLabel, classifierLabel)
+        addConstraintsWithFormat(format: "H:|-32-[v0]-8-[v1(80)]|", views: jyutpingLabel,wordTypeLabel)
+        addConstraintsWithFormat(format: "H:|-32-[v0]-32-|", views: englishWordLabel)
+        addConstraintsWithFormat(format: "H:|-32-[v0]-32-|", views: mandarinWordLabel)
+        addConstraintsWithFormat(format: "H:|-32-[v0]-32-|", views: cantoSentenceLabel)
+        addConstraintsWithFormat(format: "H:|-32-[v0]-32-|", views: jyutpingSentenceLabel)
+        addConstraintsWithFormat(format: "H:|-32-[v0]-32-|", views: englishSentenceLabel)
 
-        view.addConstraintsWithFormat(format: "V:|-32-[v0(30)]-8-[v1(30)]-48-[v2(30)]-8-[v3(30)]-48-[v4(44)]-8-[v5(44)]-8-[v6(44)]", views: cantoWordLabel, jyutpingLabel, englishWordLabel, mandarinWordLabel, cantoSentenceLabel, jyutpingSentenceLabel, englishSentenceLabel)
-        view.addConstraintsWithFormat(format: "V:|-32-[v0(30)]-8-[v1(30)]", views: classifierLabel, wordTypeLabel)
+        addConstraintsWithFormat(format: "V:|-32-[v0(30)]-8-[v1(30)]-48-[v2(30)]-8-[v3(30)]-48-[v4(44)]-8-[v5(44)]-8-[v6(44)]", views: cantoWordLabel, jyutpingLabel, englishWordLabel, mandarinWordLabel, cantoSentenceLabel, jyutpingSentenceLabel, englishSentenceLabel)
+        addConstraintsWithFormat(format: "V:|-32-[v0(30)]-8-[v1(30)]", views: classifierLabel, wordTypeLabel)
 
-        view.addConstraintsWithFormat(format: "H:[v0]-32-|", views: heartButton)
-        view.addConstraintsWithFormat(format: "V:[v0]-32-|", views: heartButton)
+        addConstraintsWithFormat(format: "H:[v0]-32-|", views: heartButton)
+        addConstraintsWithFormat(format: "V:[v0]-32-|", views: heartButton)
 
     }
 

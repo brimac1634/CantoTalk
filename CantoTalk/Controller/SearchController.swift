@@ -49,12 +49,19 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
 
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let view = EntryView()
+        if let entry = entries?[indexPath.item] {
+            view.selectedEntry = entry
+            slideUpViewController.showEntryView(slideUpView: view)
+            return
+        }
 
-            if let entry = entries?[indexPath.item] {
-                let vc = EntryView()
-                vc.selectedEntry = entry
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
+//        if let entry = entries?[indexPath.item] {
+//            let vc = EntryView()
+//            vc.selectedEntry = entry
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        }
     
     }
     
