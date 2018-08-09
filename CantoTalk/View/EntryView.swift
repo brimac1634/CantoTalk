@@ -181,6 +181,7 @@ class EntryView: UIView {
             }
             isFavorited = true
             heartButton.tintColor = selectedHeartColor
+            favoriteCollectionView.loadData()
 
         } else {
             try! favoritesRealm.write {
@@ -190,6 +191,7 @@ class EntryView: UIView {
             }
             isFavorited = false
             heartButton.tintColor = unselectedHeartColor
+            favoriteCollectionView.loadData()
         } 
     }
 

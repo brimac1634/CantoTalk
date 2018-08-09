@@ -177,6 +177,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: favoritesCollectionCellID, for: indexPath) as! FavoritesCollectionView
             cell.entries = favoritesRealm.objects(Entries.self)
             cell.collectionView.reloadData()
+            cell.layoutIfNeeded()
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)

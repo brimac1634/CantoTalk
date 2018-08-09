@@ -56,6 +56,7 @@ class WordCollectionView: BaseCell, UICollectionViewDataSource, UICollectionView
         
     }
     
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! WordCells
         if let entry = entries?[indexPath.item] {
