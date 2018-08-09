@@ -56,12 +56,6 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
             slideUpViewController.showEntryView(slideUpView: view)
             return
         }
-
-//        if let entry = entries?[indexPath.item] {
-//            let vc = EntryView()
-//            vc.selectedEntry = entry
-//            self.navigationController?.pushViewController(vc, animated: true)
-//        }
     
     }
     
