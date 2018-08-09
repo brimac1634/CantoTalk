@@ -6,37 +6,37 @@
 //  Copyright © 2018 Brian MacPherson. All rights reserved.
 //
 
-//import UIKit
-//
-//class WordOfTheDayController: SlideUpViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-//
-//    var slideView: UIView?
-//
-//    let collectionView: UICollectionView = {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .horizontal
-//        layout.minimumLineSpacing = 0
-//        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        cv.backgroundColor = UIColor.cantoWhite(a: 1)
-//        cv.isPagingEnabled = true
-//        return cv
-//    }()
-//
-//    let topBar: UIView = {
-//        let view = UIView()
-//        view.backgroundColor = UIColor.cantoDarkBlue(a: 1)
-//        return view
-//    }()
-//
-//    let wordOfTheDayLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "- Word Of The Day -"
-//        label.font = UIFont.boldSystemFont(ofSize: 30)
-//        label.textColor = UIColor.cantoPink(a: 1)
-//        label.textAlignment = NSTextAlignment.center
-//        return label
-//    }()
-//
+import UIKit
+
+class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+
+    var slideView: UIView?
+
+    let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.backgroundColor = UIColor.cantoWhite(a: 1)
+        cv.isPagingEnabled = true
+        return cv
+    }()
+
+    let topBar: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.cantoDarkBlue(a: 1)
+        return view
+    }()
+
+    let wordOfTheDayLabel: UILabel = {
+        let label = UILabel()
+        label.text = "- Word Of The Day -"
+        label.font = UIFont.boldSystemFont(ofSize: 30)
+        label.textColor = UIColor.cantoPink(a: 1)
+        label.textAlignment = NSTextAlignment.center
+        return label
+    }()
+
 //    override func showEntryView(slideUpView: UIView){
 //        slideView = slideUpView
 //
@@ -57,23 +57,23 @@
 //        collectionView.delegate = self
 //        collectionView.dataSource = self
 //
-////        collectionView.register(WordOfTheDayCells.self, forCellWithReuseIdentifier: cellID)
+//        collectionView.register(EntryView.self, forCellWithReuseIdentifier: cellID)
 //
 //    }
-//
-//    let cellID = "cellID"
-//
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return 5
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! WordOfTheDayCells
-//        return cell
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
-//    }
-//
-//}
+
+    let cellID = "cellID"
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+    }
+
+}

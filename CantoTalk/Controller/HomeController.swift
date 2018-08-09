@@ -9,30 +9,35 @@
 import UIKit
 import RealmSwift
 
-class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
+class HomeController: UIViewController {
 
     let mainRealm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: true))
     let favoritesRealm = try! Realm()
-    
-    let cellID = "cellID"
-    let wordCollectionCellID = "wordCollectionCellID"
-    let favoritesCollectionCellID = "favoritesCollectionCellID"
-    let favoritesCollectionView = FavoritesCollectionView()
 
+    var searchController: SearchController!
+    var favoritesController: FavoritesController!
+    var wordOfTheDayController: WordOfTheDayController!
+    var settingsController: SettingsController!
+    
+    var viewControllers: [UIViewController]!
+    let vcTitles = ["Search", "Favorites", "Word of the Day", "Settings"]
+    
+    var lastVCIndex: Int = 0
  
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
+        setupViewControllers()
+        loadData()
+        addView(menuIndex: 0)
         setupNavBar()
-        setupCollectionView()
-        setupSearchBar()
         setupMenuBar()
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationItem.hidesSearchBarWhenScrolling = false
 
     }
     
@@ -68,28 +73,40 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
     }
     
-    
-    let searchController = UISearchController(searchResultsController: nil)
-    
-    func setupSearchBar() {
+    func setupViewControllers() {
+        searchController = SearchController()
+        searchController.homeController = self
+        favoritesController = FavoritesController()
+        wordOfTheDayController = WordOfTheDayController()
+        settingsController = SettingsController()
         
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "English/Cantonese/Mandarin/Jyutping"
-        searchController.searchBar.sizeThatFits(CGSize(width: view.frame.width - 50, height: view.frame.height))
-        searchController.searchBar.tintColor = UIColor.cantoPink(a: 1)
-        searchController.hidesNavigationBarDuringPresentation = false
-        
-        let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField
-        if let backgroundView = textField?.subviews.first {
-            backgroundView.backgroundColor = UIColor.cantoWhite(a: 1)
-            backgroundView.layer.cornerRadius = 10
-            backgroundView.clipsToBounds = true
-        }
-  
-        navigationItem.searchController = searchController
-        definesPresentationContext = true
+        viewControllers = [searchController, favoritesController, wordOfTheDayController, settingsController]
     }
+    
+    func loadData() {
+        searchController.entries = mainRealm.objects(Entries.self)
+        favoritesController.entries = favoritesRealm.objects(Entries.self)
+    }
+    
+//    func setupSearchBar() {
+//
+//        searchController.searchResultsUpdater = self
+//        searchController.obscuresBackgroundDuringPresentation = false
+//        searchController.searchBar.placeholder = "English/Cantonese/Mandarin/Jyutping"
+//        searchController.searchBar.sizeThatFits(CGSize(width: view.frame.width - 50, height: view.frame.height))
+//        searchController.searchBar.tintColor = UIColor.cantoPink(a: 1)
+//        searchController.hidesNavigationBarDuringPresentation = false
+//
+//        let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField
+//        if let backgroundView = textField?.subviews.first {
+//            backgroundView.backgroundColor = UIColor.cantoWhite(a: 1)
+//            backgroundView.layer.cornerRadius = 10
+//            backgroundView.clipsToBounds = true
+//        }
+//
+//        navigationItem.searchController = searchController
+//        definesPresentationContext = true
+//    }
 
     
     func setupNavBar() {
@@ -107,33 +124,40 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
         navigationItem.titleView = titleLabel
         
-    }
-    
-    func scrollToMenuIndex(menuIndex: Int) {
-        let indexPath = IndexPath(item: menuIndex, section: 0)
-        collectionView?.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        
         
     }
     
- 
-    //MARK: - CollectionView Methods
     
-    func setupCollectionView() {
-        if let flowlayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowlayout.scrollDirection = .horizontal
-            flowlayout.minimumLineSpacing = 0
-        }
-        if let cv = collectionView {
-            cv.register(WordCollectionView.self, forCellWithReuseIdentifier: wordCollectionCellID)
-            cv.register(FavoritesCollectionView.self, forCellWithReuseIdentifier: favoritesCollectionCellID)
-            cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellID)
-            cv.backgroundColor = UIColor.cantoWhite(a: 1)
-            cv.isPagingEnabled = true
-            cv.delegate = self
-            cv.dataSource = self
+    
+    func addView(menuIndex: Int) {
+        if lastVCIndex != menuIndex {
+            let previousVC = viewControllers[lastVCIndex]
+            previousVC.willMove(toParentViewController: nil)
+            previousVC.view.removeFromSuperview()
+            previousVC.removeFromParentViewController()
         }
         
+        let selectedVC = viewControllers[menuIndex]
+
+        
+        
+        addChildViewController(selectedVC)
+        selectedVC.view.frame = contentView.bounds
+        contentView.addSubview(selectedVC.view)
+        selectedVC.didMove(toParentViewController: self)
+        
+        lastVCIndex = menuIndex
+        
+        func prepare(for: UIStoryboardSegue, sender: Any?) {
+            let backButton = UIBarButtonItem()
+            backButton.title = vcTitles[menuIndex]
+            navigationItem.backBarButtonItem = backButton
+        }
+
     }
+    
+
     
     lazy var menuBar: MenuBar = {
         let mb = MenuBar()
@@ -141,59 +165,23 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return mb
     }()
     
+    lazy var contentView: BaseView = {
+        let view = BaseView()
+        return view
+    }()
+    
     private func setupMenuBar() {
         view.addSubview(menuBar)
+        view.addSubview(contentView)
+        
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: contentView)
         
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: menuBar)
-        view.addConstraintsWithFormat(format: "V:[v0(50)]|", views: menuBar)
+        view.addConstraintsWithFormat(format: "V:|[v0][v1(50)]|", views: contentView, menuBar)
     }
     
 
-    
-    
-    let wordCollectionView = WordCollectionView()
-    
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        menuBar.horizontalBarLeftAnchorConstraint?.constant = scrollView.contentOffset.x / 4
-    }
-    
-    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let indexPath = IndexPath(item: Int(targetContentOffset.pointee.x / view.frame.width), section: 0)
-        menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
 
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.item == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: wordCollectionCellID, for: indexPath) as! WordCollectionView
-            cell.entries = mainRealm.objects(Entries.self)
-            cell.collectionView.reloadData()
-            return cell
-        } else if indexPath.item == 1 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: favoritesCollectionCellID, for: indexPath) as! FavoritesCollectionView
-            cell.entries = favoritesRealm.objects(Entries.self)
-            cell.collectionView.reloadData()
-            cell.layoutIfNeeded()
-            return cell
-        } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
-            return cell
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: view.frame.height)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-
-    
 
 }
 

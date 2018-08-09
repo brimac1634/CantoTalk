@@ -9,68 +9,6 @@
 import UIKit
 import RealmSwift
 
-class WordCollectionView: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
-    lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = UIColor.cantoWhite(a: 1)
-        cv.delegate = self
-        cv.dataSource = self
-        return cv
-    }()
-    
-    var entries: Results<Entries>?
-
-    let cellID = "cellID"
-    let slideUpViewController = SlideUpViewController()
-    
-    override func setupViews() {
-        
-        collectionView.register(WordCells.self, forCellWithReuseIdentifier: cellID)
-        addSubview(collectionView)
-        
-        addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
-        addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
-        
-        loadData()
-    }
-    
-    func loadData() {
-        collectionView.reloadData()
-    }
-    
-    
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let view = EntryView()
-        if let entry = entries?[indexPath.item] {
-            view.selectedEntry = entry
-            slideUpViewController.showEntryView(slideUpView: view)
-            return
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return entries?.count ?? 0
-        
-    }
-    
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! WordCells
-        if let entry = entries?[indexPath.item] {
-            cell.selectedEntry = entry
-        }
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: frame.width, height: 90)
-    }
-
-}
-
 class WordCells: BaseCell {
     
     var selectedEntry: Entries? {
