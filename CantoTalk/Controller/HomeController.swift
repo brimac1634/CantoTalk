@@ -85,7 +85,7 @@ class HomeController: UIViewController {
     
     func loadData() {
         searchController.entries = mainRealm.objects(Entries.self)
-        favoritesController.entries = favoritesRealm.objects(Entries.self)
+        favoritesController.favoritesEntries = favoritesRealm.objects(Entries.self).sorted(byKeyPath: "dateFavorited", ascending: false)
     }
     
 //    func setupSearchBar() {

@@ -45,7 +45,6 @@ class EntryView: BaseView {
 
 
                 currentEntry = favoritesRealm.objects(Entries.self).filter("entryID = \(entry.entryID)").first
-                print(Realm.Configuration.defaultConfiguration.fileURL)
                 if currentEntry != nil {
                     isFavorited = true
                     heartButton.tintColor = selectedHeartColor
