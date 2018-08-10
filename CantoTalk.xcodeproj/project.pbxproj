@@ -13,6 +13,7 @@
 		D28CD6572119889C001A613F /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D28CD6562119889C001A613F /* default.realm */; };
 		D28CD659211997AD001A613F /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD658211997AD001A613F /* MenuBar.swift */; };
 		D28CD65D2119AB1C001A613F /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD65C2119AB1C001A613F /* FavoritesController.swift */; };
+		D2D45C71211D5EAD008A6CF7 /* WordOfTheDayCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D45C70211D5EAD008A6CF7 /* WordOfTheDayCells.swift */; };
 		D2D6A05321105AA4002E0CCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A05221105AA4002E0CCE /* AppDelegate.swift */; };
 		D2D6A05521105AA4002E0CCE /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A05421105AA4002E0CCE /* HomeController.swift */; };
 		D2D6A05821105AA5002E0CCE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2D6A05621105AA5002E0CCE /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 		D28CD6562119889C001A613F /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
 		D28CD658211997AD001A613F /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		D28CD65C2119AB1C001A613F /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
+		D2D45C70211D5EAD008A6CF7 /* WordOfTheDayCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordOfTheDayCells.swift; sourceTree = "<group>"; };
 		D2D6A04F21105AA4002E0CCE /* CantoTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CantoTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2D6A05221105AA4002E0CCE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2D6A05421105AA4002E0CCE /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				D2D6A06A21106140002E0CCE /* WordCells.swift */,
 				D2D6A06C2111A36C002E0CCE /* EntryView.swift */,
 				D28CD658211997AD001A613F /* MenuBar.swift */,
+				D2D45C70211D5EAD008A6CF7 /* WordOfTheDayCells.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				D2D6A05521105AA4002E0CCE /* HomeController.swift in Sources */,
 				D2D6A06B21106140002E0CCE /* WordCells.swift in Sources */,
 				D2D6A0772112FCA9002E0CCE /* WordOfTheDayController.swift in Sources */,
+				D2D45C71211D5EAD008A6CF7 /* WordOfTheDayCells.swift in Sources */,
 				D28CD65D2119AB1C001A613F /* FavoritesController.swift in Sources */,
 				D2D6A06D2111A36C002E0CCE /* EntryView.swift in Sources */,
 				D28CD659211997AD001A613F /* MenuBar.swift in Sources */,
