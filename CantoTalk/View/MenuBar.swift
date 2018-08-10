@@ -96,6 +96,7 @@ class MenuCell: BaseCell {
         iv.tintColor = UIColor.cantoWhite(a: 1)
         return iv
     }()
+
     
     override var isHighlighted: Bool {
         didSet {

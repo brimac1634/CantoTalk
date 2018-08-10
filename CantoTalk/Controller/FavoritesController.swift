@@ -25,10 +25,15 @@ class FavoritesController: SearchController  {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         loadData()
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if searchBar.isFirstResponder == true {
+            searchBar.resignFirstResponder()
+        }
+        
         let view = EntryView()
         if let selectedFavoriteEntry = favoritesEntries?[indexPath.item] {
             if let entry = mainRealm.objects(Entries.self).filter("entryID = \(selectedFavoriteEntry.entryID)").first {
@@ -52,5 +57,20 @@ class FavoritesController: SearchController  {
         }
         return cell
     }
+    
+    //MARK: - SearchBar Methods
+    
+    override func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        favoritesEntries = favoritesEntries?.filter("jyutping CONTAINS[cd] %@ OR englishWord CONTAINS[cd] %@ OR cantoWord CONTAINS[cd] %@ OR mandarinWord CONTAINS[cd] %@", searchBar.text!, searchBar.text!, searchBar.text!, searchBar.text!).sorted(byKeyPath: "englishWord", ascending: true)
+    }
+    
+    override func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            favoritesEntries = homeController?.favoritesRealm.objects(Entries.self)
+        } else {
+            favoritesEntries = favoritesEntries?.filter("jyutping CONTAINS[cd] %@ OR englishWord CONTAINS[cd] %@ OR cantoWord CONTAINS[cd] %@ OR mandarinWord CONTAINS[cd] %@", searchBar.text!, searchBar.text!, searchBar.text!, searchBar.text!).sorted(byKeyPath: "englishWord", ascending: true)
+        }
+    }
+    
 
 }

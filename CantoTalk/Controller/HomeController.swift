@@ -33,6 +33,7 @@ class HomeController: UIViewController {
         addView(menuIndex: 0)
         setupNavBar()
         setupMenuBar()
+        showIconAnimation()
 
     }
     
@@ -43,7 +44,7 @@ class HomeController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showIconAnimation()
+        
 
     }
 
@@ -66,7 +67,7 @@ class HomeController: UIViewController {
             
             view.addSubview(imageView)
             
-            UIView.animate(withDuration: 1, delay: 0.5, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveLinear, animations: {
+            UIView.animate(withDuration: 1, delay: 1, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveLinear, animations: {
                 imageView.alpha = 0
                 
             }, completion: nil)

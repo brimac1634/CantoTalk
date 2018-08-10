@@ -14,48 +14,39 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     var currentDate: Date?
     var lastDate: Date?
     var testArray: [Int]?
+
     
     
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 0
+        layout.minimumLineSpacing = 8
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = UIColor.cantoDarkBlue(a: 1)
+        cv.backgroundColor = UIColor.cantoWhite(a: 1)
         cv.showsHorizontalScrollIndicator = false
-        cv.layer.cornerRadius = 0.5
         cv.isPagingEnabled = true
+//        cv.contentInset = UIEdgeInsetsMake(0, 8, 0, 8)
+//        cv.contentMode = .center
         return cv
     }()
 
-//    let topBar: UIView = {
-//        let view = UIView()
-//        view.backgroundColor = UIColor.cantoDarkBlue(a: 1)
-//        return view
-//    }()
-//
-//    let wordOfTheDayLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "- Word Of The Day -"
-//        label.font = UIFont.boldSystemFont(ofSize: 30)
-//        label.textColor = UIColor.cantoPink(a: 1)
-//        label.textAlignment = NSTextAlignment.center
-//        return label
-//    }()
     
     override func viewDidLoad() {
-        currentDate = Date()
         testArray = [0, 1, 2, 3, 4]
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
         setupCollectionView()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if let numberOfEntries = testArray?.count {
+            let lastItemIndex = IndexPath(item: numberOfEntries - 1, section: 0)
+            collectionView.scrollToItem(at: lastItemIndex, at: .right, animated: false)
+        }
+
+    }
+
     func setupCollectionView() {
-        view.backgroundColor = UIColor.cantoDarkBlue(a: 1)
+        view.backgroundColor = UIColor.cantoWhite(a: 1)
         view.addSubview(collectionView)
         
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
@@ -65,13 +56,7 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
         collectionView.delegate = self
         
         collectionView.register(WordOfTheDayCells.self, forCellWithReuseIdentifier: cellID)
-        collectionView.contentInset = UIEdgeInsetsMake(0, 16, 0, 0)
-        if let numberOfEntries = testArray?.count {
-            let lastItemIndex = IndexPath(item: numberOfEntries - 1, section: 0)
-            collectionView.scrollToItem(at: lastItemIndex, at: .right, animated: false)
-        }
-        
-        
+        collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 8)
     }
 
 
@@ -87,11 +72,15 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - 32, height: collectionView.frame.height)
+        return CGSize(width: collectionView.frame.width - 16, height: collectionView.frame.height - 16)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 8
+        return 16
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(0, 8, 0, 8)
     }
 
 }

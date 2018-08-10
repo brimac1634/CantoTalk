@@ -13,6 +13,12 @@ class WordOfTheDayCells: BaseCell {
     let entryView: EntryView = {
         let view = EntryView()
         view.backgroundColor = UIColor.cantoWhite(a: 1)
+        view.layer.cornerRadius = 14
+        view.clipsToBounds = true
+        view.layer.masksToBounds = false
+        view.layer.shadowOffset = CGSize(width: -1, height: 1)
+        view.layer.shadowRadius = 5
+        view.layer.shadowOpacity = 0.5
         return view
     }()
     
