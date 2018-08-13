@@ -19,25 +19,46 @@ class SettingsController: UIViewController, UITableViewDataSource, UITableViewDe
         return tv
     }()
     
+    
+    
     let cellID = "cellID"
-    let cellImageNames: [String] = ["unlock", "trending", "request", "notification"]
-    let cellTitles: [String] = ["Upgrades", "Trends", "Request Words", "Notifications"]
+    let cellImageNames: [String] = ["unlock", "trending", "request", "notification", "admin"]
+    let cellTitles: [String] = ["Upgrades", "Trends", "Request Words", "Notifications", "Admin"]
         
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupCollectionView()
+        setupViews()
     }
 
 
-    func setupCollectionView() {
+    func setupViews() {
+        view.backgroundColor = UIColor.cantoLightBlue(a: 1)
+        let diameter = view.frame.width / 2
+        
+        let logoView: UIImageView = {
+            let logo = UIImageView()
+            logo.image = UIImage(named: "CantoTalkIcon")
+            logo.frame.size = CGSize(width: diameter, height: diameter)
+            logo.contentMode = .scaleAspectFill
+            logo.layer.cornerRadius = diameter / 2
+            logo.layer.masksToBounds = true
+            return logo
+        }()
+        
+        
+        view.addSubview(logoView)
         view.addSubview(tableView)
         
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: tableView)
-        view.addConstraintsWithFormat(format: "V:|[v0]|", views: tableView)
+        view.addConstraintsWithFormat(format: "H:[v0(\(diameter))]", views: logoView)
+        view.addConstraintsWithFormat(format: "V:|-16-[v0(\(diameter))]-16-[v1]|", views: logoView, tableView)
+        
+        view.addConstraint(NSLayoutConstraint(item: logoView, attribute: .centerX, relatedBy: .equal, toItem: tableView, attribute: .centerX, multiplier: 1, constant: 0))
         
         tableView.register(SettingCell.self, forCellReuseIdentifier: cellID)
     }
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cellTitles.count
@@ -60,6 +81,13 @@ class SettingsController: UIViewController, UITableViewDataSource, UITableViewDe
 
 class SettingCell: UITableViewCell {
     
+    override var isHighlighted: Bool {
+        didSet {
+            backgroundColor = isHighlighted ? UIColor.cantoDarkBlue(a: 1) : UIColor.cantoWhite(a: 1)
+            cellTitleLabel.textColor = isHighlighted ? UIColor.cantoPink(a: 1) : UIColor.cantoDarkBlue(a: 1)
+            cellImage.tintColor = isHighlighted ? UIColor.cantoPink(a: 1) : UIColor.cantoDarkBlue(a: 1)
+        }
+    }
     
     let cellImage: UIImageView = {
         let image = UIImageView()
