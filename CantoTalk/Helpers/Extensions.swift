@@ -20,6 +20,8 @@ extension UIView {
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewDictionary))
     }
     
+    
+    
 }
 
 extension UIColor {
@@ -40,13 +42,15 @@ extension UIColor {
     }
 }
 
-extension HomeController: UISearchResultsUpdating {
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        //Todo
+extension UIViewController {
+    var compatibleSafeInsets: UIEdgeInsets {
+        if #available(iOS 11, *) {
+            return view.safeAreaInsets
+        } else {
+            return UIEdgeInsetsMake(topLayoutGuide.length, 0, bottomLayoutGuide.length, 0)
+        }
     }
 }
-
 
 
 

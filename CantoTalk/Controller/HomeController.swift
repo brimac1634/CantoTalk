@@ -20,9 +20,10 @@ class HomeController: UIViewController {
     var settingsController: SettingsController!
     
     var viewControllers: [UIViewController]!
-    let vcTitles = ["Search", "Favorites", "Word of the Day", "Settings"]
+    let pageTitles = ["Search", "Favorites", "Word of the Day", "Settings"]
     
     var lastVCIndex: Int = 0
+    var titleLabel: UILabel?
  
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,27 +90,6 @@ class HomeController: UIViewController {
         favoritesController.favoritesEntries = favoritesRealm.objects(Entries.self).sorted(byKeyPath: "dateFavorited", ascending: false)
     }
     
-//    func setupSearchBar() {
-//
-//        searchController.searchResultsUpdater = self
-//        searchController.obscuresBackgroundDuringPresentation = false
-//        searchController.searchBar.placeholder = "English/Cantonese/Mandarin/Jyutping"
-//        searchController.searchBar.sizeThatFits(CGSize(width: view.frame.width - 50, height: view.frame.height))
-//        searchController.searchBar.tintColor = UIColor.cantoPink(a: 1)
-//        searchController.hidesNavigationBarDuringPresentation = false
-//
-//        let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField
-//        if let backgroundView = textField?.subviews.first {
-//            backgroundView.backgroundColor = UIColor.cantoWhite(a: 1)
-//            backgroundView.layer.cornerRadius = 10
-//            backgroundView.clipsToBounds = true
-//        }
-//
-//        navigationItem.searchController = searchController
-//        definesPresentationContext = true
-//    }
-
-    
     func setupNavBar() {
         
         if let navBar = navigationController?.navigationBar {
@@ -118,14 +98,15 @@ class HomeController: UIViewController {
             navBar.tintColor = UIColor.cantoPink(a: 1)
         }
         
-        let titleLabel = UILabel(frame: CGRect(x: view.frame.width / 2, y: 0, width: view.frame.width - 32, height: view.frame.height))
-        titleLabel.text = "CantoTalk"
-        titleLabel.textAlignment = .center
-        titleLabel.textColor = UIColor.cantoPink(a: 1)
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        navigationItem.titleView = titleLabel
-        
-        
+        titleLabel = UILabel(frame: CGRect(x: view.frame.width / 2, y: 0, width: view.frame.width - 32, height: view.frame.height))
+        if let title = titleLabel {
+            title.text = "Search"
+            title.textAlignment = .center
+            title.textColor = UIColor.cantoPink(a: 1)
+            title.font = UIFont.boldSystemFont(ofSize: 20)
+            navigationItem.titleView = title
+        }
+   
         
     }
     
@@ -148,13 +129,9 @@ class HomeController: UIViewController {
         contentView.addSubview(selectedVC.view)
         selectedVC.didMove(toParentViewController: self)
         
-        lastVCIndex = menuIndex
+        titleLabel?.text = pageTitles[menuIndex]
         
-        func prepare(for: UIStoryboardSegue, sender: Any?) {
-            let backButton = UIBarButtonItem()
-            backButton.title = vcTitles[menuIndex]
-            navigationItem.backBarButtonItem = backButton
-        }
+        lastVCIndex = menuIndex
 
     }
     
@@ -172,13 +149,16 @@ class HomeController: UIViewController {
     }()
     
     private func setupMenuBar() {
+        
         view.addSubview(menuBar)
         view.addSubview(contentView)
         
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: contentView)
-        
+
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: menuBar)
         view.addConstraintsWithFormat(format: "V:|[v0][v1(50)]|", views: contentView, menuBar)
+
+
     }
     
 
