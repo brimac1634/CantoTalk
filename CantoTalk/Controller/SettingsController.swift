@@ -8,6 +8,16 @@
 
 import UIKit
 
+class Setting: NSObject {
+    let imageName: String
+    let name: String
+    
+    init(name: String, imageName: String) {
+        self.name = name
+        self.imageName = imageName
+    }
+}
+
 class SettingsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     lazy var tableView: UITableView = {
@@ -20,11 +30,13 @@ class SettingsController: UIViewController, UITableViewDataSource, UITableViewDe
     }()
     
     
-    
+
     let cellID = "cellID"
-    let cellImageNames: [String] = ["unlock", "trending", "request", "notification", "admin"]
-    let cellTitles: [String] = ["Upgrades", "Trends", "Request Words", "Notifications", "Admin"]
-        
+    let settings: [Setting] = {
+        return [Setting(name: "Upgrades", imageName: "unlock"), Setting(name: "Trends", imageName: "trending"), Setting(name: "Request Words", imageName: "request"), Setting(name: "Notifications", imageName: "notification"), Setting(name: "Rate Us", imageName: "rate_us"), Setting(name: "Admin", imageName: "admin")]
+    }()
+    var vcs: [UIViewController]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,20 +67,30 @@ class SettingsController: UIViewController, UITableViewDataSource, UITableViewDe
         view.addConstraintsWithFormat(format: "V:|-16-[v0(\(diameter))]-16-[v1]|", views: logoView, tableView)
         
         view.addConstraint(NSLayoutConstraint(item: logoView, attribute: .centerX, relatedBy: .equal, toItem: tableView, attribute: .centerX, multiplier: 1, constant: 0))
+
         
         tableView.register(SettingCell.self, forCellReuseIdentifier: cellID)
     }
+    
 
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: true)
+//        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: settings[indexPath.row].name) as? AdminEntryController {
+//            if let navigator = navigationController {
+//                navigator.pushViewController(vc, animated: true)
+//            }
+//        }
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellTitles.count
+        return settings.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! SettingCell
-        cell.cellImage.image = UIImage(named: cellImageNames[indexPath.row])?.withRenderingMode(.alwaysTemplate)
-        cell.tintColor = UIColor.cantoDarkBlue(a: 1)
-        cell.cellTitleLabel.text = cellTitles[indexPath.row]
+        let settings = self.settings[indexPath.row]
+        cell.accessoryType = .disclosureIndicator
+        cell.settings = settings
         return cell
     }
     
@@ -79,49 +101,7 @@ class SettingsController: UIViewController, UITableViewDataSource, UITableViewDe
 
 }
 
-class SettingCell: UITableViewCell {
-    
-    override var isHighlighted: Bool {
-        didSet {
-            backgroundColor = isHighlighted ? UIColor.cantoDarkBlue(a: 1) : UIColor.cantoWhite(a: 1)
-            cellTitleLabel.textColor = isHighlighted ? UIColor.cantoPink(a: 1) : UIColor.cantoDarkBlue(a: 1)
-            cellImage.tintColor = isHighlighted ? UIColor.cantoPink(a: 1) : UIColor.cantoDarkBlue(a: 1)
-        }
-    }
-    
-    let cellImage: UIImageView = {
-        let image = UIImageView()
-        return image
-    }()
-    
-    let cellTitleLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor.cantoDarkBlue(a: 1)
-        return label
-    }()
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupViews()
-    }
-    
-    
-    func setupViews() {
-        addSubview(cellImage)
-        addSubview(cellTitleLabel)
-        
-        addConstraintsWithFormat(format: "H:|-8-[v0(30)]-8-[v1]-8-|", views: cellImage, cellTitleLabel)
-        addConstraintsWithFormat(format: "V:[v0(30)]", views: cellImage)
-        addConstraintsWithFormat(format: "V:|[v0]|", views: cellTitleLabel)
-        
-        addConstraint(NSLayoutConstraint(item: cellImage, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
-}
 
 
 
