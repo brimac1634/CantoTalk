@@ -9,19 +9,27 @@
 import UIKit
 
 class AdminEntryController: UIViewController {
-
+    
+    let adminEntry: AdminEntry = {
+        let entry = AdminEntry()
+        entry.backgroundColor = UIColor.cantoLightBlue(a: 1)
+        return entry
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = UIColor.red
-       
-    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        view.addSubview(adminEntry)
         
+       
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: adminEntry)
+        view.addConstraintsWithFormat(format: "V:|[v0]|", views: adminEntry)
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
     }
-    
 
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }

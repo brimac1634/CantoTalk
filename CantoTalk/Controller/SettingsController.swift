@@ -73,14 +73,13 @@ class SettingsController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
 
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-//        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: settings[indexPath.row].name) as? AdminEntryController {
-//            if let navigator = navigationController {
-//                navigator.pushViewController(vc, animated: true)
-//            }
-//        }
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let vc = AdminEntryController()
+        if let navigator = navigationController {
+                navigator.pushViewController(vc, animated: true)
+            }
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return settings.count
