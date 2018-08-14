@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RealmSwift
 
 class SearchController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
@@ -28,11 +27,6 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         return bar
     }()
     
-    var entries: Results<Entries>? {
-        didSet {
-            loadData()
-        }
-    }
     
     let cellID = "cellID"
     var homeController: HomeController?
@@ -65,64 +59,57 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     //MARK: - CollectionView Methods
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if searchBar.isFirstResponder == true {
-            searchBar.resignFirstResponder()
-        }
-        let view = EntryView()
-        if let entry = entries?[indexPath.item] {
-            view.selectedEntry = entry
-            slideUpViewController.showEntryView(slideUpView: view)
-            return
-        }
-    
+//        if searchBar.isFirstResponder == true {
+//            searchBar.resignFirstResponder()
+//        }
+//        let view = EntryView()
+//        if let entry = entries?[indexPath.item] {
+//            view.selectedEntry = entry
+//            slideUpViewController.showEntryView(slideUpView: view)
+//            return
+//        }
+
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return entries?.count ?? 0
-        
+        return 3
     }
-    
-    
+
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! WordCells
-        if let entry = entries?[indexPath.item] {
-            cell.selectedEntry = entry
-        }
+//        if let entry = entries?[indexPath.item] {
+//            cell.selectedEntry = entry
+//        }
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 90)
     }
-    
+
     //MARK: - SearchBar Methods
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        entries = entries?.filter("jyutping CONTAINS[cd] %@ OR englishWord CONTAINS[cd] %@ OR cantoWord CONTAINS[cd] %@ OR mandarinWord CONTAINS[cd] %@", searchBar.text!, searchBar.text!, searchBar.text!, searchBar.text!).sorted(byKeyPath: "englishWord", ascending: true)
+//        entries = entries?.filter("jyutping CONTAINS[cd] %@ OR englishWord CONTAINS[cd] %@ OR cantoWord CONTAINS[cd] %@ OR mandarinWord CONTAINS[cd] %@", searchBar.text!, searchBar.text!, searchBar.text!, searchBar.text!).sorted(byKeyPath: "englishWord", ascending: true)
     }
-    
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchBar.showsCancelButton = true
-        if searchBar.text?.count == 0 {
-            entries = homeController?.mainRealm.objects(Entries.self)
-        } else {
-            entries = entries?.filter("jyutping CONTAINS[cd] %@ OR englishWord CONTAINS[cd] %@ OR cantoWord CONTAINS[cd] %@ OR mandarinWord CONTAINS[cd] %@", searchBar.text!, searchBar.text!, searchBar.text!, searchBar.text!).sorted(byKeyPath: "englishWord", ascending: true)
-        }
+//        if searchBar.text?.count == 0 {
+//            entries = homeController?.mainRealm.objects(Entries.self)
+//        } else {
+//            entries = entries?.filter("jyutping CONTAINS[cd] %@ OR englishWord CONTAINS[cd] %@ OR cantoWord CONTAINS[cd] %@ OR mandarinWord CONTAINS[cd] %@", searchBar.text!, searchBar.text!, searchBar.text!, searchBar.text!).sorted(byKeyPath: "englishWord", ascending: true)
+//        }
     }
-    
+
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        entries = homeController?.mainRealm.objects(Entries.self)
-        searchBar.text = ""
-        searchBar.showsCancelButton = false
-        searchBar.resignFirstResponder()
-        
-    }
-    
-//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
 //        entries = homeController?.mainRealm.objects(Entries.self)
 //        searchBar.text = ""
 //        searchBar.showsCancelButton = false
-//    }
+//        searchBar.resignFirstResponder()
+
+    }
     
     
 }

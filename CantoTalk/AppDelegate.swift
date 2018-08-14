@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import RealmSwift
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,7 +28,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.addSubview(statusBarBackgroundView)
         window?.addConstraintsWithFormat(format: "H:|[v0]|", views: statusBarBackgroundView)
         window?.addConstraintsWithFormat(format: "V:|[v0(20)]", views: statusBarBackgroundView)
-             
+        
+        FirebaseApp.configure()
+        
+//        let db = Firestore.firestore()
+//        
+//        var ref: DocumentReference? = nil
+//        ref = db.collection("entries").addDocument(data: [
+//            "cantoWord": "地氈",
+//            "jyutping": "dei6 jin1",
+//            "wordType": "noun",
+//            "classifier": "張",
+//            "englishWord": "rug",
+//            "mandarinWord": "地毯",
+//            "cantoSentence": "擺個凳喺張地氈上面",
+//            "jyutpingSentence": "baai2 go3 dang3 hai2 zoeng1 dei6jin1 soeng6min6",
+//            "englishSentence": "Put the chair on the rug",
+//        ]) { err in
+//            if let err = err {
+//                print("Error adding document: \(err)")
+//            } else {
+//                print("Document added with ID: \(ref!.documentID)")
+//            }
+//        }
+        
         return true
     }
 

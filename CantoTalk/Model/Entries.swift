@@ -7,20 +7,19 @@
 //
 
 import Foundation
-import RealmSwift
 
-class Entries: Object {
-    @objc dynamic var entryID : Int = 0
-    @objc dynamic var cantoWord : String = ""
-    @objc dynamic var jyutping : String = ""
-    @objc dynamic var wordType : String = ""
-    @objc dynamic var classifier : String? = nil
-    @objc dynamic var englishWord : String = ""
-    @objc dynamic var mandarinWord : String = ""
-    @objc dynamic var cantoSentence : String? = nil
-    @objc dynamic var jyutpingSentence : String? = nil
-    @objc dynamic var englishSentence : String? = nil
+class Entries: NSObject {
+    var entryID : Int = 0
+    var cantoWord : String = ""
+    var jyutping : String = ""
+    var wordType : String = ""
+    var classifier : String? = nil
+    var englishWord : String = ""
+    var mandarinWord : String = ""
+    var cantoSentence : String? = nil
+    var jyutpingSentence : String? = nil
+    var englishSentence : String? = nil
     
-    @objc dynamic var dateFavorited : Date? = nil
+    var dateFavorited : Date? = nil
 }
 
