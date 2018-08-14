@@ -15,8 +15,8 @@ class AdminEntry: BaseView, UITextFieldDelegate {
         let button = UIButton()
         button.backgroundColor = UIColor.cantoPink(a: 1)
         button.frame.size = CGSize(width: 200, height: 40)
-        button.titleLabel?.text = "Enter"
-        button.titleLabel?.textColor = UIColor.cantoDarkBlue(a: 1)
+        button.setTitle("Enter", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         button.addTarget(self, action: #selector(handleEnter), for: .touchUpInside)
         return button
     }()
@@ -25,11 +25,13 @@ class AdminEntry: BaseView, UITextFieldDelegate {
     var yValue = 16
     let inputHeight = 40
     var tagNo = 0
-    var textObjects: [UITextField]?
+    
+    var textFieldArray = [UITextField]()
     
     let placeholders: [String] = ["cantoWord", "jyutping", "wordType", "classifier", "englishWord", "mandarinWord", "cantoSentence", "jyutpingSentence", "englishSentence"]
     
     override func setupViews() {
+        
         for n in 0...self.placeholders.count - 1 {
             let inputField = UITextField(frame: CGRect(x: xValue, y: yValue, width: 200, height: inputHeight))
             inputField.placeholder = placeholders[n]
@@ -41,11 +43,9 @@ class AdminEntry: BaseView, UITextFieldDelegate {
             inputField.contentVerticalAlignment = UIControlContentVerticalAlignment.center
             inputField.delegate = self as UITextFieldDelegate
             addSubview(inputField)
-            textObjects?.append(inputField)
-            
+            textFieldArray.append(inputField)
             yValue = yValue + inputHeight + 20
         }
-        print(textObjects)
         addSubview(enterButton)
         enterButton.frame = CGRect(x: xValue, y: yValue + 20, width: 200, height: 40)
     }
@@ -57,7 +57,7 @@ class AdminEntry: BaseView, UITextFieldDelegate {
     
     @objc func handleEnter() {
         print(123)
-        
+        print(textFieldArray[0].text)
     }
     
 }
