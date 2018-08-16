@@ -147,6 +147,7 @@ class EntryView: BaseView {
         let image = UIImage(named: "heart_solid")?.withRenderingMode(.alwaysTemplate)
         button.frame = CGRect(x: 200, y: 200, width: 80, height: 80)
         button.setImage(image, for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
         button.tintColor = UIColor.cantoLightBlue(a: 1)
         button.imageEdgeInsets = UIEdgeInsetsMake(
             (button.frame.size.height - imageSize.height) / 2,
