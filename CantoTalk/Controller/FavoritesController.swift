@@ -8,13 +8,13 @@
 
 import UIKit
 
-//class FavoritesController: SearchController  {
-//
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//    }
+class FavoritesController: SearchController  {
+
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+    }
 //
 //    override func viewWillAppear(_ animated: Bool) {
 //        super.viewWillAppear(animated)
@@ -61,6 +61,6 @@ import UIKit
 //            favoritesEntries = favoritesEntries?.filter("jyutping CONTAINS[cd] %@ OR englishWord CONTAINS[cd] %@ OR cantoWord CONTAINS[cd] %@ OR mandarinWord CONTAINS[cd] %@", searchBar.text!, searchBar.text!, searchBar.text!, searchBar.text!).sorted(byKeyPath: "englishWord", ascending: true)
 //        }
 //    }
-//    
-//
-//}
+
+
+}

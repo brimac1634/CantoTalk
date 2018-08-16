@@ -89,8 +89,6 @@ class WordCells: BaseCell {
     
     override func setupViews() {
         
-        
-        
         addSubview(cantoWordLabel)
         addSubview(classifierLabel)
         addSubview(jyutpingLabel)

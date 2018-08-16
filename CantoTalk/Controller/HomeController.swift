@@ -10,16 +10,13 @@ import UIKit
 import Firebase
 
 class HomeController: UIViewController {
-
     
-    
-    
-    
+    var entriesArray = [Entries]()
     
     var searchController: SearchController!
-//    var favoritesController: FavoritesController!
-//    var wordOfTheDayController: WordOfTheDayController!
-//    var settingsController: SettingsController!
+    var favoritesController: FavoritesController!
+    var wordOfTheDayController: WordOfTheDayController!
+    var settingsController: SettingsController!
     
     var viewControllers: [UIViewController]!
     let pageTitles = ["Search", "Favorites", "Word of the Day", "Settings"]
@@ -75,11 +72,11 @@ class HomeController: UIViewController {
     func setupViewControllers() {
         searchController = SearchController()
         searchController.homeController = self
-//        favoritesController = FavoritesController()
-//        wordOfTheDayController = WordOfTheDayController()
-//        settingsController = SettingsController()
+        favoritesController = FavoritesController()
+        wordOfTheDayController = WordOfTheDayController()
+        settingsController = SettingsController()
         
-//        viewControllers = [searchController, favoritesController, wordOfTheDayController, settingsController]
+        viewControllers = [searchController, favoritesController, wordOfTheDayController, settingsController]
     }
     
     func loadData() {
@@ -87,15 +84,9 @@ class HomeController: UIViewController {
         let settings = db.settings
         settings.areTimestampsInSnapshotsEnabled = true
         db.settings = settings
-        db.collection("entries").getDocuments { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    print("\(document.documentID) => \(document.data())")
-                }
-            }
-        }
+        let entryList = db.collection("entries")
+        
+        searchController.entries = entryList
     }
     
     func setupNavBar() {
@@ -128,14 +119,12 @@ class HomeController: UIViewController {
             previousVC.removeFromParentViewController()
         }
         
-//        let selectedVC = viewControllers[menuIndex]
+        let selectedVC = viewControllers[menuIndex]
 
-        
-        
-//        addChildViewController(selectedVC)
-//        selectedVC.view.frame = contentView.bounds
-//        contentView.addSubview(selectedVC.view)
-//        selectedVC.didMove(toParentViewController: self)
+        addChildViewController(selectedVC)
+        selectedVC.view.frame = contentView.bounds
+        contentView.addSubview(selectedVC.view)
+        selectedVC.didMove(toParentViewController: self)
         
         titleLabel?.text = pageTitles[menuIndex]
         

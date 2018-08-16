@@ -8,18 +8,17 @@
 
 import Foundation
 
-class Entries: NSObject {
-    var entryID : Int = 0
-    var cantoWord : String = ""
-    var jyutping : String = ""
-    var wordType : String = ""
-    var classifier : String? = nil
-    var englishWord : String = ""
-    var mandarinWord : String = ""
-    var cantoSentence : String? = nil
-    var jyutpingSentence : String? = nil
-    var englishSentence : String? = nil
-    
-    var dateFavorited : Date? = nil
+struct Entries {
+    var entryID : String
+    var cantoWord : String
+    var jyutping : String
+    var wordType : String
+    var classifier : String
+    var englishWord : String
+    var mandarinWord : String
+    var cantoSentence : String
+    var jyutpingSentence : String
+    var englishSentence : String
+
 }
 

@@ -29,17 +29,17 @@ class EntryView: BaseView {
             if let entry = selectedEntry {
 
 
-                cantoWordLabel.text = entry.cantoWord
-                classifierLabel.text = "(cl: \(entry.classifier ?? ""))"
-                jyutpingLabel.text = entry.jyutping
-                wordTypeLabel.text = entry.wordType
-                englishWordLabel.text = "En: \(entry.englishWord)"
-                mandarinWordLabel.text = "普: \(entry.mandarinWord)"
-
-                cantoSentenceLabel.text = entry.cantoSentence ?? ""
-                jyutpingSentenceLabel.text = entry.jyutpingSentence ?? ""
-                englishSentenceLabel.text = entry.englishSentence ?? ""
-
+//                cantoWordLabel.text = entry.cantoWord
+//                classifierLabel.text = "(cl: \(entry.classifier ?? ""))"
+//                jyutpingLabel.text = entry.jyutping
+//                wordTypeLabel.text = entry.wordType
+//                englishWordLabel.text = "En: \(entry.englishWord)"
+//                mandarinWordLabel.text = "普: \(entry.mandarinWord)"
+//
+//                cantoSentenceLabel.text = entry.cantoSentence ?? ""
+//                jyutpingSentenceLabel.text = entry.jyutpingSentence ?? ""
+//                englishSentenceLabel.text = entry.englishSentence ?? ""
+//
 
 //                currentEntry = favoritesRealm.objects(Entries.self).filter("entryID = \(entry.entryID)").first
 //                if currentEntry != nil {
@@ -138,60 +138,30 @@ class EntryView: BaseView {
         return label
     }()
 
-//    let heartButton: UIButton = {
-//        let imageSize: CGSize = CGSize(width: 10, height: 10)
-//        let button = UIButton(type: UIButtonType.custom)
-//        let image = UIImage(named: "heart_solid")?.withRenderingMode(.alwaysTemplate)
-//        button.frame = CGRect(x: 200, y: 200, width: 80, height: 80)
-//        button.setImage(image, for: .normal)
-//        button.tintColor = UIColor.cantoLightBlue(a: 1)
-//        button.imageEdgeInsets = UIEdgeInsetsMake(
-//            (button.frame.size.height - imageSize.height) / 2,
-//            (button.frame.size.width - imageSize.width) / 2,
-//            (button.frame.size.height - imageSize.height) / 2,
-//            (button.frame.size.width - imageSize.width) / 2)
-//
-//        button.addTarget(self, action: #selector(handleFavorite), for: .touchUpInside)
-//        return button
-//    }()
+    let heartButton: UIButton = {
+        let imageSize: CGSize = CGSize(width: 10, height: 10)
+        let button = UIButton(type: UIButtonType.custom)
+        let image = UIImage(named: "heart_solid")?.withRenderingMode(.alwaysTemplate)
+        button.frame = CGRect(x: 200, y: 200, width: 80, height: 80)
+        button.setImage(image, for: .normal)
+        button.tintColor = UIColor.cantoLightBlue(a: 1)
+        button.imageEdgeInsets = UIEdgeInsetsMake(
+            (button.frame.size.height - imageSize.height) / 2,
+            (button.frame.size.width - imageSize.width) / 2,
+            (button.frame.size.height - imageSize.height) / 2,
+            (button.frame.size.width - imageSize.width) / 2)
 
-//    @objc func handleFavorite() {
-//        if isFavorited == false {
-//            try! favoritesRealm.write {
-//                if let entry = selectedEntry {
-//                    let newFavorite = Entries()
-//                    newFavorite.entryID = entry.entryID
-//                    newFavorite.cantoWord = entry.cantoWord
-//                    newFavorite.classifier = entry.classifier
-//                    newFavorite.jyutping = entry.jyutping
-//                    newFavorite.wordType = entry.wordType
-//                    newFavorite.englishWord = entry.englishWord
-//                    newFavorite.mandarinWord = entry.mandarinWord
-//                    newFavorite.cantoSentence = entry.cantoSentence
-//                    newFavorite.jyutpingSentence = entry.jyutpingSentence
-//                    newFavorite.englishSentence = entry.englishSentence
-//                    newFavorite.dateFavorited = Date()
-//                    favoritesRealm.add(newFavorite)
-//                    currentEntry = newFavorite
-//
-//                }
-//            }
-//            isFavorited = true
-//            heartButton.tintColor = selectedHeartColor
-//            favoritesController?.loadData()
-//
-//
-//        } else {
-//            try! favoritesRealm.write {
-//                if let entry = currentEntry {
-//                    favoritesRealm.delete(entry)
-//                }
-//            }
-//            isFavorited = false
-//            heartButton.tintColor = unselectedHeartColor
-//            favoritesController?.loadData()
-//        }
-//    }
+        button.addTarget(self, action: #selector(handleFavorite), for: .touchUpInside)
+        return button
+    }()
+
+    @objc func handleFavorite() {
+        if isFavorited == false {
+            
+        } else {
+            
+        }
+    }
 
 
     func setupView() {
@@ -206,7 +176,7 @@ class EntryView: BaseView {
         addSubview(cantoSentenceLabel)
         addSubview(jyutpingSentenceLabel)
         addSubview(englishSentenceLabel)
-//        addSubview(heartButton)
+        addSubview(heartButton)
 
         addConstraintsWithFormat(format: "H:|-32-[v0]-8-[v1(80)]|", views: cantoWordLabel, classifierLabel)
         addConstraintsWithFormat(format: "H:|-32-[v0]-8-[v1(80)]|", views: jyutpingLabel,wordTypeLabel)
@@ -219,8 +189,8 @@ class EntryView: BaseView {
         addConstraintsWithFormat(format: "V:|-32-[v0(30)]-8-[v1(30)]-48-[v2(30)]-8-[v3(30)]-48-[v4(44)]-8-[v5(44)]-8-[v6(44)]", views: cantoWordLabel, jyutpingLabel, englishWordLabel, mandarinWordLabel, cantoSentenceLabel, jyutpingSentenceLabel, englishSentenceLabel)
         addConstraintsWithFormat(format: "V:|-32-[v0(30)]-8-[v1(30)]", views: classifierLabel, wordTypeLabel)
 
-//        addConstraintsWithFormat(format: "H:[v0]-32-|", views: heartButton)
-//        addConstraintsWithFormat(format: "V:[v0]-32-|", views: heartButton)
+        addConstraintsWithFormat(format: "H:[v0]-32-|", views: heartButton)
+        addConstraintsWithFormat(format: "V:[v0]-32-|", views: heartButton)
 
     }
 
