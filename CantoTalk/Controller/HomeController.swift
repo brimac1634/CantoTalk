@@ -11,8 +11,10 @@ import RealmSwift
 
 class HomeController: UIViewController {
 
-    let mainRealm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: true))
+    let mainRealm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: false))
     let favoritesRealm = try! Realm()
+    
+
 
     var searchController: SearchController!
     var favoritesController: FavoritesController!
@@ -46,13 +48,9 @@ class HomeController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        
 
     }
-
-//    func loadFavorites() {
-//        entries = favoritesRealm.objects(Entries.self).sorted(byKeyPath: "dateFavorited", ascending: false)
-//        collectionView?.reloadData()
-//    }
     
     func showIconAnimation() {
         if let window = UIApplication.shared.keyWindow {
@@ -88,6 +86,7 @@ class HomeController: UIViewController {
     func loadData() {
         searchController.entries = mainRealm.objects(Entries.self)
         favoritesController.favoritesEntries = favoritesRealm.objects(Entries.self).sorted(byKeyPath: "dateFavorited", ascending: false)
+    
     }
     
     func setupNavBar() {

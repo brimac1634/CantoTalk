@@ -7,9 +7,9 @@
 //
 
 import UIKit
+import RealmSwift
 
 class AdminEntry: BaseView, UITextFieldDelegate {
-    
     
     let enterButton: UIButton = {
         let button = UIButton()
@@ -25,12 +25,20 @@ class AdminEntry: BaseView, UITextFieldDelegate {
     var yValue = 16
     let inputHeight = 40
     var tagNo = 0
+    var numberOfEntries: Int?
+    var homeController: HomeController?
     
+    let mainRealm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: false))
+    
+    var entries: Results<Entries>?
     var textFieldArray = [UITextField]()
     
     let placeholders: [String] = ["cantoWord", "jyutping", "wordType", "classifier", "englishWord", "mandarinWord", "cantoSentence", "jyutpingSentence", "englishSentence"]
     
     override func setupViews() {
+        
+        entries = mainRealm.objects(Entries.self)
+        numberOfEntries = entries?.count
         
         for n in 0...self.placeholders.count - 1 {
             let inputField = UITextField(frame: CGRect(x: xValue, y: yValue, width: 200, height: inputHeight))
@@ -56,8 +64,34 @@ class AdminEntry: BaseView, UITextFieldDelegate {
     }
     
     @objc func handleEnter() {
-        print(123)
-        print(textFieldArray[0].text)
+        
+        
+        try! mainRealm.write {
+            let newEntry = Entries()
+            if let number = numberOfEntries {
+                print(number)
+                newEntry.entryID = number + 1
+            }
+            
+            newEntry.cantoWord = textFieldArray[0].text ?? ""
+            newEntry.jyutping = textFieldArray[1].text ?? ""
+            newEntry.wordType = textFieldArray[2].text ?? ""
+            newEntry.classifier = textFieldArray[3].text ?? ""
+            newEntry.englishWord = textFieldArray[4].text ?? ""
+            newEntry.mandarinWord = textFieldArray[5].text ?? ""
+            newEntry.cantoSentence = textFieldArray[6].text ?? ""
+            newEntry.jyutpingSentence = textFieldArray[7].text ?? ""
+            newEntry.englishSentence = textFieldArray[8].text ?? ""
+            
+            mainRealm.add(newEntry)
+            
+            print("Success")
+        }
+        
+        for textField in textFieldArray {
+            textField.text = ""
+        }
+        
     }
     
 }
