@@ -33,18 +33,18 @@ class EntryView: BaseView {
 
 
                 cantoWordLabel.text = entry.cantoWord
-                classifierLabel.text = "(cl: \(entry.classifier ?? ""))"
+                classifierLabel.text = "(cl: \(entry.classifier))"
                 jyutpingLabel.text = entry.jyutping
                 wordTypeLabel.text = entry.wordType
                 englishWordLabel.text = "En: \(entry.englishWord)"
                 mandarinWordLabel.text = "普: \(entry.mandarinWord)"
 
-                cantoSentenceLabel.text = entry.cantoSentence ?? ""
-                jyutpingSentenceLabel.text = entry.jyutpingSentence ?? ""
-                englishSentenceLabel.text = entry.englishSentence ?? ""
+                cantoSentenceLabel.text = entry.cantoSentence
+                jyutpingSentenceLabel.text = entry.jyutpingSentence
+                englishSentenceLabel.text = entry.englishSentence
 
-
-                currentEntry = favoritesRealm.objects(Entries.self).filter("entryID = \(entry.entryID)").first
+                print(Realm.Configuration.defaultConfiguration.fileURL)
+                currentEntry = favoritesRealm.objects(Entries.self).filter("entryID = \(String(entry.entryID))").first
                 if currentEntry != nil {
                     isFavorited = true
                     heartButton.tintColor = selectedHeartColor
@@ -174,7 +174,11 @@ class EntryView: BaseView {
                     newFavorite.cantoSentence = entry.cantoSentence
                     newFavorite.jyutpingSentence = entry.jyutpingSentence
                     newFavorite.englishSentence = entry.englishSentence
-                    newFavorite.dateFavorited = Date()
+                    
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                    let date = formatter.string(from: Date())
+                    newFavorite.dateFavorited = date
                     favoritesRealm.add(newFavorite)
                     currentEntry = newFavorite
 
@@ -196,6 +200,8 @@ class EntryView: BaseView {
             favoritesController?.loadData()
         }
     }
+    
+    
 
 
     func setupView() {
@@ -225,6 +231,7 @@ class EntryView: BaseView {
 
         addConstraintsWithFormat(format: "H:[v0]-32-|", views: heartButton)
         addConstraintsWithFormat(format: "V:[v0]-32-|", views: heartButton)
+        
 
     }
 
