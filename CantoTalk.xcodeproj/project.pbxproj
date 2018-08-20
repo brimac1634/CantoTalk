@@ -26,8 +26,6 @@
 		D2D6A08121144C78002E0CCE /* SlideUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A08021144C78002E0CCE /* SlideUpViewController.swift */; };
 		D2D6A083211452A8002E0CCE /* Entries.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A082211452A8002E0CCE /* Entries.swift */; };
 		D2E001522122849B0031553E /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E001512122849B0031553E /* SettingsCell.swift */; };
-		D2E00154212290730031553E /* AdminEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E00153212290730031553E /* AdminEntry.swift */; };
-		D2E001562122B3260031553E /* AdminEntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E001552122B3260031553E /* AdminEntryController.swift */; };
 		D2F8FB99211A9CA700E260B9 /* BaseCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F8FB98211A9CA700E260B9 /* BaseCells.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,8 +53,6 @@
 		D2D6A08021144C78002E0CCE /* SlideUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUpViewController.swift; sourceTree = "<group>"; };
 		D2D6A082211452A8002E0CCE /* Entries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entries.swift; sourceTree = "<group>"; };
 		D2E001512122849B0031553E /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
-		D2E00153212290730031553E /* AdminEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEntry.swift; sourceTree = "<group>"; };
-		D2E001552122B3260031553E /* AdminEntryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEntryController.swift; sourceTree = "<group>"; };
 		D2F8FB98211A9CA700E260B9 /* BaseCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCells.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -148,7 +144,6 @@
 				D28CD658211997AD001A613F /* MenuBar.swift */,
 				D2D45C70211D5EAD008A6CF7 /* WordOfTheDayCells.swift */,
 				D2E001512122849B0031553E /* SettingsCell.swift */,
-				D2E00153212290730031553E /* AdminEntry.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -162,7 +157,6 @@
 				D2D6A0762112FCA9002E0CCE /* WordOfTheDayController.swift */,
 				D281432D211C03A500005604 /* SettingsController.swift */,
 				D2D6A08021144C78002E0CCE /* SlideUpViewController.swift */,
-				D2E001552122B3260031553E /* AdminEntryController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -312,9 +306,7 @@
 				D2D6A05521105AA4002E0CCE /* HomeController.swift in Sources */,
 				D2D6A06B21106140002E0CCE /* WordCells.swift in Sources */,
 				D2D6A0772112FCA9002E0CCE /* WordOfTheDayController.swift in Sources */,
-				D2E001562122B3260031553E /* AdminEntryController.swift in Sources */,
 				D2D45C71211D5EAD008A6CF7 /* WordOfTheDayCells.swift in Sources */,
-				D2E00154212290730031553E /* AdminEntry.swift in Sources */,
 				D28CD65D2119AB1C001A613F /* FavoritesController.swift in Sources */,
 				D2D6A06D2111A36C002E0CCE /* EntryView.swift in Sources */,
 				D28CD659211997AD001A613F /* MenuBar.swift in Sources */,

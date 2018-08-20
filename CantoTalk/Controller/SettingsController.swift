@@ -33,7 +33,7 @@ class SettingsController: UIViewController, UITableViewDataSource, UITableViewDe
 
     let cellID = "cellID"
     let settings: [Setting] = {
-        return [Setting(name: "Upgrades", imageName: "unlock"), Setting(name: "Trends", imageName: "trending"), Setting(name: "Request Words", imageName: "request"), Setting(name: "Notifications", imageName: "notification"), Setting(name: "Rate Us", imageName: "rate_us"), Setting(name: "Admin", imageName: "admin")]
+        return [Setting(name: "Upgrades", imageName: "unlock"), Setting(name: "Trends", imageName: "trending"), Setting(name: "Request Words", imageName: "request"), Setting(name: "Notifications", imageName: "notification"), Setting(name: "Rate Us", imageName: "rate_us")]
     }()
     var vcs: [UIViewController]?
     
@@ -74,11 +74,7 @@ class SettingsController: UIViewController, UITableViewDataSource, UITableViewDe
     
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let vc = AdminEntryController()
-        if let navigator = navigationController {
-                navigator.pushViewController(vc, animated: true)
-            }
+        //do something
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

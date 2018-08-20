@@ -11,7 +11,7 @@ import RealmSwift
 
 class HomeController: UIViewController {
 
-    let mainRealm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: false))
+    let mainRealm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: true))
     let favoritesRealm = try! Realm()
     
 
