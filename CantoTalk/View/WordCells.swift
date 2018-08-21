@@ -23,10 +23,8 @@ class WordCells: BaseCell {
             }
         }
     }
-
-//    let leftContainer: UIView = {
-//        let view = UIView()
-//    }
+    
+    
     let cantoWordLabel: UILabel = {
         let label = UILabel()
         label.text = "單車"
@@ -100,30 +98,54 @@ class WordCells: BaseCell {
     
     override func setupViews() {
         
+        let topLeftContainer = UIView()
+        let topRightContainer = UIView()
+        let bottomLeftContainer = UIView()
+        let bottomRightContainer = UIView()
+
+        let topStackView = UIStackView(arrangedSubviews: [topLeftContainer, topRightContainer])
+        let bottomStackView = UIStackView(arrangedSubviews: [bottomLeftContainer, bottomRightContainer])
+        topStackView.distribution = .fillEqually
+        bottomStackView.distribution = .fillEqually
+        
+        let cellStackView = UIStackView(arrangedSubviews: [topStackView, bottomStackView])
+        cellStackView.distribution = .fillEqually
+        cellStackView.translatesAutoresizingMaskIntoConstraints = false
+        cellStackView.axis = .vertical
+        
+        addSubview(cellStackView)
+        
+        NSLayoutConstraint.activate([
+            cellStackView.topAnchor.constraint(equalTo: topAnchor),
+            cellStackView.leftAnchor.constraint(equalTo: leftAnchor),
+            cellStackView.rightAnchor.constraint(equalTo: rightAnchor),
+            cellStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 1)
+            ])
         
         
-        addSubview(cantoWordLabel)
-        addSubview(classifierLabel)
-        addSubview(jyutpingLabel)
-        addSubview(englishWordLabel)
-        addSubview(mandarinWordLabel)
-        addSubview(wordTypeLabel)
+        topLeftContainer.addSubview(cantoWordLabel)
+        topLeftContainer.addSubview(classifierLabel)
+        bottomLeftContainer.addSubview(jyutpingLabel)
+        bottomLeftContainer.addSubview(wordTypeLabel)
+        topRightContainer.addSubview(englishWordLabel)
+        bottomRightContainer.addSubview(mandarinWordLabel)
         addSubview(separatorView)
-        
-        
+
+
         
 
 
-        addConstraintsWithFormat(format: "H:|[v0]|", views: separatorView)
-
-        addConstraintsWithFormat(format: "H:|-16-[v0]-8-[v1(80)]", views: cantoWordLabel, classifierLabel)
-        addConstraintsWithFormat(format: "H:|-16-[v0]-8-[v1(80)]", views: jyutpingLabel, wordTypeLabel)
-        addConstraintsWithFormat(format: "H:|-\(halfCellWidth)-[v0]-16-|", views: englishWordLabel)
-        addConstraintsWithFormat(format: "H:|-\(halfCellWidth)-[v0]-16-|", views: mandarinWordLabel)
-        
-        addConstraintsWithFormat(format: "V:|-16-[v0(25)]-8-[v1(25)]-15-[v2(1)]", views: cantoWordLabel, jyutpingLabel, separatorView)
-        addConstraintsWithFormat(format: "V:|-16-[v0(25)]-8-[v1(25)]-16-|", views: classifierLabel, wordTypeLabel)
-        addConstraintsWithFormat(format: "V:|-16-[v0(25)]-8-[v1(25)]-16-|", views: englishWordLabel, mandarinWordLabel)
+//
+//        addConstraintsWithFormat(format: "H:|[v0]|", views: separatorView)
+//
+//        addConstraintsWithFormat(format: "H:|-16-[v0]-8-[v1(80)]", views: cantoWordLabel, classifierLabel)
+//        addConstraintsWithFormat(format: "H:|-16-[v0]-8-[v1(80)]", views: jyutpingLabel, wordTypeLabel)
+//        addConstraintsWithFormat(format: "H:|-\(halfCellWidth)-[v0]-16-|", views: englishWordLabel)
+//        addConstraintsWithFormat(format: "H:|-\(halfCellWidth)-[v0]-16-|", views: mandarinWordLabel)
+//
+//        addConstraintsWithFormat(format: "V:|-16-[v0(25)]-8-[v1(25)]-15-[v2(1)]", views: cantoWordLabel, jyutpingLabel, separatorView)
+//        addConstraintsWithFormat(format: "V:|-16-[v0(25)]-8-[v1(25)]-16-|", views: classifierLabel, wordTypeLabel)
+//        addConstraintsWithFormat(format: "V:|-16-[v0(25)]-8-[v1(25)]-16-|", views: englishWordLabel, mandarinWordLabel)
 
         
         

@@ -35,7 +35,7 @@ class HomeController: UIViewController {
         loadData()
         addView(menuIndex: 0)
         setupNavBar()
-        setupMenuBar()
+        setupLayout()
         showIconAnimation()
 
     }
@@ -150,21 +150,25 @@ class HomeController: UIViewController {
         return view
     }()
     
-    private func setupMenuBar() {
-        
+    private func setupLayout() {
+        view.backgroundColor = UIColor.cantoDarkBlue(a: 1)
         view.addSubview(menuBar)
         view.addSubview(contentView)
         
+        NSLayoutConstraint.activate([
+            menuBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            menuBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            menuBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            menuBar.heightAnchor.constraint(equalToConstant: 50),
+            
+            contentView.topAnchor.constraint(equalTo: view.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: menuBar.topAnchor)
+            ])
         
-        menuBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        menuBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        menuBar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        menuBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
-        contentView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: menuBar.topAnchor).isActive = true
+        
 
 
 
