@@ -12,7 +12,7 @@
 		D281432E211C03A500005604 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281432D211C03A500005604 /* SettingsController.swift */; };
 		D28CD659211997AD001A613F /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD658211997AD001A613F /* MenuBar.swift */; };
 		D28CD65D2119AB1C001A613F /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD65C2119AB1C001A613F /* FavoritesController.swift */; };
-		D2A40ECD212ABF8C00EE39C5 /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D2A40ECC212ABF8C00EE39C5 /* default.realm */; };
+		D2A40EED212BD91200EE39C5 /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D2A40EEC212BD91200EE39C5 /* default.realm */; };
 		D2D45C71211D5EAD008A6CF7 /* WordOfTheDayCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D45C70211D5EAD008A6CF7 /* WordOfTheDayCells.swift */; };
 		D2D6A05321105AA4002E0CCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A05221105AA4002E0CCE /* AppDelegate.swift */; };
 		D2D6A05521105AA4002E0CCE /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A05421105AA4002E0CCE /* HomeController.swift */; };
@@ -37,7 +37,7 @@
 		D281432D211C03A500005604 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		D28CD658211997AD001A613F /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		D28CD65C2119AB1C001A613F /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
-		D2A40ECC212ABF8C00EE39C5 /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
+		D2A40EEC212BD91200EE39C5 /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
 		D2D45C70211D5EAD008A6CF7 /* WordOfTheDayCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordOfTheDayCells.swift; sourceTree = "<group>"; };
 		D2D6A04F21105AA4002E0CCE /* CantoTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CantoTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2D6A05221105AA4002E0CCE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 		D27C0A5A211803A000E615EB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D2A40ECC212ABF8C00EE39C5 /* default.realm */,
+				D2A40EEC212BD91200EE39C5 /* default.realm */,
 				D2D6A05921105AA9002E0CCE /* Assets.xcassets */,
 			);
 			path = "Supporting Files";
@@ -232,7 +232,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2D6A05D21105AA9002E0CCE /* LaunchScreen.storyboard in Resources */,
-				D2A40ECD212ABF8C00EE39C5 /* default.realm in Resources */,
+				D2A40EED212BD91200EE39C5 /* default.realm in Resources */,
 				D2D6A05A21105AA9002E0CCE /* Assets.xcassets in Resources */,
 				D2D6A05821105AA5002E0CCE /* Main.storyboard in Resources */,
 			);

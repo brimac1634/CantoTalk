@@ -24,10 +24,14 @@ class WordCells: BaseCell {
         }
     }
 
+//    let leftContainer: UIView = {
+//        let view = UIView()
+//    }
     let cantoWordLabel: UILabel = {
         let label = UILabel()
         label.text = "單車"
         label.font = UIFont.boldSystemFont(ofSize: 25)
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
@@ -37,6 +41,7 @@ class WordCells: BaseCell {
         let label = UILabel()
         label.text = "(cl:架 ga3)"
         label.font = UIFont.systemFont(ofSize: 15)
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = UIColor.cantoWhite(a: 1)
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
@@ -47,6 +52,7 @@ class WordCells: BaseCell {
         label.text = "En: bicycle"
         label.adjustsFontSizeToFitWidth = true
         label.font = UIFont.systemFont(ofSize: 18)
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         label.numberOfLines = 1
         return label
@@ -57,6 +63,7 @@ class WordCells: BaseCell {
         label.text = "普: 自行車"
         label.adjustsFontSizeToFitWidth = true
         label.font = UIFont.systemFont(ofSize: 18)
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         label.numberOfLines = 1
         return label
@@ -67,6 +74,7 @@ class WordCells: BaseCell {
         label.text = "daan1 che1"
         label.adjustsFontSizeToFitWidth = true
         label.textColor = UIColor.cantoDarkBlue(a: 1)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -74,6 +82,7 @@ class WordCells: BaseCell {
         let label = UILabel()
         label.text = "noun"
         label.font = UIFont.systemFont(ofSize: 15)
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = UIColor.cantoWhite(a: 1)
         label.textColor = UIColor.cantoLightBlue(a: 1)
         return label
@@ -83,6 +92,7 @@ class WordCells: BaseCell {
     let separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.cantoDarkBlue(a: 0.5)
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -99,6 +109,9 @@ class WordCells: BaseCell {
         addSubview(mandarinWordLabel)
         addSubview(wordTypeLabel)
         addSubview(separatorView)
+        
+        
+        
 
 
         addConstraintsWithFormat(format: "H:|[v0]|", views: separatorView)

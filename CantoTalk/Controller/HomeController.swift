@@ -98,6 +98,7 @@ class HomeController: UIViewController {
         }
         
         titleLabel = UILabel(frame: CGRect(x: view.frame.width / 2, y: 0, width: view.frame.width - 32, height: view.frame.height))
+        
         if let title = titleLabel {
             title.text = "Search"
             title.textAlignment = .center
@@ -139,11 +140,13 @@ class HomeController: UIViewController {
     lazy var menuBar: MenuBar = {
         let mb = MenuBar()
         mb.homeController = self
+        mb.translatesAutoresizingMaskIntoConstraints = false
         return mb
     }()
     
     lazy var contentView: BaseView = {
         let view = BaseView()
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -152,10 +155,17 @@ class HomeController: UIViewController {
         view.addSubview(menuBar)
         view.addSubview(contentView)
         
-        view.addConstraintsWithFormat(format: "H:|[v0]|", views: contentView)
+        
+        menuBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        menuBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        menuBar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        menuBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        contentView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: menuBar.topAnchor).isActive = true
 
-        view.addConstraintsWithFormat(format: "H:|[v0]|", views: menuBar)
-        view.addConstraintsWithFormat(format: "V:|[v0][v1(50)]|", views: contentView, menuBar)
 
 
     }
