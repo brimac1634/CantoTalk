@@ -95,6 +95,10 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         return CGSize(width: view.frame.width, height: 90)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
     //MARK: - SearchBar Methods
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

@@ -80,8 +80,6 @@ class WordCells: BaseCell {
     
     
     override func setupViews() {
-        let view3 = UIView()
-        view3.backgroundColor = .blue
         
         let topStackView = UIStackView(arrangedSubviews: [cantoWordLabel, englishWordLabel])
         let bottomStackView = UIStackView(arrangedSubviews: [jyutpingLabel, mandarinWordLabel])
@@ -103,7 +101,7 @@ class WordCells: BaseCell {
             cellStackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             cellStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             cellStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            cellStackView.heightAnchor.constraint(equalToConstant: 89),
+            cellStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
             
             separatorView.leadingAnchor.constraint(equalTo: leadingAnchor),
             separatorView.trailingAnchor.constraint(equalTo: trailingAnchor),
