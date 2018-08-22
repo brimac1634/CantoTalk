@@ -22,8 +22,17 @@ class WordCells: BaseCell {
                 
                 cantoWordLabel.attributedText = cantoWordText
                 jyutpingLabel.text = entry.jyutping
-                englishWordLabel.text = "En: \(entry.englishWord)"
-                mandarinWordLabel.text = "普: \(entry.mandarinWord)"
+                
+                let englishWordText = NSMutableAttributedString(string: "En: ", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
+                englishWordText.append(NSAttributedString(string: entry.englishWord, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+                
+                englishWordLabel.attributedText = englishWordText
+                
+                let mandarinWordText = NSMutableAttributedString(string: "普: ", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
+                mandarinWordText.append(NSAttributedString(string: entry.mandarinWord, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+                
+                mandarinWordLabel.attributedText = mandarinWordText
+                
             }
         }
     }
