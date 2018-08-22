@@ -65,6 +65,7 @@ class FavoritesController: SearchController  {
     }
     
     override func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchBar.showsCancelButton = true
         if searchBar.text?.count == 0 {
             favoritesEntries = homeController?.favoritesRealm.objects(Entries.self)
         } else {

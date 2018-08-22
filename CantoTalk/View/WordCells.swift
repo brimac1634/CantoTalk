@@ -117,23 +117,7 @@ class WordCells: BaseCell {
             separatorView.bottomAnchor.constraint(equalTo: bottomAnchor),
             separatorView.heightAnchor.constraint(equalToConstant: 1)
             ])
-
-
-//
-//        addConstraintsWithFormat(format: "H:|[v0]|", views: separatorView)
-//
-//        addConstraintsWithFormat(format: "H:|-16-[v0]-8-[v1(80)]", views: cantoWordLabel, classifierLabel)
-//        addConstraintsWithFormat(format: "H:|-16-[v0]-8-[v1(80)]", views: jyutpingLabel, wordTypeLabel)
-//        addConstraintsWithFormat(format: "H:|-\(halfCellWidth)-[v0]-16-|", views: englishWordLabel)
-//        addConstraintsWithFormat(format: "H:|-\(halfCellWidth)-[v0]-16-|", views: mandarinWordLabel)
-//
-//        addConstraintsWithFormat(format: "V:|-16-[v0(25)]-8-[v1(25)]-15-[v2(1)]", views: cantoWordLabel, jyutpingLabel, separatorView)
-//        addConstraintsWithFormat(format: "V:|-16-[v0(25)]-8-[v1(25)]-16-|", views: classifierLabel, wordTypeLabel)
-//        addConstraintsWithFormat(format: "V:|-16-[v0(25)]-8-[v1(25)]-16-|", views: englishWordLabel, mandarinWordLabel)
-
-        
-        
-        
+   
     }
    
 }

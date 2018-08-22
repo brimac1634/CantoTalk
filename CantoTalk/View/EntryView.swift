@@ -31,19 +31,27 @@ class EntryView: BaseView {
         didSet {
             if let entry = selectedEntry {
 
-
-                cantoWordLabel.text = entry.cantoWord
-                classifierLabel.text = "(cl: \(entry.classifier))"
+                let cantoWordText = NSMutableAttributedString(string: entry.cantoWord, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
+                if entry.classifier != "" {
+                    cantoWordText.append(NSAttributedString(string: " (cl:\(entry.classifier))", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+                }
+                cantoWordLabel.attributedText = cantoWordText
+                
                 jyutpingLabel.text = entry.jyutping
                 wordTypeLabel.text = entry.wordType
-                englishWordLabel.text = "En: \(entry.englishWord)"
-                mandarinWordLabel.text = "普: \(entry.mandarinWord)"
+                
+                let englishWordText = NSMutableAttributedString(string: "En: ", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.cantoLightBlue(a: 0.8)])
+                englishWordText.append(NSAttributedString(string: entry.englishWord, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 25), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+                englishWordLabel.attributedText = englishWordText
+                
+                let mandarinWordText = NSMutableAttributedString(string: "普: ", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.cantoLightBlue(a: 0.8)])
+                mandarinWordText.append(NSAttributedString(string: entry.mandarinWord, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 25), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+                mandarinWordLabel.attributedText = mandarinWordText
 
-                cantoSentenceLabel.text = entry.cantoSentence
-                jyutpingSentenceLabel.text = entry.jyutpingSentence
-                englishSentenceLabel.text = entry.englishSentence
+                let sentenceText = NSMutableAttributedString(string: "\(entry.cantoSentence)\n\(entry.jyutpingSentence)\n\(entry.englishSentence)", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
+                sentenceLabel.attributedText = sentenceText
 
-                print(Realm.Configuration.defaultConfiguration.fileURL)
+
                 currentEntry = favoritesRealm.objects(Entries.self).filter("entryID = \(String(entry.entryID))").first
                 if currentEntry != nil {
                     isFavorited = true
@@ -57,104 +65,72 @@ class EntryView: BaseView {
         }
     }
 
-    let cantoWordLabel: UILabel = {
-        let label = UILabel()
-        label.text = "單車"
-        label.font = UIFont.boldSystemFont(ofSize: 35)
-        label.adjustsFontSizeToFitWidth = true
-        label.textColor = UIColor.cantoDarkBlue(a: 1)
+    let cantoWordLabel: UITextView = {
+        let label = UITextView()
+        label.isEditable = false
+        label.isScrollEnabled = false
+        label.backgroundColor = UIColor.cantoWhite(a: 1)
         return label
     }()
-
-    let classifierLabel: UILabel = {
-        let label = UILabel()
-        label.text = "(架 ga3)"
-        label.font = UIFont.systemFont(ofSize: 18)
-        label.textAlignment = .left
-        label.textColor = UIColor.cantoDarkBlue(a: 1)
-        return label
-    }()
-
-    let englishWordLabel: UILabel = {
-        let label = UILabel()
-        label.text = "En: bicycle"
-        label.adjustsFontSizeToFitWidth = true
-        label.font = UIFont.systemFont(ofSize: 22)
-        label.textColor = UIColor.cantoDarkBlue(a: 1)
-        label.numberOfLines = 2
-        return label
-    }()
-
-    let mandarinWordLabel: UILabel = {
-        let label = UILabel()
-        label.text = "普: 自行車"
-        label.adjustsFontSizeToFitWidth = true
-        label.font = UIFont.systemFont(ofSize: 22)
-        label.textColor = UIColor.cantoDarkBlue(a: 1)
-        label.numberOfLines = 2
-        return label
-    }()
-
-    let jyutpingLabel: UILabel = {
-        let label = UILabel()
-        label.text = "daan1 che1"
+    
+    
+    let jyutpingLabel: UITextView = {
+        let label = UITextView()
+        label.isEditable = false
+        label.isScrollEnabled = false
         label.font = UIFont.systemFont(ofSize: 25)
-        label.adjustsFontSizeToFitWidth = true
-        label.textColor = UIColor.cantoLightBlue(a: 1)
+        label.backgroundColor = UIColor.cantoWhite(a: 1)
+        label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
-
-    let wordTypeLabel: UILabel = {
-        let label = UILabel()
-        label.text = "noun"
+    
+    let wordTypeLabel: UITextView = {
+        let label = UITextView()
+        label.isEditable = false
+        label.isScrollEnabled = false
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = UIColor.cantoLightBlue(a: 0.8)
+        label.backgroundColor = UIColor.cantoWhite(a: 1)
+        return label
+    }()
+    
+    let englishWordLabel: UITextView = {
+        let label = UITextView()
+        label.isEditable = false
+        label.isScrollEnabled = false
         label.font = UIFont.systemFont(ofSize: 18)
-        label.textAlignment = .left
-        label.textColor = UIColor.cantoLightBlue(a: 1)
+        label.backgroundColor = UIColor.cantoWhite(a: 1)
+        label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
-
-    let cantoSentenceLabel: UILabel = {
-        let label = UILabel()
-        label.text = "我哋想租兩架單車"
-        label.font = UIFont.systemFont(ofSize: 18, weight: .thin)
-        label.lineBreakMode = .byWordWrapping
-        label.numberOfLines = 0
+    
+    let mandarinWordLabel: UITextView = {
+        let label = UITextView()
+        label.isEditable = false
+        label.isScrollEnabled = false
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.backgroundColor = UIColor.cantoWhite(a: 1)
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
 
-    let jyutpingSentenceLabel: UILabel = {
-        let label = UILabel()
+    let sentenceLabel: UITextView = {
+        let label = UITextView()
+        label.isEditable = false
+        label.isScrollEnabled = false
         label.font = UIFont.systemFont(ofSize: 18, weight: .thin)
-        label.lineBreakMode = .byWordWrapping
-        label.numberOfLines = 0
+        label.backgroundColor = UIColor.cantoWhite(a: 1)
         label.textColor = UIColor.cantoDarkBlue(a: 1)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
-    let englishSentenceLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .thin)
-        label.lineBreakMode = .byWordWrapping
-        label.numberOfLines = 0
-        label.textColor = UIColor.cantoDarkBlue(a: 1)
-        return label
-    }()
 
     let heartButton: UIButton = {
-        let imageSize: CGSize = CGSize(width: 10, height: 10)
-        let button = UIButton(type: UIButtonType.custom)
+        let button = UIButton(type: .system)
         let image = UIImage(named: "heart_solid")?.withRenderingMode(.alwaysTemplate)
-        button.frame = CGRect(x: 200, y: 200, width: 80, height: 80)
-        button.setImage(image, for: .normal)
-        button.imageView?.contentMode = .scaleAspectFit
-        button.tintColor = UIColor.cantoLightBlue(a: 1)
-        button.imageEdgeInsets = UIEdgeInsetsMake(
-            (button.frame.size.height - imageSize.height) / 2,
-            (button.frame.size.width - imageSize.width) / 2,
-            (button.frame.size.height - imageSize.height) / 2,
-            (button.frame.size.width - imageSize.width) / 2)
-
+        button.setBackgroundImage(image, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(handleFavorite), for: .touchUpInside)
         return button
     }()
@@ -206,31 +182,52 @@ class EntryView: BaseView {
 
     func setupView() {
         
-
-        addSubview(cantoWordLabel)
-        addSubview(classifierLabel)
-        addSubview(jyutpingLabel)
-        addSubview(englishWordLabel)
-        addSubview(mandarinWordLabel)
-        addSubview(wordTypeLabel)
-        addSubview(cantoSentenceLabel)
-        addSubview(jyutpingSentenceLabel)
-        addSubview(englishSentenceLabel)
+        let topStackView: UIStackView = {
+            let stack = UIStackView(arrangedSubviews: [cantoWordLabel, jyutpingLabel, wordTypeLabel])
+            stack.translatesAutoresizingMaskIntoConstraints = false
+            stack.axis = .vertical
+            stack.distribution = .fillProportionally
+            stack.spacing = 4
+            return stack
+        }()
+        
+        
+        let middleStackView: UIStackView = {
+            let stack = UIStackView(arrangedSubviews: [englishWordLabel, mandarinWordLabel])
+            stack.translatesAutoresizingMaskIntoConstraints = false
+            stack.axis = .vertical
+            stack.distribution = .fillEqually
+            stack.spacing = 8
+            return stack
+        }()
+        
         addSubview(heartButton)
+        addSubview(topStackView)
+        addSubview(middleStackView)
+        addSubview(sentenceLabel)
+        
+        NSLayoutConstraint.activate([
+            heartButton.topAnchor.constraint(equalTo: topAnchor, constant: 32),
+            heartButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
+            heartButton.widthAnchor.constraint(equalToConstant: 50),
+            heartButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            topStackView.topAnchor.constraint(equalTo: topAnchor, constant: 32),
+            topStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
+            topStackView.trailingAnchor.constraint(equalTo: heartButton.leadingAnchor, constant: -16),
+            topStackView.heightAnchor.constraint(equalToConstant: 120),
+            
+            middleStackView.topAnchor.constraint(equalTo: topStackView.bottomAnchor, constant: 32),
+            middleStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
+            middleStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
+            middleStackView.heightAnchor.constraint(equalToConstant: 80),
+            
+            sentenceLabel.topAnchor.constraint(equalTo: middleStackView.bottomAnchor, constant: 32),
+            sentenceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
+            sentenceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
+            sentenceLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -32)
+            ])
 
-        addConstraintsWithFormat(format: "H:|-32-[v0]-8-[v1(80)]|", views: cantoWordLabel, classifierLabel)
-        addConstraintsWithFormat(format: "H:|-32-[v0]-8-[v1(80)]|", views: jyutpingLabel,wordTypeLabel)
-        addConstraintsWithFormat(format: "H:|-32-[v0]-32-|", views: englishWordLabel)
-        addConstraintsWithFormat(format: "H:|-32-[v0]-32-|", views: mandarinWordLabel)
-        addConstraintsWithFormat(format: "H:|-32-[v0]-32-|", views: cantoSentenceLabel)
-        addConstraintsWithFormat(format: "H:|-32-[v0]-32-|", views: jyutpingSentenceLabel)
-        addConstraintsWithFormat(format: "H:|-32-[v0]-32-|", views: englishSentenceLabel)
-
-        addConstraintsWithFormat(format: "V:|-32-[v0(30)]-8-[v1(30)]-48-[v2(30)]-8-[v3(30)]-48-[v4(44)]-8-[v5(44)]-8-[v6(44)]", views: cantoWordLabel, jyutpingLabel, englishWordLabel, mandarinWordLabel, cantoSentenceLabel, jyutpingSentenceLabel, englishSentenceLabel)
-        addConstraintsWithFormat(format: "V:|-32-[v0(30)]-8-[v1(30)]", views: classifierLabel, wordTypeLabel)
-
-        addConstraintsWithFormat(format: "H:[v0]-32-|", views: heartButton)
-        addConstraintsWithFormat(format: "V:[v0]-32-|", views: heartButton)
         
 
     }

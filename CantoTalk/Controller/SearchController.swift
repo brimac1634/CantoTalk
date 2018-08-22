@@ -114,6 +114,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         }
     }
     
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         entries = homeController?.mainRealm.objects(Entries.self)
         searchBar.text = ""
