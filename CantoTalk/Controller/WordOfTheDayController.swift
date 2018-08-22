@@ -15,9 +15,6 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     var lastDate: Date?
     var testArray: [Int]?
 
-    
-    
-    
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -26,6 +23,7 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
         cv.backgroundColor = UIColor.cantoWhite(a: 1)
         cv.showsHorizontalScrollIndicator = false
         cv.isPagingEnabled = true
+        cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
     }()
 
@@ -47,8 +45,12 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
         view.backgroundColor = UIColor.cantoWhite(a: 1)
         view.addSubview(collectionView)
         
-        view.addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
-        view.addConstraintsWithFormat(format: "V:|-16-[v0]-16-|", views: collectionView)
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 16)
+            ])
         
         collectionView.dataSource = self
         collectionView.delegate = self

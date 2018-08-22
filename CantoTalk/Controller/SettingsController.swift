@@ -24,6 +24,7 @@ class SettingsController: UIViewController, UITableViewDataSource, UITableViewDe
         let tv = UITableView()
         tv.backgroundColor = UIColor.cantoLightBlue(a: 1)
         tv.separatorStyle = .none
+        tv.translatesAutoresizingMaskIntoConstraints = false
         tv.delegate = self
         tv.dataSource = self
         return tv
@@ -55,12 +56,14 @@ class SettingsController: UIViewController, UITableViewDataSource, UITableViewDe
             logo.contentMode = .scaleAspectFill
             logo.layer.cornerRadius = diameter / 2
             logo.layer.masksToBounds = true
+            logo.translatesAutoresizingMaskIntoConstraints = false
             return logo
         }()
         
         
         view.addSubview(logoView)
         view.addSubview(tableView)
+        
         
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: tableView)
         view.addConstraintsWithFormat(format: "H:[v0(\(diameter))]", views: logoView)
