@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import RealmSwift
 
 class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
  
     let cellID = "cellID"
-    var currentDate: Date?
     var lastDate: Date?
-    var testArray: [Int]?
+    var wordOfTheDayArray: [Int]?
+    var numberOfEntries: Int?
 
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -27,14 +28,43 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
         return cv
     }()
 
+    var entries: Results<Entries>? {
+        didSet {
+            if let entry = entries {
+                numberOfEntries = entry.count
+            }
+            
+        }
+    }
     
     override func viewDidLoad() {
-        testArray = [0, 1, 2, 3, 4]
+        let currentDate = Date()
+
+        if let entryList = entries {
+            if lastDate == currentDate {
+                return
+            } else {
+                if let pastDate = lastDate {
+                    let dayDifference = currentDate.interval(ofComponent: .day, fromDate: pastDate)
+                    for n in 0...dayDifference - 1 {
+                        let randomID = Int(arc4random_uniform(UInt32(entryList.count)))
+                        let wordOfTheDay = entryList.filter("entryID = \(randomID)").first
+                        print(wordOfTheDay)
+                        
+                    }
+                    
+                }
+                
+            }
+        }
+        
+        wordOfTheDayArray = [0, 1, 2, 3, 4]
+        
         setupCollectionView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if let numberOfEntries = testArray?.count {
+        if let numberOfEntries = wordOfTheDayArray?.count {
             let lastItemIndex = IndexPath(item: numberOfEntries - 1, section: 0)
             collectionView.scrollToItem(at: lastItemIndex, at: .right, animated: false)
         }
@@ -49,7 +79,7 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
             collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 16)
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
             ])
         
         collectionView.dataSource = self
@@ -63,7 +93,7 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return testArray?.count ?? 0
+        return wordOfTheDayArray?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
