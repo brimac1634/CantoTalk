@@ -53,24 +53,27 @@ class HomeController: UIViewController {
     }
     
     func showIconAnimation() {
-        if let window = UIApplication.shared.keyWindow {
-            let imageView = UIImageView()
-            imageView.image = UIImage(named: "CantoTalkIcon")
-            let imageDiameter = (window.frame.width / 2)
-            imageView.frame.size = CGSize(width: imageDiameter, height: imageDiameter)
-            imageView.center.x = window.frame.width / 2
-            imageView.center.y = (window.frame.height / 2) - (imageDiameter / 2)
-            imageView.contentMode = .scaleAspectFill
-            imageView.layer.cornerRadius = imageView.frame.size.width / 2
-            imageView.layer.masksToBounds = true
+        let imageView = UIImageView(image: #imageLiteral(resourceName: "CantoTalkIcon"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.frame.size.width = view.frame.width / 2
+        imageView.layer.cornerRadius = imageView.frame.size.width / 2
+        imageView.layer.masksToBounds = true
+        
+        view.addSubview(imageView)
+        
+        NSLayoutConstraint.activate([
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5)
+            ])
+        
+        
+        UIView.animate(withDuration: 1, delay: 1, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveLinear, animations: {
+            imageView.alpha = 0
             
-            view.addSubview(imageView)
-            
-            UIView.animate(withDuration: 1, delay: 1, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveLinear, animations: {
-                imageView.alpha = 0
-                
-            }, completion: nil)
-        }
+        }, completion: nil)
+        
     }
     
     func setupViewControllers() {

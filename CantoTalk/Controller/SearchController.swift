@@ -118,11 +118,6 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         
     }
     
-//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-//        entries = homeController?.mainRealm.objects(Entries.self)
-//        searchBar.text = ""
-//        searchBar.showsCancelButton = false
-//    }
     
     
 }

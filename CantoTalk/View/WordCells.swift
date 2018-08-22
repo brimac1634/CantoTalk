@@ -14,10 +14,14 @@ class WordCells: BaseCell {
     var selectedEntry: Entries? {
         didSet {
             if let entry = selectedEntry {
-                cantoWordLabel.text = entry.cantoWord
-                classifierLabel.text = entry.classifier
+                let cantoWordText = NSMutableAttributedString(string: entry.cantoWord, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 25), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
+                if entry.classifier != "" {
+                    cantoWordText.append(NSAttributedString(string: " (cl:\(entry.classifier))", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+                }
+                
+                
+                cantoWordLabel.attributedText = cantoWordText
                 jyutpingLabel.text = entry.jyutping
-                wordTypeLabel.text = entry.wordType
                 englishWordLabel.text = "En: \(entry.englishWord)"
                 mandarinWordLabel.text = "普: \(entry.mandarinWord)"
             }
@@ -25,67 +29,47 @@ class WordCells: BaseCell {
     }
     
     
-    let cantoWordLabel: UILabel = {
-        let label = UILabel()
-        label.text = "單車"
-        label.font = UIFont.boldSystemFont(ofSize: 25)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.adjustsFontSizeToFitWidth = true
-        label.textColor = UIColor.cantoDarkBlue(a: 1)
+    let cantoWordLabel: UITextView = {
+        let label = UITextView()
+        label.isEditable = false
+        label.isScrollEnabled = false
+        label.isUserInteractionEnabled = false
+        label.backgroundColor = UIColor.cantoWhite(a: 1)
         return label
     }()
     
-    let classifierLabel: UILabel = {
-        let label = UILabel()
-        label.text = "(cl:架 ga3)"
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.translatesAutoresizingMaskIntoConstraints = false
+    let englishWordLabel: UITextView = {
+        let label = UITextView()
+        label.isEditable = false
+        label.isScrollEnabled = false
+        label.isUserInteractionEnabled = false
+        label.font = UIFont.systemFont(ofSize: 18)
         label.backgroundColor = UIColor.cantoWhite(a: 1)
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
     
-    let englishWordLabel: UILabel = {
-        let label = UILabel()
-        label.text = "En: bicycle"
-        label.adjustsFontSizeToFitWidth = true
+    let mandarinWordLabel: UITextView = {
+        let label = UITextView()
+        label.isEditable = false
+        label.isScrollEnabled = false
+        label.isUserInteractionEnabled = false
         label.font = UIFont.systemFont(ofSize: 18)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.cantoDarkBlue(a: 1)
-        label.numberOfLines = 1
-        return label
-    }()
-    
-    let mandarinWordLabel: UILabel = {
-        let label = UILabel()
-        label.text = "普: 自行車"
-        label.adjustsFontSizeToFitWidth = true
-        label.font = UIFont.systemFont(ofSize: 18)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.cantoDarkBlue(a: 1)
-        label.numberOfLines = 1
-        return label
-    }()
-    
-    let jyutpingLabel: UILabel = {
-        let label = UILabel()
-        label.text = "daan1 che1"
-        label.adjustsFontSizeToFitWidth = true
-        label.textColor = UIColor.cantoDarkBlue(a: 1)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let wordTypeLabel: UILabel = {
-        let label = UILabel()
-        label.text = "noun"
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = UIColor.cantoWhite(a: 1)
-        label.textColor = UIColor.cantoLightBlue(a: 1)
+        label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
     
+    let jyutpingLabel: UITextView = {
+        let label = UITextView()
+        label.isEditable = false
+        label.isScrollEnabled = false
+        label.isUserInteractionEnabled = false
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.backgroundColor = UIColor.cantoWhite(a: 1)
+        label.textColor = UIColor.cantoDarkBlue(a: 1)
+        return label
+    }()
     
     let separatorView: UIView = {
         let view = UIView()
@@ -94,45 +78,38 @@ class WordCells: BaseCell {
         return view
     }()
     
-   let halfCellWidth = UIScreen.main.bounds.width / 2
     
     override func setupViews() {
+        let view3 = UIView()
+        view3.backgroundColor = .blue
         
-        let topLeftContainer = UIView()
-        let topRightContainer = UIView()
-        let bottomLeftContainer = UIView()
-        let bottomRightContainer = UIView()
-
-        let topStackView = UIStackView(arrangedSubviews: [topLeftContainer, topRightContainer])
-        let bottomStackView = UIStackView(arrangedSubviews: [bottomLeftContainer, bottomRightContainer])
+        let topStackView = UIStackView(arrangedSubviews: [cantoWordLabel, englishWordLabel])
+        let bottomStackView = UIStackView(arrangedSubviews: [jyutpingLabel, mandarinWordLabel])
+        bottomStackView.translatesAutoresizingMaskIntoConstraints = false
         topStackView.distribution = .fillEqually
         bottomStackView.distribution = .fillEqually
         
         let cellStackView = UIStackView(arrangedSubviews: [topStackView, bottomStackView])
         cellStackView.distribution = .fillEqually
+        cellStackView.spacing = 0
         cellStackView.translatesAutoresizingMaskIntoConstraints = false
         cellStackView.axis = .vertical
         
         addSubview(cellStackView)
+        addSubview(separatorView)
         
         NSLayoutConstraint.activate([
-            cellStackView.topAnchor.constraint(equalTo: topAnchor),
-            cellStackView.leftAnchor.constraint(equalTo: leftAnchor),
-            cellStackView.rightAnchor.constraint(equalTo: rightAnchor),
-            cellStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 1)
+            
+            cellStackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            cellStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            cellStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            cellStackView.heightAnchor.constraint(equalToConstant: 89),
+            
+            separatorView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            separatorView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            separatorView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            separatorView.heightAnchor.constraint(equalToConstant: 1)
             ])
-        
-        
-        topLeftContainer.addSubview(cantoWordLabel)
-        topLeftContainer.addSubview(classifierLabel)
-        bottomLeftContainer.addSubview(jyutpingLabel)
-        bottomLeftContainer.addSubview(wordTypeLabel)
-        topRightContainer.addSubview(englishWordLabel)
-        bottomRightContainer.addSubview(mandarinWordLabel)
-        addSubview(separatorView)
-
-
-        
 
 
 //
