@@ -26,8 +26,6 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
         cv.backgroundColor = UIColor.cantoWhite(a: 1)
         cv.showsHorizontalScrollIndicator = false
         cv.isPagingEnabled = true
-//        cv.contentInset = UIEdgeInsetsMake(0, 8, 0, 8)
-//        cv.contentMode = .center
         return cv
     }()
 

@@ -25,10 +25,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let statusBarBackgroundView = UIView()
         statusBarBackgroundView.backgroundColor = UIColor.cantoDarkBlue(a: 1)
-        window?.addSubview(statusBarBackgroundView)
-        window?.addConstraintsWithFormat(format: "H:|[v0]|", views: statusBarBackgroundView)
-        window?.addConstraintsWithFormat(format: "V:|[v0(20)]", views: statusBarBackgroundView)
-             
+        if let view = window {
+            view.addSubview(statusBarBackgroundView)
+            statusBarBackgroundView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+            statusBarBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+            statusBarBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+            statusBarBackgroundView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        }
+        
+//        window?.addConstraintsWithFormat(format: "H:|[v0]|", views: statusBarBackgroundView)
+//        window?.addConstraintsWithFormat(format: "V:|[v0(20)]", views: statusBarBackgroundView)
+        
         return true
     }
     

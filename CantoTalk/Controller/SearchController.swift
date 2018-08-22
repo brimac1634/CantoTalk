@@ -64,6 +64,8 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
 
     //MARK: - CollectionView Methods
     
+
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if searchBar.isFirstResponder == true {
             searchBar.resignFirstResponder()

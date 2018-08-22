@@ -14,6 +14,7 @@ class MenuBar: BaseView, UICollectionViewDataSource, UICollectionViewDelegate, U
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = UIColor.cantoDarkBlue(a: 1)
+        cv.translatesAutoresizingMaskIntoConstraints = false
         cv.delegate = self
         cv.dataSource = self
         return cv
@@ -24,22 +25,30 @@ class MenuBar: BaseView, UICollectionViewDataSource, UICollectionViewDelegate, U
     var homeController: HomeController?
     
     override func setupViews() {
+        setupMenuBar()
+        setupHorizontalBar()
+    }
+    
+    
+    private func setupMenuBar() {
         collectionView.register(MenuCell.self, forCellWithReuseIdentifier: cellID)
         
         addSubview(collectionView)
         
-        addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
-        addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            ])
         
         let selectedIndexPath = IndexPath(item: 0, section: 0)
         collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .bottom)
-        
-        setupHorizontalBar()
     }
 
     var horizontalBarLeftAnchorConstraint: NSLayoutConstraint?
     
-    func setupHorizontalBar() {
+    private func setupHorizontalBar() {
         let horizontalBar = UIView()
         horizontalBar.backgroundColor = UIColor.cantoPink(a: 1)
         horizontalBar.translatesAutoresizingMaskIntoConstraints = false
@@ -54,6 +63,8 @@ class MenuBar: BaseView, UICollectionViewDataSource, UICollectionViewDelegate, U
         
         
     }
+    
+    //MARK: - CollectionView Methods
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let x = CGFloat(indexPath.item) * (frame.width / 4)
@@ -94,6 +105,7 @@ class MenuCell: BaseCell {
     let imageView: UIImageView = {
         let iv = UIImageView()
         iv.tintColor = UIColor.cantoWhite(a: 1)
+        iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
 
@@ -116,10 +128,13 @@ class MenuCell: BaseCell {
         
         addSubview(imageView)
         
-        addConstraintsWithFormat(format: "H:[v0(28)]", views: imageView)
-        addConstraintsWithFormat(format: "V:[v0(28)]", views: imageView)
+        NSLayoutConstraint.activate([
+            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: 28),
+            imageView.heightAnchor.constraint(equalToConstant: 28)
+            ])
         
-        addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
-        addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
+
     }
 }

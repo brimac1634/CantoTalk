@@ -42,15 +42,7 @@ extension UIColor {
     }
 }
 
-extension UIViewController {
-    var compatibleSafeInsets: UIEdgeInsets {
-        if #available(iOS 11, *) {
-            return view.safeAreaInsets
-        } else {
-            return UIEdgeInsetsMake(topLayoutGuide.length, 0, bottomLayoutGuide.length, 0)
-        }
-    }
-}
+
 
 
 

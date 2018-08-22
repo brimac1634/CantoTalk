@@ -19,6 +19,7 @@ class WordOfTheDayCells: BaseCell {
         view.layer.shadowOffset = CGSize(width: -1, height: 1)
         view.layer.shadowRadius = 5
         view.layer.shadowOpacity = 0.5
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -27,6 +28,13 @@ class WordOfTheDayCells: BaseCell {
         super.setupViews()
         
         addSubview(entryView)
+        
+        NSLayoutConstraint.activate([
+            entryView.topAnchor.constraint(equalTo: topAnchor),
+            entryView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            entryView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            entryView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            ])
         
         addConstraintsWithFormat(format: "H:|[v0]|", views: entryView)
         addConstraintsWithFormat(format: "V:|[v0]|", views: entryView)

@@ -22,7 +22,7 @@ class HomeController: UIViewController {
     var settingsController: SettingsController!
     
     var viewControllers: [UIViewController]!
-    let pageTitles = ["Search", "Favorites", "Word of the Day", "Settings"]
+    let pageTitles = ["CantoTalk", "Favorites", "Word of the Day", "Settings"]
     
     var lastVCIndex: Int = 0
     var titleLabel: UILabel?
@@ -103,10 +103,10 @@ class HomeController: UIViewController {
         titleLabel = UILabel(frame: CGRect(x: view.frame.width / 2, y: 0, width: view.frame.width - 32, height: view.frame.height))
         
         if let title = titleLabel {
-            title.text = "Search"
+            title.text = pageTitles[0]
             title.textAlignment = .center
             title.textColor = UIColor.cantoPink(a: 1)
-            title.font = UIFont.boldSystemFont(ofSize: 20)
+            title.font = UIFont(name: "SFProDisplay-Medium", size: 20)
             navigationItem.titleView = title
         }
    
