@@ -19,6 +19,13 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     var lastDate: Date?
     var lastDateString: String?
     var numberOfEntries: Int?
+    
+    let backgroundImage: UIImageView = {
+        let image = UIImageView(image: #imageLiteral(resourceName: "WaveBackground"))
+        image.contentMode = .scaleAspectFill
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
 
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -42,7 +49,7 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     override func viewDidLoad() {
-        setupCollectionView()
+        setupView()
         loadWordOfTheDay()
         updateData()
     }
@@ -101,11 +108,17 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
         }
     }
 
-    private func setupCollectionView() {
+    private func setupView() {
         view.backgroundColor = UIColor.cantoWhite(a: 1)
+//        view.addSubview(backgroundImage)
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
+//            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
+//            backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
             collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
