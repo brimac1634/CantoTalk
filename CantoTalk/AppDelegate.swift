@@ -33,8 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             statusBarBackgroundView.heightAnchor.constraint(equalToConstant: 20).isActive = true
         }
         
-//        window?.addConstraintsWithFormat(format: "H:|[v0]|", views: statusBarBackgroundView)
-//        window?.addConstraintsWithFormat(format: "V:|[v0(20)]", views: statusBarBackgroundView)
+//        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
         
         return true
     }

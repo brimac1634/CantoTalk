@@ -11,11 +11,13 @@ import RealmSwift
 
 class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
  
+    let defaults = UserDefaults.standard
     
     var homeController: HomeController?
     var wordOfTheDay: Results<WordOfTheDay>?
     let cellID = "cellID"
     var lastDate: Date?
+    var lastDateString: String?
     var numberOfEntries: Int?
 
     let collectionView: UICollectionView = {
@@ -40,8 +42,9 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     override func viewDidLoad() {
-        loadWordOfTheDay()
         setupCollectionView()
+        loadWordOfTheDay()
+        updateData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -52,28 +55,56 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
 
     }
     
-    func loadWordOfTheDay() {
+    private func updateData() {
+        if let userRealm = homeController?.userRealm {
+            wordOfTheDay = userRealm.objects(WordOfTheDay.self)
+        }
+    }
+    
+    private func loadWordOfTheDay() {
+
         guard let userRealm = homeController?.userRealm else {return}
         let currentDate = Date()
+//        let now = Calendar.current.date(byAdding: .day, value: +3, to: Date())
+//        print(now)
+//        guard let currentDate = now else {return}
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = DateFormatter.Style.none
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        let currentDateString = dateFormatter.string(from: currentDate)
+        
+        lastDateString = defaults.string(forKey: "lastDateString")
+        if let dateString = lastDateString {
+            lastDate = dateFormatter.date(from: dateString)
+        }
+        
+        
 
-        if lastDate == nil {
-            createWordOfTheDay(date: currentDate, userRealm: userRealm)
-        } else if lastDate == currentDate {
+        
+        if lastDateString == nil {
+            createWordOfTheDay(date: currentDateString, userRealm: userRealm)
+            lastDateString = currentDateString
+            defaults.set(self.lastDateString, forKey: "lastDateString")
+        } else if lastDateString == currentDateString {
             return
         } else {
             guard let pastDate = lastDate else {return}
-            let dayDifference = currentDate.interval(ofComponent: .day, fromDate: pastDate)
-            for n in dayDifference...0 {
+            let dayDifference = (currentDate.interval(ofComponent: .day, fromDate: pastDate)) - 1
+            print(dayDifference)
+            for n in (0...dayDifference).reversed() {
                 guard let date = Calendar.current.date(byAdding: .day, value: -n, to: currentDate) else {return}
-                print(date)
-                createWordOfTheDay(date: date, userRealm: userRealm)
+                let dateFormatter = DateFormatter()
+                dateFormatter.timeStyle = DateFormatter.Style.none
+                dateFormatter.dateStyle = DateFormatter.Style.medium
+                let dateString = dateFormatter.string(from: date)
+                createWordOfTheDay(date: dateString, userRealm: userRealm)
             }
+            lastDateString = currentDateString
+            defaults.set(self.lastDateString, forKey: "lastDateString")
         }
-        
-        wordOfTheDay = userRealm.objects(WordOfTheDay.self)
     }
 
-    func setupCollectionView() {
+    private func setupCollectionView() {
         view.backgroundColor = UIColor.cantoWhite(a: 1)
         view.addSubview(collectionView)
         
@@ -92,12 +123,11 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     }
 
 
-    func createWordOfTheDay(date: Date, userRealm: Realm) {
+    func createWordOfTheDay(date: String, userRealm: Realm) {
         
         guard let entryList = entries else {return}
-        let randomID = Int(arc4random_uniform(UInt32(entryList.count)))
-        guard let newWord = entryList.filter("entryID = \(randomID)").first else {return}
-        
+        let randomID = arc4random_uniform(UInt32(entryList.count))
+        guard let newWord = entryList.filter("entryID = \(String(randomID))").first else {return}
         do {
             try userRealm.write {
                 let newWOD = WordOfTheDay()
@@ -126,8 +156,8 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! WordOfTheDayCells
-        if let entry = entries?[indexPath.item] {
-            cell.entryView.selectedEntry = entry
+        if let entry = wordOfTheDay?[indexPath.item] {
+            cell.entryView.selectedWordOfTheDay = entry
         }
         return cell
     }

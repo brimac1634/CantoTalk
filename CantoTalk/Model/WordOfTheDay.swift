@@ -20,6 +20,6 @@ class WordOfTheDay: Object {
     @objc dynamic var cantoSentence : String = ""
     @objc dynamic var jyutpingSentence : String = ""
     @objc dynamic var englishSentence : String = ""
-    @objc dynamic var dateAdded: Date?
+    @objc dynamic var dateAdded : String = ""
     
 }
