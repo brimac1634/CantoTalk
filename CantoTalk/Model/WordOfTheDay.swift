@@ -1,15 +1,15 @@
 //
-//  DictionaryModel.swift
+//  WordOfTheDayEntries.swift
 //  CantoTalk
 //
-//  Created by Brian MacPherson on 3/8/2018.
+//  Created by Brian MacPherson on 22/8/2018.
 //  Copyright © 2018 Brian MacPherson. All rights reserved.
 //
 
 import Foundation
 import RealmSwift
 
-class Entries: Object {
+class WordOfTheDay: Object {
     @objc dynamic var entryID : Int = 0
     @objc dynamic var cantoWord : String = ""
     @objc dynamic var jyutping : String = ""
@@ -20,7 +20,6 @@ class Entries: Object {
     @objc dynamic var cantoSentence : String = ""
     @objc dynamic var jyutpingSentence : String = ""
     @objc dynamic var englishSentence : String = ""
-    @objc dynamic var dateFavorited : String = ""
+    @objc dynamic var dateAdded: Date?
     
 }
-

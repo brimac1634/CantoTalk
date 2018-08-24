@@ -67,7 +67,7 @@ class FavoritesController: SearchController  {
     override func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchBar.showsCancelButton = true
         if searchBar.text?.count == 0 {
-            favoritesEntries = homeController?.favoritesRealm.objects(Entries.self)
+            favoritesEntries = homeController?.userRealm.objects(Entries.self)
         } else {
             favoritesEntries = favoritesEntries?.filter("jyutping CONTAINS[cd] %@ OR englishWord CONTAINS[cd] %@ OR cantoWord CONTAINS[cd] %@ OR mandarinWord CONTAINS[cd] %@", searchBar.text!, searchBar.text!, searchBar.text!, searchBar.text!).sorted(byKeyPath: "englishWord", ascending: true)
         }

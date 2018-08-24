@@ -11,9 +11,11 @@ import RealmSwift
 
 class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
  
+    
+    var homeController: HomeController?
+    var wordOfTheDay: Results<WordOfTheDay>?
     let cellID = "cellID"
     var lastDate: Date?
-    var wordOfTheDayArray: [Int]?
     var numberOfEntries: Int?
 
     let collectionView: UICollectionView = {
@@ -38,37 +40,37 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     override func viewDidLoad() {
-        let currentDate = Date()
-
-        if let entryList = entries {
-            if lastDate == currentDate {
-                return
-            } else {
-                if let pastDate = lastDate {
-                    let dayDifference = currentDate.interval(ofComponent: .day, fromDate: pastDate)
-                    for n in 0...dayDifference - 1 {
-                        let randomID = Int(arc4random_uniform(UInt32(entryList.count)))
-                        let wordOfTheDay = entryList.filter("entryID = \(randomID)").first
-                        print(wordOfTheDay)
-                        
-                    }
-                    
-                }
-                
-            }
-        }
-        
-        wordOfTheDayArray = [0, 1, 2, 3, 4]
-        
+        loadWordOfTheDay()
         setupCollectionView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if let numberOfEntries = wordOfTheDayArray?.count {
+        if let numberOfEntries = wordOfTheDay?.count {
             let lastItemIndex = IndexPath(item: numberOfEntries - 1, section: 0)
             collectionView.scrollToItem(at: lastItemIndex, at: .right, animated: false)
         }
 
+    }
+    
+    func loadWordOfTheDay() {
+        guard let userRealm = homeController?.userRealm else {return}
+        let currentDate = Date()
+
+        if lastDate == nil {
+            createWordOfTheDay(date: currentDate, userRealm: userRealm)
+        } else if lastDate == currentDate {
+            return
+        } else {
+            guard let pastDate = lastDate else {return}
+            let dayDifference = currentDate.interval(ofComponent: .day, fromDate: pastDate)
+            for n in dayDifference...0 {
+                guard let date = Calendar.current.date(byAdding: .day, value: -n, to: currentDate) else {return}
+                print(date)
+                createWordOfTheDay(date: date, userRealm: userRealm)
+            }
+        }
+        
+        wordOfTheDay = userRealm.objects(WordOfTheDay.self)
     }
 
     func setupCollectionView() {
@@ -90,14 +92,43 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     }
 
 
+    func createWordOfTheDay(date: Date, userRealm: Realm) {
+        
+        guard let entryList = entries else {return}
+        let randomID = Int(arc4random_uniform(UInt32(entryList.count)))
+        guard let newWord = entryList.filter("entryID = \(randomID)").first else {return}
+        
+        do {
+            try userRealm.write {
+                let newWOD = WordOfTheDay()
+                newWOD.dateAdded = date
+                newWOD.entryID = newWord.entryID
+                newWOD.cantoWord = newWord.cantoWord
+                newWOD.classifier = newWord.classifier
+                newWOD.jyutping = newWord.jyutping
+                newWOD.wordType = newWord.wordType
+                newWOD.englishWord = newWord.englishWord
+                newWOD.mandarinWord = newWord.mandarinWord
+                newWOD.cantoSentence = newWord.cantoSentence
+                newWOD.jyutpingSentence = newWord.jyutpingSentence
+                newWOD.englishSentence = newWord.englishSentence
+                userRealm.add(newWOD)
+            }
+        } catch {
+            print(error)
+        }
+    }
     
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return wordOfTheDayArray?.count ?? 0
+        return wordOfTheDay?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! WordOfTheDayCells
+        if let entry = entries?[indexPath.item] {
+            cell.entryView.selectedEntry = entry
+        }
         return cell
     }
 

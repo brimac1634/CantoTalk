@@ -12,7 +12,7 @@ import RealmSwift
 class HomeController: UIViewController {
 
     let mainRealm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: true))
-    let favoritesRealm = try! Realm()
+    let userRealm = try! Realm()
     
 
 
@@ -81,6 +81,7 @@ class HomeController: UIViewController {
         searchController.homeController = self
         favoritesController = FavoritesController()
         wordOfTheDayController = WordOfTheDayController()
+        wordOfTheDayController.homeController = self
         settingsController = SettingsController()
         
         viewControllers = [searchController, favoritesController, wordOfTheDayController, settingsController]
@@ -89,7 +90,7 @@ class HomeController: UIViewController {
     func loadData() {
         searchController.entries = mainRealm.objects(Entries.self)
         wordOfTheDayController.entries = mainRealm.objects(Entries.self)
-        favoritesController.favoritesEntries = favoritesRealm.objects(Entries.self).sorted(byKeyPath: "dateFavorited", ascending: false)
+        favoritesController.favoritesEntries = userRealm.objects(Entries.self).sorted(byKeyPath: "dateFavorited", ascending: false)
     
     }
     

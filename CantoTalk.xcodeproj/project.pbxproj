@@ -15,6 +15,7 @@
 		D2A40EF3212D4DD000EE39C5 /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D2A40EF2212D4DD000EE39C5 /* default.realm */; };
 		D2A40EF5212D68C600EE39C5 /* SF-Pro-Display-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D2A40EF4212D68C600EE39C5 /* SF-Pro-Display-Light.otf */; };
 		D2A40EF7212D6D1E00EE39C5 /* SF-Pro-Display-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D2A40EF6212D6D1E00EE39C5 /* SF-Pro-Display-Medium.otf */; };
+		D2A40EFB212DBF6D00EE39C5 /* WordOfTheDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A40EFA212DBF6D00EE39C5 /* WordOfTheDay.swift */; };
 		D2D45C71211D5EAD008A6CF7 /* WordOfTheDayCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D45C70211D5EAD008A6CF7 /* WordOfTheDayCells.swift */; };
 		D2D6A05321105AA4002E0CCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A05221105AA4002E0CCE /* AppDelegate.swift */; };
 		D2D6A05521105AA4002E0CCE /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A05421105AA4002E0CCE /* HomeController.swift */; };
@@ -42,6 +43,7 @@
 		D2A40EF2212D4DD000EE39C5 /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
 		D2A40EF4212D68C600EE39C5 /* SF-Pro-Display-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Light.otf"; sourceTree = "<group>"; };
 		D2A40EF6212D6D1E00EE39C5 /* SF-Pro-Display-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Medium.otf"; sourceTree = "<group>"; };
+		D2A40EFA212DBF6D00EE39C5 /* WordOfTheDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordOfTheDay.swift; sourceTree = "<group>"; };
 		D2D45C70211D5EAD008A6CF7 /* WordOfTheDayCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordOfTheDayCells.swift; sourceTree = "<group>"; };
 		D2D6A04F21105AA4002E0CCE /* CantoTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CantoTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2D6A05221105AA4002E0CCE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				D2D6A082211452A8002E0CCE /* Entries.swift */,
+				D2A40EFA212DBF6D00EE39C5 /* WordOfTheDay.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				D2D6A05321105AA4002E0CCE /* AppDelegate.swift in Sources */,
 				D2D6A08121144C78002E0CCE /* SlideUpViewController.swift in Sources */,
 				D2D6A083211452A8002E0CCE /* Entries.swift in Sources */,
+				D2A40EFB212DBF6D00EE39C5 /* WordOfTheDay.swift in Sources */,
 				D2E001522122849B0031553E /* SettingsCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
