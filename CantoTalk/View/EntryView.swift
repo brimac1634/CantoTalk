@@ -28,14 +28,15 @@ class EntryView: BaseView {
     var selectedWordOfTheDay: WordOfTheDay? {
         didSet {
             guard let entry = selectedWordOfTheDay else {return}
-            let cantoWordText = NSMutableAttributedString(string: entry.cantoWord, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
+            let topText = NSMutableAttributedString(string: entry.cantoWord, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
             if entry.classifier != "" {
-                cantoWordText.append(NSAttributedString(string: " (cl:\(entry.classifier))", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+                topText.append(NSAttributedString(string: " (cl:\(entry.classifier))", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
             }
-            cantoWordLabel.attributedText = cantoWordText
+            topText.append(NSAttributedString(string: "\n\(entry.jyutping)", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+            topText.append(NSAttributedString(string: "\n\(entry.wordType)", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.cantoLightBlue(a: 0.8)]))
             
-            jyutpingLabel.text = entry.jyutping
-            wordTypeLabel.text = entry.wordType
+            cantoWordLabel.attributedText = topText
+            
             
             let englishWordText = NSMutableAttributedString(string: "En: ", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.cantoLightBlue(a: 0.8)])
             englishWordText.append(NSAttributedString(string: entry.englishWord, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 25), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
@@ -63,14 +64,14 @@ class EntryView: BaseView {
     var selectedEntry: Entries? {
         didSet {
             guard let entry = selectedEntry else {return}
-            let cantoWordText = NSMutableAttributedString(string: entry.cantoWord, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
+            let topText = NSMutableAttributedString(string: entry.cantoWord, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
             if entry.classifier != "" {
-                cantoWordText.append(NSAttributedString(string: " (cl:\(entry.classifier))", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+                topText.append(NSAttributedString(string: " (cl:\(entry.classifier))", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
             }
-            cantoWordLabel.attributedText = cantoWordText
+            topText.append(NSAttributedString(string: "\n\(entry.jyutping)", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+            topText.append(NSAttributedString(string: "\n\(entry.wordType)", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.cantoLightBlue(a: 0.8)]))
             
-            jyutpingLabel.text = entry.jyutping
-            wordTypeLabel.text = entry.wordType
+            cantoWordLabel.attributedText = topText
             
             let englishWordText = NSMutableAttributedString(string: "En: ", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.cantoLightBlue(a: 0.8)])
             englishWordText.append(NSAttributedString(string: entry.englishWord, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 25), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
@@ -101,29 +102,10 @@ class EntryView: BaseView {
         label.isEditable = false
         label.isScrollEnabled = false
         label.backgroundColor = UIColor.cantoWhite(a: 1)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    
-    let jyutpingLabel: UITextView = {
-        let label = UITextView()
-        label.isEditable = false
-        label.isScrollEnabled = false
-        label.font = UIFont.systemFont(ofSize: 25)
-        label.backgroundColor = UIColor.cantoWhite(a: 1)
-        label.textColor = UIColor.cantoDarkBlue(a: 1)
-        return label
-    }()
-    
-    let wordTypeLabel: UITextView = {
-        let label = UITextView()
-        label.isEditable = false
-        label.isScrollEnabled = false
-        label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = UIColor.cantoLightBlue(a: 0.8)
-        label.backgroundColor = UIColor.cantoWhite(a: 1)
-        return label
-    }()
     
     let englishWordLabel: UITextView = {
         let label = UITextView()
@@ -212,17 +194,7 @@ class EntryView: BaseView {
 
 
     func setupView() {
-        
-        let topStackView: UIStackView = {
-            let stack = UIStackView(arrangedSubviews: [cantoWordLabel, jyutpingLabel, wordTypeLabel])
-            stack.translatesAutoresizingMaskIntoConstraints = false
-            stack.axis = .vertical
-            stack.distribution = .fillProportionally
-            stack.spacing = 4
-            return stack
-        }()
-        
-        
+
         let middleStackView: UIStackView = {
             let stack = UIStackView(arrangedSubviews: [englishWordLabel, mandarinWordLabel])
             stack.translatesAutoresizingMaskIntoConstraints = false
@@ -233,7 +205,7 @@ class EntryView: BaseView {
         }()
         
         addSubview(heartButton)
-        addSubview(topStackView)
+        addSubview(cantoWordLabel)
         addSubview(middleStackView)
         addSubview(sentenceLabel)
         
@@ -243,17 +215,17 @@ class EntryView: BaseView {
             heartButton.widthAnchor.constraint(equalToConstant: 50),
             heartButton.heightAnchor.constraint(equalToConstant: 50),
             
-            topStackView.topAnchor.constraint(equalTo: topAnchor, constant: 32),
-            topStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
-            topStackView.trailingAnchor.constraint(equalTo: heartButton.leadingAnchor, constant: -16),
-            topStackView.heightAnchor.constraint(equalToConstant: 120),
+            cantoWordLabel.topAnchor.constraint(equalTo: topAnchor, constant: 32),
+            cantoWordLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
+            cantoWordLabel.trailingAnchor.constraint(equalTo: heartButton.leadingAnchor, constant: -8),
+            cantoWordLabel.heightAnchor.constraint(equalToConstant: 140),
             
-            middleStackView.topAnchor.constraint(equalTo: topStackView.bottomAnchor, constant: 32),
+            middleStackView.topAnchor.constraint(equalTo: cantoWordLabel.bottomAnchor, constant: 16),
             middleStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
             middleStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
             middleStackView.heightAnchor.constraint(equalToConstant: 80),
             
-            sentenceLabel.topAnchor.constraint(equalTo: middleStackView.bottomAnchor, constant: 32),
+            sentenceLabel.topAnchor.constraint(equalTo: middleStackView.bottomAnchor, constant: 16),
             sentenceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
             sentenceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
             sentenceLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -32)

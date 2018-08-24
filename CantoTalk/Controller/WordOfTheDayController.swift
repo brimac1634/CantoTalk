@@ -78,9 +78,6 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
             lastDate = dateFormatter.date(from: dateString)
         }
         
-        
-
-        
         if lastDateString == nil {
             createWordOfTheDay(date: currentDateString, userRealm: userRealm)
             lastDateString = currentDateString
@@ -158,6 +155,7 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! WordOfTheDayCells
         if let entry = wordOfTheDay?[indexPath.item] {
             cell.entryView.selectedWordOfTheDay = entry
+            cell.dateText.text = entry.dateAdded
         }
         return cell
     }

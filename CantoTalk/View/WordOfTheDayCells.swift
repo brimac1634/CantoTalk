@@ -10,8 +10,8 @@ import UIKit
 
 class WordOfTheDayCells: BaseCell {
     
-    let entryView: EntryView = {
-        let view = EntryView()
+    let cellView: UIView = {
+        let view = UIView()
         view.backgroundColor = UIColor.cantoWhite(a: 1)
         view.layer.cornerRadius = 14
         view.clipsToBounds = true
@@ -23,20 +23,50 @@ class WordOfTheDayCells: BaseCell {
         return view
     }()
     
+    let dateText: UITextView = {
+        let label = UITextView()
+        label.isEditable = false
+        label.isScrollEnabled = false
+        label.backgroundColor = UIColor.cantoWhite(a: 1)
+        label.textColor = UIColor.cantoDarkBlue(a: 1)
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let entryView: EntryView = {
+        let view = EntryView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     
     override func setupViews() {
         super.setupViews()
         
-        addSubview(entryView)
+        addSubview(cellView)
+        cellView.addSubview(dateText)
+        cellView.addSubview(entryView)
         
         NSLayoutConstraint.activate([
-            entryView.topAnchor.constraint(equalTo: topAnchor),
-            entryView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            entryView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            entryView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            
+            cellView.topAnchor.constraint(equalTo: topAnchor),
+            cellView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            cellView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            cellView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            dateText.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 8),
+            dateText.leadingAnchor.constraint(equalTo: cellView.leadingAnchor),
+            dateText.trailingAnchor.constraint(equalTo: cellView.trailingAnchor),
+            dateText.heightAnchor.constraint(equalToConstant: 35),
+            
+            entryView.topAnchor.constraint(equalTo: dateText.bottomAnchor),
+            entryView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor),
+            entryView.trailingAnchor.constraint(equalTo: cellView.trailingAnchor),
+            entryView.bottomAnchor.constraint(equalTo: cellView.bottomAnchor)
+
             ])
         
-        addConstraintsWithFormat(format: "H:|[v0]|", views: entryView)
-        addConstraintsWithFormat(format: "V:|[v0]|", views: entryView)
     }
 }
