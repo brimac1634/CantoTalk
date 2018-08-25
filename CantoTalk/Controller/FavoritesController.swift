@@ -73,5 +73,12 @@ class FavoritesController: SearchController  {
         }
     }
     
+    override func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        favoritesEntries = homeController?.userRealm.objects(Entries.self)
+        searchBar.text = ""
+        searchBar.showsCancelButton = false
+        searchBar.resignFirstResponder()
+    }
+    
 
 }

@@ -8,22 +8,6 @@
 
 import UIKit
 
-extension UIView {
-    
-    func addConstraintsWithFormat(format: String, views: UIView...) {
-        var viewDictionary = [String: UIView]()
-        for (index, view) in views.enumerated() {
-            let key = "v\(index)"
-            view.translatesAutoresizingMaskIntoConstraints = false
-            viewDictionary[key] = view
-        }
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewDictionary))
-    }
-    
-    
-    
-}
-
 extension UIColor {
     static func cantoDarkBlue(a: CGFloat) -> UIColor {
         return UIColor(red: 6/255, green: 39/255, blue: 67/255, alpha: a)

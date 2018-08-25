@@ -21,8 +21,9 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     var numberOfEntries: Int?
     
     let backgroundImage: UIImageView = {
-        let image = UIImageView(image: #imageLiteral(resourceName: "WaveBackground"))
+        let image = UIImageView(image: #imageLiteral(resourceName: "WaveBackground3"))
         image.contentMode = .scaleAspectFill
+//        image.alpha = 0.8
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -30,9 +31,9 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 8
+        layout.minimumLineSpacing = 16
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = UIColor.cantoWhite(a: 1)
+        cv.backgroundColor = UIColor(white: 1, alpha: 0)
         cv.showsHorizontalScrollIndicator = false
         cv.isPagingEnabled = true
         cv.translatesAutoresizingMaskIntoConstraints = false
@@ -59,13 +60,14 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
             let lastItemIndex = IndexPath(item: numberOfEntries - 1, section: 0)
             collectionView.scrollToItem(at: lastItemIndex, at: .right, animated: false)
         }
-
+        updateData()
     }
     
     private func updateData() {
         if let userRealm = homeController?.userRealm {
             wordOfTheDay = userRealm.objects(WordOfTheDay.self)
         }
+        collectionView.reloadData()
     }
     
     private func loadWordOfTheDay() {
@@ -94,7 +96,7 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
         } else {
             guard let pastDate = lastDate else {return}
             let dayDifference = (currentDate.interval(ofComponent: .day, fromDate: pastDate)) - 1
-            print(dayDifference)
+            print("day difference: \(dayDifference)")
             for n in (0...dayDifference).reversed() {
                 guard let date = Calendar.current.date(byAdding: .day, value: -n, to: currentDate) else {return}
                 let dateFormatter = DateFormatter()
@@ -110,14 +112,14 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
 
     private func setupView() {
         view.backgroundColor = UIColor.cantoWhite(a: 1)
-//        view.addSubview(backgroundImage)
+        view.addSubview(backgroundImage)
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
-//            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
-//            backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -166,23 +168,27 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! WordOfTheDayCells
-        if let entry = wordOfTheDay?[indexPath.item] {
-            cell.entryView.selectedWordOfTheDay = entry
-            cell.dateText.text = entry.dateAdded
+        if let wordOfTheDayEntry = wordOfTheDay?[indexPath.item] {
+            if let entryList = entries {
+                let entry = entryList.filter("entryID = \(String(wordOfTheDayEntry.entryID))").first
+                cell.entryView.selectedEntry = entry
+                cell.dateText.text = wordOfTheDayEntry.dateAdded
+            }
+            
         }
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - 16, height: collectionView.frame.height - 16)
+        return CGSize(width: collectionView.frame.width - 32, height: collectionView.frame.height - 32)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 16
+        return 32
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(0, 8, 0, 8)
+        return UIEdgeInsetsMake(0, 16, 0, 16)
     }
 
 }

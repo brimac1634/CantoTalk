@@ -96,10 +96,11 @@ class HomeController: UIViewController {
     
     func setupNavBar() {
         
-        if let navBar = navigationController?.navigationBar {
-            navBar.barTintColor = UIColor.cantoDarkBlue(a: 1)
-            navBar.isTranslucent = false
-            navBar.tintColor = UIColor.cantoPink(a: 1)
+        if let navController = navigationController {
+            navController.navigationBar.barTintColor = UIColor.cantoDarkBlue(a: 1)
+            navController.navigationBar.isTranslucent = false
+            navController.navigationBar.tintColor = UIColor.cantoPink(a: 1)
+
         }
         
         titleLabel = UILabel(frame: CGRect(x: view.frame.width / 2, y: 0, width: view.frame.width - 32, height: view.frame.height))

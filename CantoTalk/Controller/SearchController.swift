@@ -15,6 +15,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = UIColor.cantoWhite(a: 1)
+        cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
     }()
     
@@ -25,6 +26,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         bar.tintColor = UIColor.cantoPink(a: 1)
         bar.autocorrectionType = .yes
         bar.delegate = self
+        bar.translatesAutoresizingMaskIntoConstraints = false
         return bar
     }()
     
@@ -50,9 +52,19 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         view.addSubview(collectionView)
         view.addSubview(searchBar)
         
-        view.addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
-        view.addConstraintsWithFormat(format: "H:|[v0]|", views: searchBar)
-        view.addConstraintsWithFormat(format: "V:|[v0(45)][v1]|", views: searchBar, collectionView)
+        NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalTo: view.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            searchBar.heightAnchor.constraint(equalToConstant: 45),
+            
+            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+        
+
         
         loadData()
     }

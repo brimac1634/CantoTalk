@@ -20,6 +20,10 @@ class Setting: NSObject {
 
 class SettingsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    let logoDiameter: CGFloat = 200
+    
+    
+    
     lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.backgroundColor = UIColor.cantoLightBlue(a: 1)
@@ -31,7 +35,7 @@ class SettingsController: UIViewController, UITableViewDataSource, UITableViewDe
     }()
     
     
-
+    
     let cellID = "cellID"
     let settings: [Setting] = {
         return [Setting(name: "Upgrades", imageName: "unlock"), Setting(name: "Trends", imageName: "trending"), Setting(name: "Request Words", imageName: "request"), Setting(name: "Notifications", imageName: "notification"), Setting(name: "Rate Us", imageName: "rate_us")]
@@ -47,29 +51,31 @@ class SettingsController: UIViewController, UITableViewDataSource, UITableViewDe
 
     func setupViews() {
         view.backgroundColor = UIColor.cantoLightBlue(a: 1)
-        let diameter = view.frame.width / 2
         
         let logoView: UIImageView = {
             let logo = UIImageView()
             logo.image = UIImage(named: "CantoTalkIcon")
-            logo.frame.size = CGSize(width: diameter, height: diameter)
-            logo.contentMode = .scaleAspectFill
-            logo.layer.cornerRadius = diameter / 2
+            logo.contentMode = .scaleAspectFit
+            logo.layer.cornerRadius = logoDiameter / 2
             logo.layer.masksToBounds = true
             logo.translatesAutoresizingMaskIntoConstraints = false
             return logo
         }()
         
-        
         view.addSubview(logoView)
         view.addSubview(tableView)
         
-        
-        view.addConstraintsWithFormat(format: "H:|[v0]|", views: tableView)
-        view.addConstraintsWithFormat(format: "H:[v0(\(diameter))]", views: logoView)
-        view.addConstraintsWithFormat(format: "V:|-16-[v0(\(diameter))]-16-[v1]|", views: logoView, tableView)
-        
-        view.addConstraint(NSLayoutConstraint(item: logoView, attribute: .centerX, relatedBy: .equal, toItem: tableView, attribute: .centerX, multiplier: 1, constant: 0))
+        NSLayoutConstraint.activate([
+            logoView.widthAnchor.constraint(equalToConstant: logoDiameter),
+            logoView.heightAnchor.constraint(equalToConstant: logoDiameter),
+            logoView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            logoView.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
+            
+            tableView.topAnchor.constraint(equalTo: logoView.bottomAnchor, constant: 16),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
+            ])
 
         
         tableView.register(SettingCell.self, forCellReuseIdentifier: cellID)

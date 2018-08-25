@@ -33,6 +33,7 @@ class SettingCell: UITableViewCell {
         let image = UIImageView()
         image.image = UIImage(named: "notification")?.withRenderingMode(.alwaysTemplate)
         image.contentMode = .scaleAspectFill
+        image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     
@@ -40,6 +41,7 @@ class SettingCell: UITableViewCell {
         let label = UILabel()
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         label.font = UIFont.systemFont(ofSize: 13)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -53,11 +55,16 @@ class SettingCell: UITableViewCell {
         addSubview(cellImage)
         addSubview(cellTitleLabel)
         
-        addConstraintsWithFormat(format: "H:|-8-[v0(30)]-16-[v1]-8-|", views: cellImage, cellTitleLabel)
-        addConstraintsWithFormat(format: "V:[v0(30)]", views: cellImage)
-        addConstraintsWithFormat(format: "V:|[v0]|", views: cellTitleLabel)
+        NSLayoutConstraint.activate([
+            cellImage.widthAnchor.constraint(equalToConstant: 30),
+            cellImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            cellImage.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
+            cellTitleLabel.leadingAnchor.constraint(equalTo: cellImage.trailingAnchor, constant: 16),
+            cellTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            cellTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+            ])
         
-        addConstraint(NSLayoutConstraint(item: cellImage, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
     }
     
     required init?(coder aDecoder: NSCoder) {
