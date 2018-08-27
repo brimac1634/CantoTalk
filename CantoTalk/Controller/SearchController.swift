@@ -19,6 +19,14 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         return cv
     }()
     
+    let searchHistory: SearchHistoryView = {
+        let view = SearchHistoryView()
+        view.backgroundColor = UIColor.cantoWhite(a: 1)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    
     lazy var searchBar: UISearchBar = {
         let bar = UISearchBar()
         bar.placeholder = "English/Cantonese/Mandarin/Jyutping"
@@ -31,15 +39,25 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         return bar
     }()
     
+    let blueView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.cantoDarkBlue(a: 1)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     let historyButton: UIButton = {
         let button = UIButton()
         let image = UIImage(named: "history")?.withRenderingMode(.alwaysTemplate)
         button.setBackgroundImage(image, for: .normal)
+        button.backgroundColor = UIColor.cantoDarkBlue(a: 1)
         button.tintColor = UIColor.cantoWhite(a: 1)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(handleHistory), for: .touchUpInside)
         return button
     }()
+    
+    
     
     var entries: Results<Entries>? {
         didSet {
@@ -61,25 +79,40 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         collectionView.delegate = self
         collectionView.dataSource = self
         
+    
         view.addSubview(collectionView)
+        view.addSubview(searchHistory)
         view.addSubview(searchBar)
+        view.addSubview(blueView)
         view.addSubview(historyButton)
         
         NSLayoutConstraint.activate([
+            
+            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            searchHistory.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
+            searchHistory.heightAnchor.constraint(equalToConstant: 100),
+            searchHistory.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            
             searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: -2),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -45),
             searchBar.heightAnchor.constraint(equalToConstant: 45),
             
+            blueView.topAnchor.constraint(equalTo: view.topAnchor, constant: -2),
+            blueView.leadingAnchor.constraint(equalTo: searchBar.trailingAnchor),
+            blueView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            blueView.heightAnchor.constraint(equalToConstant: 45),
+            
             historyButton.widthAnchor.constraint(equalToConstant: 28),
             historyButton.heightAnchor.constraint(equalToConstant: 28),
             historyButton.centerYAnchor.constraint(equalTo: searchBar.centerYAnchor),
-            historyButton.centerXAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
+            historyButton.centerXAnchor.constraint(equalTo: view.trailingAnchor, constant: -25)
             
-            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            
             ])
         
 
@@ -141,6 +174,12 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
                 guard let text = searchBar.text else {return}
                 let newSearchedItem = SearchedItems()
                 newSearchedItem.searchedItem = text
+                let date = Date()
+                let dateFormatter = DateFormatter()
+                dateFormatter.timeStyle = DateFormatter.Style.none
+                dateFormatter.dateStyle = DateFormatter.Style.medium
+                let dateString = dateFormatter.string(from: date)
+                newSearchedItem.dateSearched = dateString
                 userRealm.add(newSearchedItem)
             }
         } catch {
@@ -176,6 +215,12 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     
     @objc func handleHistory() {
         
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            NSLayoutConstraint.activate([
+                self.searchHistory.topAnchor.constraint(equalTo: self.searchBar.bottomAnchor)
+                ])
+        }, completion: nil)
+
     }
     
     
