@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class SearchedItems: Object {
-    @objc dynamic var searchedItem: String = ""
-    @objc dynamic var dateSearched: String = ""
+class RecentlyViewedItems: Object {
+    @objc dynamic var recentlyViewedEntryID: Int = 0
+    @objc dynamic var dateViewed: String = ""
 }

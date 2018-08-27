@@ -9,8 +9,7 @@
 /* Begin PBXBuildFile section */
 		8AF88F06A050B72BA3F9F4FD /* Pods_CantoTalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D7916B28C01480D1110757F /* Pods_CantoTalk.framework */; };
 		D2113CCD2133E07A00249DD6 /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D2113CCC2133E07900249DD6 /* default.realm */; };
-		D2113CCF2133EF7600249DD6 /* SearchedItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2113CCE2133EF7600249DD6 /* SearchedItems.swift */; };
-		D2113CD1213402C600249DD6 /* SearchHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2113CD0213402C600249DD6 /* SearchHistoryView.swift */; };
+		D2113CCF2133EF7600249DD6 /* RecentlyViewedItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2113CCE2133EF7600249DD6 /* RecentlyViewedItems.swift */; };
 		D281432A211C026000005604 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2814329211C026000005604 /* SearchController.swift */; };
 		D281432E211C03A500005604 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281432D211C03A500005604 /* SettingsController.swift */; };
 		D28CD659211997AD001A613F /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD658211997AD001A613F /* MenuBar.swift */; };
@@ -39,8 +38,7 @@
 		4663D8A86CF49ED59902881C /* Pods-CantoTalk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoTalk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CantoTalk/Pods-CantoTalk.debug.xcconfig"; sourceTree = "<group>"; };
 		A7F127D3C5D096AF1602DDE3 /* Pods-CantoTalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoTalk.release.xcconfig"; path = "Pods/Target Support Files/Pods-CantoTalk/Pods-CantoTalk.release.xcconfig"; sourceTree = "<group>"; };
 		D2113CCC2133E07900249DD6 /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
-		D2113CCE2133EF7600249DD6 /* SearchedItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedItems.swift; sourceTree = "<group>"; };
-		D2113CD0213402C600249DD6 /* SearchHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryView.swift; sourceTree = "<group>"; };
+		D2113CCE2133EF7600249DD6 /* RecentlyViewedItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyViewedItems.swift; sourceTree = "<group>"; };
 		D2814329211C026000005604 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		D281432D211C03A500005604 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		D28CD658211997AD001A613F /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
@@ -145,7 +143,7 @@
 			children = (
 				D2D6A082211452A8002E0CCE /* Entries.swift */,
 				D2A40EFA212DBF6D00EE39C5 /* WordOfTheDay.swift */,
-				D2113CCE2133EF7600249DD6 /* SearchedItems.swift */,
+				D2113CCE2133EF7600249DD6 /* RecentlyViewedItems.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -158,7 +156,6 @@
 				D28CD658211997AD001A613F /* MenuBar.swift */,
 				D2D45C70211D5EAD008A6CF7 /* WordOfTheDayCells.swift */,
 				D2E001512122849B0031553E /* SettingsCell.swift */,
-				D2113CD0213402C600249DD6 /* SearchHistoryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -322,10 +319,9 @@
 				D281432E211C03A500005604 /* SettingsController.swift in Sources */,
 				D2D6A05521105AA4002E0CCE /* HomeController.swift in Sources */,
 				D2D6A06B21106140002E0CCE /* WordCells.swift in Sources */,
-				D2113CCF2133EF7600249DD6 /* SearchedItems.swift in Sources */,
+				D2113CCF2133EF7600249DD6 /* RecentlyViewedItems.swift in Sources */,
 				D2D6A0772112FCA9002E0CCE /* WordOfTheDayController.swift in Sources */,
 				D2D45C71211D5EAD008A6CF7 /* WordOfTheDayCells.swift in Sources */,
-				D2113CD1213402C600249DD6 /* SearchHistoryView.swift in Sources */,
 				D28CD65D2119AB1C001A613F /* FavoritesController.swift in Sources */,
 				D2D6A06D2111A36C002E0CCE /* EntryView.swift in Sources */,
 				D28CD659211997AD001A613F /* MenuBar.swift in Sources */,

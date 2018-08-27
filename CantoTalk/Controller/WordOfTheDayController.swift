@@ -145,14 +145,6 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
                 let newWOD = WordOfTheDay()
                 newWOD.dateAdded = date
                 newWOD.entryID = newWord.entryID
-                newWOD.cantoWord = newWord.cantoWord
-                newWOD.classifier = newWord.classifier
-                newWOD.jyutping = newWord.jyutping
-                newWOD.englishWord = newWord.englishWord
-                newWOD.mandarinWord = newWord.mandarinWord
-                newWOD.cantoSentence = newWord.cantoSentence
-                newWOD.jyutpingSentence = newWord.jyutpingSentence
-                newWOD.englishSentence = newWord.englishSentence
                 userRealm.add(newWOD)
             }
         } catch {

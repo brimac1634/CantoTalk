@@ -19,13 +19,6 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         return cv
     }()
     
-    let searchHistory: SearchHistoryView = {
-        let view = SearchHistoryView()
-        view.backgroundColor = UIColor.cantoWhite(a: 1)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     
     lazy var searchBar: UISearchBar = {
         let bar = UISearchBar()
@@ -57,6 +50,13 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         return button
     }()
     
+    let fadedView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 1, alpha: 0.4)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     
     
     var entries: Results<Entries>? {
@@ -67,7 +67,10 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     
     let cellID = "cellID"
     let userRealm = try! Realm()
+    var recentlyViewed: Results<RecentlyViewedItems>?
+    var recentlyViewedIDs: [Int] = []
     var homeController: HomeController?
+    var isHistoryShowing: Bool = false
     let slideUpViewController = SlideUpViewController()
     
     
@@ -81,10 +84,10 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         
     
         view.addSubview(collectionView)
-        view.addSubview(searchHistory)
         view.addSubview(searchBar)
         view.addSubview(blueView)
         view.addSubview(historyButton)
+        view.addSubview(fadedView)
         
         NSLayoutConstraint.activate([
             
@@ -92,10 +95,6 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            searchHistory.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
-            searchHistory.heightAnchor.constraint(equalToConstant: 100),
-            searchHistory.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor),
             
             searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: -2),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -110,17 +109,27 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
             historyButton.widthAnchor.constraint(equalToConstant: 28),
             historyButton.heightAnchor.constraint(equalToConstant: 28),
             historyButton.centerYAnchor.constraint(equalTo: searchBar.centerYAnchor),
-            historyButton.centerXAnchor.constraint(equalTo: view.trailingAnchor, constant: -25)
+            historyButton.centerXAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
             
-            
-            ])
-        
+            fadedView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            fadedView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            fadedView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            fadedView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 
+            ])
+
+        fadedView.isHidden = true
         
         loadData()
     }
     
     func loadData() {
+        recentlyViewedIDs = []
+        recentlyViewed = userRealm.objects(RecentlyViewedItems.self).sorted(byKeyPath: "dateViewed", ascending: true)
+        guard let recents = recentlyViewed else {return}
+        for item in recents {
+            recentlyViewedIDs.append(item.recentlyViewedEntryID)
+        }
         collectionView.reloadData()
     }
     
@@ -137,9 +146,26 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         if let entry = entries?[indexPath.item] {
             view.selectedEntry = entry
             slideUpViewController.showEntryView(slideUpView: view)
+            do {
+                try userRealm.write {
+                    let recentlyViewedItem = RecentlyViewedItems()
+                    recentlyViewedItem.recentlyViewedEntryID = entry.entryID
+                    let date = Date()
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.timeStyle = DateFormatter.Style.none
+                    dateFormatter.dateStyle = DateFormatter.Style.medium
+                    let dateString = dateFormatter.string(from: date)
+                    recentlyViewedItem.dateViewed = dateString
+                    userRealm.add(recentlyViewedItem)
+                }
+            } catch {
+                print("error saving searchedItem: \(error)")
+            }
             return
         }
-    
+        
+        loadData()
+
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -168,33 +194,13 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     //MARK: - SearchBar Methods
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        //save searched item
-        do {
-            try userRealm.write {
-                guard let text = searchBar.text else {return}
-                let newSearchedItem = SearchedItems()
-                newSearchedItem.searchedItem = text
-                let date = Date()
-                let dateFormatter = DateFormatter()
-                dateFormatter.timeStyle = DateFormatter.Style.none
-                dateFormatter.dateStyle = DateFormatter.Style.medium
-                let dateString = dateFormatter.string(from: date)
-                newSearchedItem.dateSearched = dateString
-                userRealm.add(newSearchedItem)
-            }
-        } catch {
-            print("error saving searchedItem: \(error)")
-        }
-        
-        
-        
         searchWithFilter()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchBar.showsCancelButton = true
         if searchBar.text?.count == 0 {
-            entries = homeController?.mainRealm.objects(Entries.self)
+            checkIfHistoryIsOn()
         } else {
             searchWithFilter()
         }
@@ -206,21 +212,37 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
 
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        entries = homeController?.mainRealm.objects(Entries.self)
+        checkIfHistoryIsOn()
         searchBar.text = ""
         searchBar.showsCancelButton = false
         searchBar.resignFirstResponder()
         
     }
     
+    func checkIfHistoryIsOn() {
+        if isHistoryShowing == false {
+            entries = homeController?.mainRealm.objects(Entries.self)
+        } else {
+            entries = homeController?.mainRealm.objects(Entries.self).filter("entryID IN %@", recentlyViewedIDs)
+        }
+    }
+    
     @objc func handleHistory() {
+        if isHistoryShowing == false {
+            homeController?.titleLabel?.text = "Recently Viewed"
+            fadedView.isHidden = false
+            entries = homeController?.mainRealm.objects(Entries.self).filter("entryID IN %@", recentlyViewedIDs)
+            
+            historyButton.tintColor = UIColor.cantoPink(a: 1)
+            isHistoryShowing = true
+        } else {
+            homeController?.titleLabel?.text = "CantoTalk"
+            fadedView.isHidden = true
+            entries = homeController?.mainRealm.objects(Entries.self)
+            historyButton.tintColor = UIColor.cantoWhite(a: 1)
+            isHistoryShowing = false
+        }
         
-        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            NSLayoutConstraint.activate([
-                self.searchHistory.topAnchor.constraint(equalTo: self.searchBar.bottomAnchor)
-                ])
-        }, completion: nil)
-
     }
     
     
