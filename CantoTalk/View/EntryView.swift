@@ -18,48 +18,12 @@ class EntryView: BaseView {
     }
 
 
-    let favoritesRealm = try! Realm()
+    let userRealm = try! Realm()
     var favoritesController: FavoritesController?
     let selectedHeartColor = UIColor.cantoPink(a: 1)
     let unselectedHeartColor = UIColor.cantoLightBlue(a: 1)
     var isFavorited: Bool?
     var currentEntry: Entries?
-
-//    var selectedWordOfTheDay: WordOfTheDay? {
-//        didSet {
-//            guard let entry = selectedWordOfTheDay else {return}
-//            let topText = NSMutableAttributedString(string: entry.cantoWord, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 35), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
-//            if entry.classifier != "" {
-//                topText.append(NSAttributedString(string: " (cl:\(entry.classifier))", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
-//            }
-//            topText.append(NSAttributedString(string: "\n\(entry.jyutping)", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
-//            topText.append(NSAttributedString(string: "\n\(entry.wordType)", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.cantoLightBlue(a: 0.8)]))
-//            
-//            cantoWordLabel.attributedText = topText
-//            
-//            
-//            let englishWordText = NSMutableAttributedString(string: "En: ", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.cantoLightBlue(a: 0.8)])
-//            englishWordText.append(NSAttributedString(string: entry.englishWord, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 25), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
-//            englishWordLabel.attributedText = englishWordText
-//            
-//            let mandarinWordText = NSMutableAttributedString(string: "普: ", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.cantoLightBlue(a: 0.8)])
-//            mandarinWordText.append(NSAttributedString(string: entry.mandarinWord, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 25), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
-//            mandarinWordLabel.attributedText = mandarinWordText
-//            
-//            let sentenceText = NSMutableAttributedString(string: "\(entry.cantoSentence)\n\(entry.jyutpingSentence)\n\(entry.englishSentence)", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
-//            sentenceLabel.attributedText = sentenceText
-//            
-//            
-//            currentEntry = favoritesRealm.objects(Entries.self).filter("entryID = \(String(entry.entryID))").first
-//            if currentEntry != nil {
-//                isFavorited = true
-//                heartButton.tintColor = selectedHeartColor
-//            } else {
-//                isFavorited = false
-//                heartButton.tintColor = unselectedHeartColor
-//            }
-//        }
-//    }
 
     var selectedEntry: Entries? {
         didSet {
@@ -69,7 +33,7 @@ class EntryView: BaseView {
                 topText.append(NSAttributedString(string: " (cl:\(entry.classifier))", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
             }
             topText.append(NSAttributedString(string: "\n\(entry.jyutping)", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
-            topText.append(NSAttributedString(string: "\n\(entry.wordType)", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.cantoLightBlue(a: 0.8)]))
+            
             
             cantoWordLabel.attributedText = topText
             
@@ -85,7 +49,7 @@ class EntryView: BaseView {
             sentenceLabel.attributedText = sentenceText
             
             
-            currentEntry = favoritesRealm.objects(Entries.self).filter("entryID = \(String(entry.entryID))").first
+            currentEntry = userRealm.objects(Entries.self).filter("entryID = \(String(entry.entryID))").first
             if currentEntry != nil {
                 isFavorited = true
                 heartButton.tintColor = selectedHeartColor
@@ -150,14 +114,13 @@ class EntryView: BaseView {
 
     @objc func handleFavorite() {
         if isFavorited == false {
-            try! favoritesRealm.write {
+            try! userRealm.write {
                 if let entry = selectedEntry {
                     let newFavorite = Entries()
                     newFavorite.entryID = entry.entryID
                     newFavorite.cantoWord = entry.cantoWord
                     newFavorite.classifier = entry.classifier
                     newFavorite.jyutping = entry.jyutping
-                    newFavorite.wordType = entry.wordType
                     newFavorite.englishWord = entry.englishWord
                     newFavorite.mandarinWord = entry.mandarinWord
                     newFavorite.cantoSentence = entry.cantoSentence
@@ -168,7 +131,7 @@ class EntryView: BaseView {
                     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                     let date = formatter.string(from: Date())
                     newFavorite.dateFavorited = date
-                    favoritesRealm.add(newFavorite)
+                    userRealm.add(newFavorite)
                     currentEntry = newFavorite
 
                 }
@@ -179,9 +142,9 @@ class EntryView: BaseView {
 
 
         } else {
-            try! favoritesRealm.write {
+            try! userRealm.write {
                 if let entry = currentEntry {
-                    favoritesRealm.delete(entry)
+                    userRealm.delete(entry)
                 }
             }
             isFavorited = false

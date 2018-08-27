@@ -148,7 +148,6 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
                 newWOD.cantoWord = newWord.cantoWord
                 newWOD.classifier = newWord.classifier
                 newWOD.jyutping = newWord.jyutping
-                newWOD.wordType = newWord.wordType
                 newWOD.englishWord = newWord.englishWord
                 newWOD.mandarinWord = newWord.mandarinWord
                 newWOD.cantoSentence = newWord.cantoSentence

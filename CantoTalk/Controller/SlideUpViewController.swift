@@ -17,8 +17,6 @@ class SlideUpViewController: NSObject {
     func showEntryView(slideUpView: UIView) {
         if let window = UIApplication.shared.keyWindow {
             
-            
-            
             blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
             blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
             
@@ -31,7 +29,6 @@ class SlideUpViewController: NSObject {
             
             blackView.frame = window.frame
             blackView.alpha = 0
-            
             let height = (window.frame.height / 3) * 2
             let y = window.frame.height - height
             slideUpView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: height)

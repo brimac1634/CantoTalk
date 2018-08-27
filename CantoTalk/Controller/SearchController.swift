@@ -22,12 +22,23 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     lazy var searchBar: UISearchBar = {
         let bar = UISearchBar()
         bar.placeholder = "English/Cantonese/Mandarin/Jyutping"
+        let historyImage = UIImage(named: "history")?.withRenderingMode(.alwaysTemplate)
         bar.barTintColor = UIColor.cantoDarkBlue(a: 1)
-        bar.tintColor = UIColor.cantoPink(a: 1)
+        bar.tintColor = UIColor.cantoWhite(a: 1)
         bar.autocorrectionType = .yes
         bar.delegate = self
         bar.translatesAutoresizingMaskIntoConstraints = false
         return bar
+    }()
+    
+    let historyButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(named: "history")?.withRenderingMode(.alwaysTemplate)
+        button.setBackgroundImage(image, for: .normal)
+        button.tintColor = UIColor.cantoWhite(a: 1)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(handleHistory), for: .touchUpInside)
+        return button
     }()
     
     var entries: Results<Entries>? {
@@ -37,6 +48,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     }
     
     let cellID = "cellID"
+    let userRealm = try! Realm()
     var homeController: HomeController?
     let slideUpViewController = SlideUpViewController()
     
@@ -51,12 +63,18 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         
         view.addSubview(collectionView)
         view.addSubview(searchBar)
+        view.addSubview(historyButton)
         
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.topAnchor),
+            searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: -2),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -45),
             searchBar.heightAnchor.constraint(equalToConstant: 45),
+            
+            historyButton.widthAnchor.constraint(equalToConstant: 28),
+            historyButton.heightAnchor.constraint(equalToConstant: 28),
+            historyButton.centerYAnchor.constraint(equalTo: searchBar.centerYAnchor),
+            historyButton.centerXAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
             
             collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -113,10 +131,25 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         return 0
     }
     
+    
     //MARK: - SearchBar Methods
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        entries = entries?.filter("jyutping CONTAINS[cd] %@ OR englishWord CONTAINS[cd] %@ OR cantoWord CONTAINS[cd] %@ OR mandarinWord CONTAINS[cd] %@", searchBar.text!, searchBar.text!, searchBar.text!, searchBar.text!).sorted(byKeyPath: "englishWord", ascending: true)
+        //save searched item
+        do {
+            try userRealm.write {
+                guard let text = searchBar.text else {return}
+                let newSearchedItem = SearchedItems()
+                newSearchedItem.searchedItem = text
+                userRealm.add(newSearchedItem)
+            }
+        } catch {
+            print("error saving searchedItem: \(error)")
+        }
+        
+        
+        
+        searchWithFilter()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -124,16 +157,24 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         if searchBar.text?.count == 0 {
             entries = homeController?.mainRealm.objects(Entries.self)
         } else {
-            entries = entries?.filter("jyutping CONTAINS[cd] %@ OR englishWord CONTAINS[cd] %@ OR cantoWord CONTAINS[cd] %@ OR mandarinWord CONTAINS[cd] %@", searchBar.text!, searchBar.text!, searchBar.text!, searchBar.text!).sorted(byKeyPath: "englishWord", ascending: true)
+            searchWithFilter()
         }
     }
     
+    func searchWithFilter() {
+        entries = entries?.filter("jyutping CONTAINS[cd] %@ OR englishWord CONTAINS[cd] %@ OR cantoWord CONTAINS[cd] %@ OR mandarinWord CONTAINS[cd] %@", searchBar.text!, searchBar.text!, searchBar.text!, searchBar.text!).sorted(byKeyPath: "englishWord", ascending: true)
+    }
+
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         entries = homeController?.mainRealm.objects(Entries.self)
         searchBar.text = ""
         searchBar.showsCancelButton = false
         searchBar.resignFirstResponder()
+        
+    }
+    
+    @objc func handleHistory() {
         
     }
     

@@ -38,7 +38,7 @@ class SettingsController: UIViewController, UITableViewDataSource, UITableViewDe
     
     let cellID = "cellID"
     let settings: [Setting] = {
-        return [Setting(name: "Upgrades", imageName: "unlock"), Setting(name: "Trends", imageName: "trending"), Setting(name: "Request Words", imageName: "request"), Setting(name: "Notifications", imageName: "notification"), Setting(name: "Rate Us", imageName: "rate_us")]
+        return [Setting(name: "Request Words", imageName: "request"), Setting(name: "Notifications", imageName: "notification"), Setting(name: "Rate Us", imageName: "rate_us")]
     }()
     var vcs: [UIViewController]?
     
