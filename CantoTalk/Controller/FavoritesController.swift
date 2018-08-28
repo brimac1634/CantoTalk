@@ -64,7 +64,9 @@ class FavoritesController: SearchController  {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! WordCells
         if let entry = favoritesEntries?[indexPath.item] {
-            cell.selectedEntry = entry
+            if let entry = mainRealm.objects(Entries.self).filter("entryID = \(entry.entryID)").first {
+                cell.selectedEntry = entry
+            }
         }
         return cell
     }

@@ -52,9 +52,11 @@ class EntryView: BaseView {
             currentEntry = userRealm.objects(Entries.self).filter("entryID = \(String(entry.entryID))").first
             if currentEntry != nil {
                 isFavorited = true
+                heartButton.isSelected = true
                 heartButton.tintColor = selectedHeartColor
             } else {
                 isFavorited = false
+                heartButton.isSelected = false
                 heartButton.tintColor = unselectedHeartColor
             }
         }
@@ -104,12 +106,23 @@ class EntryView: BaseView {
 
 
     let heartButton: UIButton = {
-        let button = UIButton(type: .system)
-        let image = UIImage(named: "heart_solid")?.withRenderingMode(.alwaysTemplate)
+        let button = UIButton(type: .custom)
+        let image = UIImage(named: "heart")?.withRenderingMode(.alwaysTemplate)
+        let favoritedImage = UIImage(named: "heart_solid")?.withRenderingMode(.alwaysTemplate)
         button.setBackgroundImage(image, for: .normal)
+        button.setBackgroundImage(favoritedImage, for: .selected)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(handleFavorite), for: .touchUpInside)
         return button
+    }()
+    
+    let heartButtonTitle: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.cantoLightBlue(a: 0.8)
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
 
     @objc func handleFavorite() {
@@ -137,7 +150,17 @@ class EntryView: BaseView {
                 }
             }
             isFavorited = true
+            heartButton.isSelected = true
             heartButton.tintColor = selectedHeartColor
+            heartButtonTitle.text = "Liked"
+            
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveLinear, animations: {
+                self.heartButtonTitle.alpha = 1
+            }) { (Bool) in
+                UIView.animate(withDuration: 0.5, delay: 1, options: .curveEaseOut, animations: {
+                    self.heartButtonTitle.alpha = 0
+                }, completion: nil)
+            }
             favoritesController?.loadData()
 
 
@@ -148,7 +171,18 @@ class EntryView: BaseView {
                 }
             }
             isFavorited = false
+            heartButton.isSelected = false
             heartButton.tintColor = unselectedHeartColor
+            heartButtonTitle.text = "Unliked"
+            
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveLinear, animations: {
+                self.heartButtonTitle.alpha = 1
+            }) { (Bool) in
+                UIView.animate(withDuration: 0.5, delay: 1, options: .curveEaseOut, animations: {
+                    self.heartButtonTitle.alpha = 0
+                }, completion: nil)
+            }
+            
             favoritesController?.loadData()
         }
     }
@@ -168,6 +202,7 @@ class EntryView: BaseView {
         }()
         
         addSubview(heartButton)
+        addSubview(heartButtonTitle)
         addSubview(cantoWordLabel)
         addSubview(middleStackView)
         addSubview(sentenceLabel)
@@ -177,6 +212,11 @@ class EntryView: BaseView {
             heartButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
             heartButton.widthAnchor.constraint(equalToConstant: 50),
             heartButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            heartButtonTitle.topAnchor.constraint(equalTo: heartButton.bottomAnchor),
+            heartButtonTitle.centerXAnchor.constraint(equalTo: heartButton.centerXAnchor),
+            heartButtonTitle.widthAnchor.constraint(equalTo: heartButton.widthAnchor, multiplier: 1.2),
+            heartButtonTitle.heightAnchor.constraint(equalToConstant: 20),
             
             cantoWordLabel.topAnchor.constraint(equalTo: topAnchor, constant: 32),
             cantoWordLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
@@ -194,7 +234,7 @@ class EntryView: BaseView {
             sentenceLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -32)
             ])
 
-        
+        heartButtonTitle.alpha = 0
 
     }
 
