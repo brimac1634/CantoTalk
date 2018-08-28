@@ -21,7 +21,7 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     var numberOfEntries: Int?
     
     let backgroundImage: UIImageView = {
-        let image = UIImageView(image: #imageLiteral(resourceName: "WaveBackground3"))
+        let image = UIImageView(image: #imageLiteral(resourceName: "WaveBackground"))
         image.contentMode = .scaleAspectFill
 //        image.alpha = 0.8
         image.translatesAutoresizingMaskIntoConstraints = false
