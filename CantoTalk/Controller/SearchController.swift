@@ -16,9 +16,10 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = UIColor.cantoWhite(a: 1)
         cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.delegate = self
+        cv.dataSource = self
         return cv
     }()
-    
     
     lazy var searchBar: UISearchBar = {
         let bar = UISearchBar()
@@ -53,6 +54,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     let fadedView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(white: 1, alpha: 0.4)
+        view.isUserInteractionEnabled = false
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -68,7 +70,6 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     let cellID = "cellID"
     let userRealm = try! Realm()
     var recentlyViewed: Results<RecentlyViewedItems>?
-    var recentlyViewedIDs: [Int] = []
     var homeController: HomeController?
     var isHistoryShowing: Bool = false
     let slideUpViewController = SlideUpViewController()
@@ -76,12 +77,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     
     override func viewDidLoad() {
         
-        
-        
         collectionView.register(WordCells.self, forCellWithReuseIdentifier: cellID)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
     
         view.addSubview(collectionView)
         view.addSubview(searchBar)
@@ -109,7 +105,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
             historyButton.widthAnchor.constraint(equalToConstant: 28),
             historyButton.heightAnchor.constraint(equalToConstant: 28),
             historyButton.centerYAnchor.constraint(equalTo: searchBar.centerYAnchor),
-            historyButton.centerXAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
+            historyButton.centerXAnchor.constraint(equalTo: view.trailingAnchor, constant: -26),
             
             fadedView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             fadedView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -124,12 +120,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     }
     
     func loadData() {
-        recentlyViewedIDs = []
-        recentlyViewed = userRealm.objects(RecentlyViewedItems.self).sorted(byKeyPath: "dateViewed", ascending: true)
-        guard let recents = recentlyViewed else {return}
-        for item in recents {
-            recentlyViewedIDs.append(item.recentlyViewedEntryID)
-        }
+        recentlyViewed = userRealm.objects(RecentlyViewedItems.self)
         collectionView.reloadData()
     }
     
@@ -149,7 +140,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
             do {
                 try userRealm.write {
                     let recentlyViewedItem = RecentlyViewedItems()
-                    recentlyViewedItem.recentlyViewedEntryID = entry.entryID
+                    recentlyViewedItem.entryID = entry.entryID
                     let date = Date()
                     let dateFormatter = DateFormatter()
                     dateFormatter.timeStyle = DateFormatter.Style.none
@@ -163,22 +154,34 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
             }
             return
         }
-        
         loadData()
 
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return entries?.count ?? 0
+        if isHistoryShowing == false {
+            return entries?.count ?? 0
+        } else {
+            return recentlyViewed?.count ?? 0
+        }
         
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! WordCells
-        if let entry = entries?[indexPath.item] {
-            cell.selectedEntry = entry
+        if isHistoryShowing == false {
+            if let entry = entries?[indexPath.item] {
+                cell.selectedEntry = entry
+            }
+        } else {
+            if let recent = recentlyViewed?[indexPath.item] {
+                if let entry = homeController?.mainRealm.objects(Entries.self).filter("entryID = \(recent.entryID)").first {
+                    cell.selectedEntry = entry
+                }
+            }
         }
+        
         return cell
     }
     
@@ -194,6 +197,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     //MARK: - SearchBar Methods
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        hideHistoryView()
         searchWithFilter()
     }
     
@@ -202,6 +206,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         if searchBar.text?.count == 0 {
             checkIfHistoryIsOn()
         } else {
+            hideHistoryView()
             searchWithFilter()
         }
     }
@@ -222,29 +227,31 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     func checkIfHistoryIsOn() {
         if isHistoryShowing == false {
             entries = homeController?.mainRealm.objects(Entries.self)
-        } else {
-            entries = homeController?.mainRealm.objects(Entries.self).filter("entryID IN %@", recentlyViewedIDs)
         }
     }
     
     @objc func handleHistory() {
         if isHistoryShowing == false {
-            homeController?.titleLabel?.text = "Recently Viewed"
-            fadedView.isHidden = false
-            entries = homeController?.mainRealm.objects(Entries.self).filter("entryID IN %@", recentlyViewedIDs)
-            
-            historyButton.tintColor = UIColor.cantoPink(a: 1)
-            isHistoryShowing = true
+            showHistoryView()
         } else {
-            homeController?.titleLabel?.text = "CantoTalk"
-            fadedView.isHidden = true
-            entries = homeController?.mainRealm.objects(Entries.self)
-            historyButton.tintColor = UIColor.cantoWhite(a: 1)
-            isHistoryShowing = false
+            hideHistoryView()
         }
-        
     }
     
+    func showHistoryView() {
+        homeController?.titleLabel?.text = "Recently Viewed"
+        fadedView.isHidden = false
+        historyButton.tintColor = UIColor.cantoPink(a: 1)
+        isHistoryShowing = true
+        loadData()
+    }
     
+    func hideHistoryView() {
+        homeController?.titleLabel?.text = "CantoTalk"
+        fadedView.isHidden = true
+        historyButton.tintColor = UIColor.cantoWhite(a: 1)
+        isHistoryShowing = false
+        loadData()
+    }
     
 }

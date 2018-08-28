@@ -131,14 +131,6 @@ class EntryView: BaseView {
                 if let entry = selectedEntry {
                     let newFavorite = Entries()
                     newFavorite.entryID = entry.entryID
-                    newFavorite.cantoWord = entry.cantoWord
-                    newFavorite.classifier = entry.classifier
-                    newFavorite.jyutping = entry.jyutping
-                    newFavorite.englishWord = entry.englishWord
-                    newFavorite.mandarinWord = entry.mandarinWord
-                    newFavorite.cantoSentence = entry.cantoSentence
-                    newFavorite.jyutpingSentence = entry.jyutpingSentence
-                    newFavorite.englishSentence = entry.englishSentence
                     
                     let formatter = DateFormatter()
                     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"

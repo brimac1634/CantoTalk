@@ -10,6 +10,6 @@ import Foundation
 import RealmSwift
 
 class RecentlyViewedItems: Object {
-    @objc dynamic var recentlyViewedEntryID: Int = 0
+    @objc dynamic var entryID: Int = 0
     @objc dynamic var dateViewed: String = ""
 }

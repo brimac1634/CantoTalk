@@ -36,7 +36,7 @@ class HomeController: UIViewController {
         addView(menuIndex: 0)
         setupNavBar()
         setupLayout()
-        showIconAnimation()
+//        showIconAnimation()
 
     }
     
@@ -136,6 +136,7 @@ class HomeController: UIViewController {
         selectedVC.didMove(toParentViewController: self)
         
         titleLabel?.text = pageTitles[menuIndex]
+        searchController.hideHistoryView()
         
         lastVCIndex = menuIndex
 

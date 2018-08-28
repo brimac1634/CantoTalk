@@ -23,6 +23,7 @@ class MenuBar: BaseView, UICollectionViewDataSource, UICollectionViewDelegate, U
     let cellID = "cellID"
     let imageStrings = ["search", "heart", "calendar", "settings"]
     var homeController: HomeController?
+    var searchController: SearchController?
     
     override func setupViews() {
         setupMenuBar()
@@ -69,7 +70,6 @@ class MenuBar: BaseView, UICollectionViewDataSource, UICollectionViewDelegate, U
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let x = CGFloat(indexPath.item) * (frame.width / 4)
         self.horizontalBarLeftAnchorConstraint?.constant = x
-        
         
         homeController?.addView(menuIndex: indexPath.item)
         
