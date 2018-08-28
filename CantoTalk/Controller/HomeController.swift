@@ -22,7 +22,7 @@ class HomeController: UIViewController {
     var settingsController: SettingsController!
     
     var viewControllers: [UIViewController]!
-    let pageTitles = ["CantoTalk", "Favorites", "Word of the Day", "Settings"]
+    let pageTitles = ["CantoTalk", "Favorites", "Word of the Day", "Learning Key"]
     
     var lastVCIndex: Int = 0
     var titleLabel: UILabel?
@@ -112,10 +112,17 @@ class HomeController: UIViewController {
             title.font = UIFont(name: "SFProDisplay-Medium", size: 20)
             navigationItem.titleView = title
         }
+        
+        let settingsImage = UIImage(named: "settings")?.withRenderingMode(.alwaysOriginal)
+        let settingsButton = UIBarButtonItem(image: settingsImage, style: .plain, target: self, action: #selector(handleSettings))
    
+        navigationItem.leftBarButtonItem = settingsButton
         
     }
     
+    @objc func handleSettings() {
+        print(123)
+    }
     
     
     func addView(menuIndex: Int) {
@@ -136,8 +143,10 @@ class HomeController: UIViewController {
         selectedVC.didMove(toParentViewController: self)
         
         titleLabel?.text = pageTitles[menuIndex]
-        searchController.hideHistoryView()
-        
+        if menuIndex == 0 {
+            searchController.hideHistoryView()
+        }
+
         lastVCIndex = menuIndex
 
     }
