@@ -120,7 +120,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     }
     
     func loadData() {
-        recentlyViewed = userRealm.objects(RecentlyViewedItems.self).sorted(byKeyPath: "dateViewed", ascending: false)
+        recentlyViewed = userRealm.objects(RecentlyViewedItems.self).sorted(byKeyPath: "dateViewed", ascending: true)
         collectionView.reloadData()
     }
     
@@ -176,6 +176,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
                 cell.selectedEntry = entry
             }
         } else {
+            recentlyViewed = userRealm.objects(RecentlyViewedItems.self).sorted(byKeyPath: "dateViewed", ascending: true)
             if let recent = recentlyViewed?[indexPath.item] {
                 if let entry = homeController?.mainRealm.objects(Entries.self).filter("entryID = \(recent.entryID)").first {
                     cell.selectedEntry = entry
@@ -232,7 +233,6 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     }
     
     @objc func handleHistory() {
-        loadData()
         if isHistoryShowing == false {
             showHistoryView()
         } else {
@@ -244,6 +244,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         fadedView.isHidden = false
         historyButton.tintColor = UIColor.cantoPink(a: 1)
         isHistoryShowing = true
+        collectionView.reloadData()
         collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
     }
     
@@ -251,6 +252,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         fadedView.isHidden = true
         historyButton.tintColor = UIColor.cantoWhite(a: 1)
         isHistoryShowing = false
+        loadData()
     }
     
 }

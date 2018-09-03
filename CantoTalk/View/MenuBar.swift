@@ -108,6 +108,8 @@ class MenuCell: BaseCell {
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
+    
+
 
     
     override var isHighlighted: Bool {

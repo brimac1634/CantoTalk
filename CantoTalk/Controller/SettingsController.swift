@@ -52,26 +52,12 @@ class SettingsController: UIViewController, UITableViewDataSource, UITableViewDe
     func setupViews() {
         view.backgroundColor = UIColor.cantoLightBlue(a: 1)
         
-        let logoView: UIImageView = {
-            let logo = UIImageView()
-            logo.image = UIImage(named: "CantoTalkIcon")
-            logo.contentMode = .scaleAspectFit
-            logo.layer.cornerRadius = logoDiameter / 2
-            logo.layer.masksToBounds = true
-            logo.translatesAutoresizingMaskIntoConstraints = false
-            return logo
-        }()
-        
-        view.addSubview(logoView)
+
         view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
-            logoView.widthAnchor.constraint(equalToConstant: logoDiameter),
-            logoView.heightAnchor.constraint(equalToConstant: logoDiameter),
-            logoView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            logoView.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
             
-            tableView.topAnchor.constraint(equalTo: logoView.bottomAnchor, constant: 16),
+            tableView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)

@@ -12,6 +12,7 @@
 		D281432A211C026000005604 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2814329211C026000005604 /* SearchController.swift */; };
 		D281432E211C03A500005604 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281432D211C03A500005604 /* SettingsController.swift */; };
 		D281F255213CE74C00548B43 /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D281F254213CE74C00548B43 /* default.realm */; };
+		D281F257213D36FA00548B43 /* LearningKeyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281F256213D36FA00548B43 /* LearningKeyController.swift */; };
 		D28CD659211997AD001A613F /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD658211997AD001A613F /* MenuBar.swift */; };
 		D28CD65D2119AB1C001A613F /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD65C2119AB1C001A613F /* FavoritesController.swift */; };
 		D2A40EF5212D68C600EE39C5 /* SF-Pro-Display-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D2A40EF4212D68C600EE39C5 /* SF-Pro-Display-Light.otf */; };
@@ -41,6 +42,7 @@
 		D2814329211C026000005604 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		D281432D211C03A500005604 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		D281F254213CE74C00548B43 /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
+		D281F256213D36FA00548B43 /* LearningKeyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningKeyController.swift; sourceTree = "<group>"; };
 		D28CD658211997AD001A613F /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		D28CD65C2119AB1C001A613F /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
 		D2A40EF4212D68C600EE39C5 /* SF-Pro-Display-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Light.otf"; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				D2D6A0762112FCA9002E0CCE /* WordOfTheDayController.swift */,
 				D281432D211C03A500005604 /* SettingsController.swift */,
 				D2D6A08021144C78002E0CCE /* SlideUpViewController.swift */,
+				D281F256213D36FA00548B43 /* LearningKeyController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				D2D6A05521105AA4002E0CCE /* HomeController.swift in Sources */,
 				D2D6A06B21106140002E0CCE /* WordCells.swift in Sources */,
 				D2113CCF2133EF7600249DD6 /* RecentlyViewedItems.swift in Sources */,
+				D281F257213D36FA00548B43 /* LearningKeyController.swift in Sources */,
 				D2D6A0772112FCA9002E0CCE /* WordOfTheDayController.swift in Sources */,
 				D2D45C71211D5EAD008A6CF7 /* WordOfTheDayCells.swift in Sources */,
 				D28CD65D2119AB1C001A613F /* FavoritesController.swift in Sources */,

@@ -19,10 +19,9 @@ class HomeController: UIViewController {
     var searchController: SearchController!
     var favoritesController: FavoritesController!
     var wordOfTheDayController: WordOfTheDayController!
-    var settingsController: SettingsController!
+    var learningKeyController: LearningKeyController!
     
     var viewControllers: [UIViewController]!
-//    let pageTitles = ["CantoTalk", "Favorites", "Word of the Day", "Learning Key"]
     
     var lastVCIndex: Int = 0
  
@@ -56,9 +55,9 @@ class HomeController: UIViewController {
         favoritesController = FavoritesController()
         wordOfTheDayController = WordOfTheDayController()
         wordOfTheDayController.homeController = self
-        settingsController = SettingsController()
+        learningKeyController = LearningKeyController()
         
-        viewControllers = [searchController, favoritesController, wordOfTheDayController, settingsController]
+        viewControllers = [searchController, favoritesController, wordOfTheDayController, learningKeyController]
     }
     
     func loadData() {
@@ -72,6 +71,7 @@ class HomeController: UIViewController {
         
         if let navController = navigationController {
             navController.navigationBar.barTintColor = UIColor.cantoDarkBlue(a: 1)
+            navController.navigationBar.tintColor = UIColor.cantoWhite(a: 1)
             navController.navigationBar.isTranslucent = false
         }
         
@@ -105,7 +105,8 @@ class HomeController: UIViewController {
     }
     
     @objc func handleSettings() {
-        print(123)
+        let settingsController = SettingsController()
+        navigationController?.pushViewController(settingsController, animated: true)
     }
     
     @objc func handleCamera() {

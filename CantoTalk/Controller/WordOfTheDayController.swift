@@ -19,16 +19,8 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     var lastDate: Date?
     var lastDateString: String?
     var numberOfEntries: Int?
-    
-    let backgroundImage: UIImageView = {
-        let image = UIImageView(image: #imageLiteral(resourceName: "WaveBackground4"))
-        image.contentMode = .scaleAspectFill
-//        image.alpha = 0.8
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
 
-    let collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 16
@@ -37,6 +29,8 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
         cv.showsHorizontalScrollIndicator = false
         cv.isPagingEnabled = true
         cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.dataSource = self
+        cv.delegate = self
         return cv
     }()
 
@@ -60,7 +54,6 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
             let lastItemIndex = IndexPath(item: numberOfEntries - 1, section: 0)
             collectionView.scrollToItem(at: lastItemIndex, at: .right, animated: false)
         }
-        updateData()
     }
     
     private func updateData() {
@@ -74,9 +67,6 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
 
         guard let userRealm = homeController?.userRealm else {return}
         let currentDate = Date()
-//        let now = Calendar.current.date(byAdding: .day, value: +3, to: Date())
-//        print(now)
-//        guard let currentDate = now else {return}
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = DateFormatter.Style.none
         dateFormatter.dateStyle = DateFormatter.Style.medium
@@ -112,23 +102,14 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
 
     private func setupView() {
         view.backgroundColor = UIColor.cantoWhite(a: 1)
-        view.addSubview(backgroundImage)
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
-            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
             collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
             ])
-        
-        collectionView.dataSource = self
-        collectionView.delegate = self
         
         collectionView.register(WordOfTheDayCells.self, forCellWithReuseIdentifier: cellID)
         collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 8)
