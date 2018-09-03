@@ -22,10 +22,9 @@ class HomeController: UIViewController {
     var settingsController: SettingsController!
     
     var viewControllers: [UIViewController]!
-    let pageTitles = ["CantoTalk", "Favorites", "Word of the Day", "Learning Key"]
+//    let pageTitles = ["CantoTalk", "Favorites", "Word of the Day", "Learning Key"]
     
     var lastVCIndex: Int = 0
-    var titleLabel: UILabel?
  
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +35,6 @@ class HomeController: UIViewController {
         addView(menuIndex: 0)
         setupNavBar()
         setupLayout()
-//        showIconAnimation()
 
     }
     
@@ -50,30 +48,6 @@ class HomeController: UIViewController {
         
         
 
-    }
-    
-    func showIconAnimation() {
-        let imageView = UIImageView(image: #imageLiteral(resourceName: "CantoTalkIcon"))
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.frame.size.width = view.frame.width / 2
-        imageView.layer.cornerRadius = imageView.frame.size.width / 2
-        imageView.layer.masksToBounds = true
-        
-        view.addSubview(imageView)
-        
-        NSLayoutConstraint.activate([
-            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5)
-            ])
-        
-        
-        UIView.animate(withDuration: 1, delay: 1, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveLinear, animations: {
-            imageView.alpha = 0
-            
-        }, completion: nil)
-        
     }
     
     func setupViewControllers() {
@@ -94,37 +68,49 @@ class HomeController: UIViewController {
     
     }
     
-    func setupNavBar() {
+    private func setupNavBar() {
         
         if let navController = navigationController {
             navController.navigationBar.barTintColor = UIColor.cantoDarkBlue(a: 1)
             navController.navigationBar.isTranslucent = false
-            navController.navigationBar.tintColor = UIColor.cantoPink(a: 1)
+        }
+        
+        let titleImageView = UIImageView(image: #imageLiteral(resourceName: "CantoTalkIconCircle"))
+        titleImageView.translatesAutoresizingMaskIntoConstraints = false
+        titleImageView.widthAnchor.constraint(equalToConstant: 34).isActive = true
+        titleImageView.heightAnchor.constraint(equalToConstant: 34).isActive = true
+        titleImageView.contentMode = .scaleAspectFit
+        navigationItem.titleView = titleImageView
+        
+        let settingsButton = UIButton(type: .custom)
+        settingsButton.translatesAutoresizingMaskIntoConstraints = false
+        settingsButton.setBackgroundImage(#imageLiteral(resourceName: "settings").withRenderingMode(.alwaysTemplate), for: .normal)
+        settingsButton.widthAnchor.constraint(equalToConstant: 28).isActive = true
+        settingsButton.heightAnchor.constraint(equalToConstant: 28).isActive = true
+        settingsButton.tintColor = UIColor.cantoWhite(a: 1)
+        settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: settingsButton)
+        
+        
+        let cameraButton = UIButton(type: .custom)
+        cameraButton.translatesAutoresizingMaskIntoConstraints = false
+        cameraButton.setBackgroundImage(#imageLiteral(resourceName: "camera").withRenderingMode(.alwaysTemplate), for: .normal)
+        cameraButton.widthAnchor.constraint(equalToConstant: 28).isActive = true
+        cameraButton.heightAnchor.constraint(equalToConstant: 28).isActive = true
+        cameraButton.tintColor = UIColor.cantoWhite(a: 1)
+        cameraButton.addTarget(self, action: #selector(handleCamera), for: .touchUpInside)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cameraButton)
+        
 
-        }
-        
-        titleLabel = UILabel(frame: CGRect(x: view.frame.width / 2, y: 0, width: view.frame.width - 32, height: view.frame.height))
-        
-        if let title = titleLabel {
-            title.text = pageTitles[0]
-            title.textAlignment = .center
-            title.textColor = UIColor.cantoPink(a: 1)
-            title.font = UIFont(name: "SFProDisplay-Medium", size: 20)
-            navigationItem.titleView = title
-        }
-        
-        let settingsImage = UIImage(named: "settings")?.withRenderingMode(.alwaysOriginal)
-        let settingsButton = UIBarButtonItem(image: settingsImage, style: .plain, target: self, action: #selector(handleSettings))
-   
-        navigationItem.leftBarButtonItem = settingsButton
-        
     }
     
     @objc func handleSettings() {
         print(123)
     }
     
-    
+    @objc func handleCamera() {
+        print(456)
+    }
     func addView(menuIndex: Int) {
         if lastVCIndex != menuIndex {
             let previousVC = viewControllers[lastVCIndex]
@@ -135,14 +121,11 @@ class HomeController: UIViewController {
         
         let selectedVC = viewControllers[menuIndex]
 
-        
-        
         addChildViewController(selectedVC)
         selectedVC.view.frame = contentView.bounds
         contentView.addSubview(selectedVC.view)
         selectedVC.didMove(toParentViewController: self)
         
-        titleLabel?.text = pageTitles[menuIndex]
         if menuIndex == 0 {
             searchController.hideHistoryView()
         }

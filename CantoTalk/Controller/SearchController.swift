@@ -120,7 +120,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     }
     
     func loadData() {
-        recentlyViewed = userRealm.objects(RecentlyViewedItems.self)
+        recentlyViewed = userRealm.objects(RecentlyViewedItems.self).sorted(byKeyPath: "dateViewed", ascending: false)
         collectionView.reloadData()
     }
     
@@ -152,6 +152,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
             } catch {
                 print("error saving searchedItem: \(error)")
             }
+            loadData()
             return
         }
         loadData()
@@ -231,6 +232,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     }
     
     @objc func handleHistory() {
+        loadData()
         if isHistoryShowing == false {
             showHistoryView()
         } else {
@@ -239,19 +241,16 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     }
     
     func showHistoryView() {
-        homeController?.titleLabel?.text = "Recently Viewed"
         fadedView.isHidden = false
         historyButton.tintColor = UIColor.cantoPink(a: 1)
         isHistoryShowing = true
-        loadData()
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
     }
     
     func hideHistoryView() {
-        homeController?.titleLabel?.text = "CantoTalk"
         fadedView.isHidden = true
         historyButton.tintColor = UIColor.cantoWhite(a: 1)
         isHistoryShowing = false
-        loadData()
     }
     
 }

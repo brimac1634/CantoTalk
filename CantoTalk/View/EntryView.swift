@@ -8,22 +8,26 @@
 
 import UIKit
 import RealmSwift
+import AVFoundation
 
-class EntryView: BaseView {
+class EntryView: BaseView, AVSpeechSynthesizerDelegate {
 
     
     override func setupViews() {
         super.setupViews()
         setupView()
+        speaker.delegate = self
     }
 
 
     let userRealm = try! Realm()
+    let speaker = AVSpeechSynthesizer()
     var favoritesController: FavoritesController?
     let selectedHeartColor = UIColor.cantoPink(a: 1)
     let unselectedHeartColor = UIColor.cantoLightBlue(a: 1)
     var isFavorited: Bool?
     var currentEntry: Entries?
+    var cantoWordString: String?
 
     var selectedEntry: Entries? {
         didSet {
@@ -59,6 +63,8 @@ class EntryView: BaseView {
                 heartButton.isSelected = false
                 heartButton.tintColor = unselectedHeartColor
             }
+            
+            cantoWordString = entry.cantoWord
         }
     }
     
@@ -104,6 +110,15 @@ class EntryView: BaseView {
         return label
     }()
 
+    let speakerButton: UIButton = {
+        let button = UIButton(type: .custom)
+        let image = UIImage(named: "speaker")?.withRenderingMode(.alwaysTemplate)
+        button.setBackgroundImage(image, for: .normal)
+        button.tintColor = UIColor.cantoDarkBlue(a: 1)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(handleSpeaker), for: .touchUpInside)
+        return button
+    }()
 
     let heartButton: UIButton = {
         let button = UIButton(type: .custom)
@@ -124,6 +139,30 @@ class EntryView: BaseView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    @objc func handleSpeaker() {
+        if speaker.isSpeaking {
+            speaker.stopSpeaking(at: .immediate)
+            speakerButton.tintColor = UIColor.cantoDarkBlue(a: 1)
+        } else {
+            speakerButton.tintColor = UIColor.cantoPink(a: 1)
+            let audioSession = AVAudioSession.sharedInstance()
+            try? audioSession.setCategory(AVAudioSessionCategoryPlayback, with: .duckOthers)
+            
+            guard let cantoWord = cantoWordString else {return}
+            let voice = AVSpeechSynthesisVoice(language: "zh-HK")
+            let context = AVSpeechUtterance(string: cantoWord)
+            context.voice = voice
+            print(cantoWord)
+            speaker.speak(context)
+        }
+    }
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        speakerButton.tintColor = UIColor.cantoDarkBlue(a: 1)
+        let audioSession = AVAudioSession.sharedInstance()
+        try? audioSession.setActive(false)
+    }
 
     @objc func handleFavorite() {
         if isFavorited == false {
@@ -193,6 +232,7 @@ class EntryView: BaseView {
             return stack
         }()
         
+        addSubview(speakerButton)
         addSubview(heartButton)
         addSubview(heartButtonTitle)
         addSubview(cantoWordLabel)
@@ -200,10 +240,15 @@ class EntryView: BaseView {
         addSubview(sentenceLabel)
         
         NSLayoutConstraint.activate([
-            heartButton.topAnchor.constraint(equalTo: topAnchor, constant: 32),
-            heartButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
-            heartButton.widthAnchor.constraint(equalToConstant: 50),
-            heartButton.heightAnchor.constraint(equalToConstant: 50),
+            speakerButton.topAnchor.constraint(equalTo: topAnchor, constant: 32),
+            speakerButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
+            speakerButton.widthAnchor.constraint(equalToConstant: 40),
+            speakerButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            heartButton.topAnchor.constraint(equalTo: speakerButton.bottomAnchor, constant: 8),
+            heartButton.centerXAnchor.constraint(equalTo: speakerButton.centerXAnchor),
+            heartButton.widthAnchor.constraint(equalTo: speakerButton.widthAnchor, multiplier: 1),
+            heartButton.heightAnchor.constraint(equalTo: speakerButton.heightAnchor, multiplier: 1),
             
             heartButtonTitle.topAnchor.constraint(equalTo: heartButton.bottomAnchor),
             heartButtonTitle.centerXAnchor.constraint(equalTo: heartButton.centerXAnchor),
