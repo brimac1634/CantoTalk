@@ -73,7 +73,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     var homeController: HomeController?
     var isHistoryShowing: Bool = false
     let slideUpViewController = SlideUpViewController()
-    
+    var searchTrailing: NSLayoutConstraint!
     
     override func viewDidLoad() {
         
@@ -85,6 +85,8 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         view.addSubview(historyButton)
         view.addSubview(fadedView)
         
+        searchTrailing = searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -45)
+
         NSLayoutConstraint.activate([
             
             collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
@@ -94,7 +96,8 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
             
             searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: -2),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -45),
+            searchTrailing,
+//            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -45),
             searchBar.heightAnchor.constraint(equalToConstant: 45),
             
             blueView.topAnchor.constraint(equalTo: view.topAnchor, constant: -2),
@@ -134,27 +137,38 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
             searchBar.resignFirstResponder()
         }
         let view = EntryView()
-        if let entry = entries?[indexPath.item] {
-            view.selectedEntry = entry
-            slideUpViewController.showEntryView(slideUpView: view)
-            do {
-                try userRealm.write {
-                    let recentlyViewedItem = RecentlyViewedItems()
-                    recentlyViewedItem.entryID = entry.entryID
-                    let date = Date()
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.timeStyle = DateFormatter.Style.none
-                    dateFormatter.dateStyle = DateFormatter.Style.medium
-                    let dateString = dateFormatter.string(from: date)
-                    recentlyViewedItem.dateViewed = dateString
-                    userRealm.add(recentlyViewedItem)
+        
+        if isHistoryShowing == false {
+            if let entry = entries?[indexPath.item] {
+                view.selectedEntry = entry
+                slideUpViewController.showEntryView(slideUpView: view)
+                do {
+                    try userRealm.write {
+                        let recentlyViewedItem = RecentlyViewedItems()
+                        recentlyViewedItem.entryID = entry.entryID
+                        let date = Date()
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.timeStyle = DateFormatter.Style.none
+                        dateFormatter.dateStyle = DateFormatter.Style.medium
+                        let dateString = dateFormatter.string(from: date)
+                        recentlyViewedItem.dateViewed = dateString
+                        userRealm.add(recentlyViewedItem)
+                    }
+                } catch {
+                    print("error saving searchedItem: \(error)")
                 }
-            } catch {
-                print("error saving searchedItem: \(error)")
+                loadData()
+                return
             }
-            loadData()
-            return
+        } else {
+            if let recent = recentlyViewed?[indexPath.item] {
+                if let entry = homeController?.mainRealm.objects(Entries.self).filter("entryID = \(recent.entryID)").first {
+                    view.selectedEntry = entry
+                    slideUpViewController.showEntryView(slideUpView: view)
+                }
+            }
         }
+        
         loadData()
 
     }
@@ -176,7 +190,6 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
                 cell.selectedEntry = entry
             }
         } else {
-            recentlyViewed = userRealm.objects(RecentlyViewedItems.self).sorted(byKeyPath: "dateViewed", ascending: true)
             if let recent = recentlyViewed?[indexPath.item] {
                 if let entry = homeController?.mainRealm.objects(Entries.self).filter("entryID = \(recent.entryID)").first {
                     cell.selectedEntry = entry
@@ -245,6 +258,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         historyButton.tintColor = UIColor.cantoPink(a: 1)
         isHistoryShowing = true
         collectionView.reloadData()
+        guard recentlyViewed?.count != 0 else {return}
         collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
     }
     

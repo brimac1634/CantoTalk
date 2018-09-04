@@ -25,12 +25,7 @@ class FavoritesController: SearchController  {
         blueView.isHidden = true
         historyButton.isHidden = true
         
-        NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: -2),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            searchBar.heightAnchor.constraint(equalToConstant: 45),
-            ])
+        searchTrailing.constant = 0
         
         searchBar.layoutIfNeeded()
     }

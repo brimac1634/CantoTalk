@@ -101,7 +101,7 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     }
 
     private func setupView() {
-        view.backgroundColor = UIColor.cantoWhite(a: 1)
+        view.backgroundColor = UIColor.cantoDarkBlue(a: 1)
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([

@@ -19,15 +19,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CantoTalkIconCircle" translatesAutoresizingMaskIntoConstraints="NO" id="Edl-FO-Ei1">
-                                <rect key="frame" x="50" y="-434.5" width="275" height="1535"/>
+                                <rect key="frame" x="100" y="-434.5" width="175" height="1535"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Edl-FO-Ei1" secondAttribute="trailing" constant="50" id="8QC-kx-CFi"/>
-                            <constraint firstItem="Edl-FO-Ei1" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="50" id="SyV-5L-bNf"/>
-                            <constraint firstItem="Edl-FO-Ei1" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="ahF-Oy-vV7"/>
-                            <constraint firstItem="Edl-FO-Ei1" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="zhH-D0-dIG"/>
+                            <constraint firstItem="Edl-FO-Ei1" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="22Y-a1-MpN"/>
+                            <constraint firstItem="Edl-FO-Ei1" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="100" id="X4P-pH-mxd"/>
+                            <constraint firstAttribute="trailing" secondItem="Edl-FO-Ei1" secondAttribute="trailing" constant="100" id="fdr-9n-Sup"/>
+                            <constraint firstItem="Edl-FO-Ei1" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="xOr-bj-HHv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
