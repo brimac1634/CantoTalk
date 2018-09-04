@@ -63,7 +63,7 @@ class HomeController: UIViewController {
     func loadData() {
         searchController.entries = mainRealm.objects(Entries.self)
         wordOfTheDayController.entries = mainRealm.objects(Entries.self)
-        favoritesController.favoritesEntries = userRealm.objects(Entries.self).sorted(byKeyPath: "dateFavorited", ascending: false)
+        favoritesController.favoritesEntries = userRealm.objects(Favorites.self).sorted(byKeyPath: "dateFavorited", ascending: false)
     
     }
     

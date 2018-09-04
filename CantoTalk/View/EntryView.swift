@@ -26,7 +26,7 @@ class EntryView: BaseView, AVSpeechSynthesizerDelegate {
     let selectedHeartColor = UIColor.cantoPink(a: 1)
     let unselectedHeartColor = UIColor.cantoLightBlue(a: 1)
     var isFavorited: Bool?
-    var currentEntry: Entries?
+    var currentEntry: Favorites?
     var cantoWordString: String?
 
     var selectedEntry: Entries? {
@@ -53,7 +53,7 @@ class EntryView: BaseView, AVSpeechSynthesizerDelegate {
             sentenceLabel.attributedText = sentenceText
             
             
-            currentEntry = userRealm.objects(Entries.self).filter("entryID = \(String(entry.entryID))").first
+            currentEntry = userRealm.objects(Favorites.self).filter("entryID = \(String(entry.entryID))").first
             if currentEntry != nil {
                 isFavorited = true
                 heartButton.isSelected = true
@@ -168,7 +168,7 @@ class EntryView: BaseView, AVSpeechSynthesizerDelegate {
         if isFavorited == false {
             try! userRealm.write {
                 if let entry = selectedEntry {
-                    let newFavorite = Entries()
+                    let newFavorite = Favorites()
                     newFavorite.entryID = entry.entryID
                     
                     let formatter = DateFormatter()

@@ -13,7 +13,7 @@ class FavoritesController: SearchController  {
     
     let mainRealm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: true))
     
-    var favoritesEntries: Results<Entries>? {
+    var favoritesEntries: Results<Favorites>? {
         didSet {
             loadData()
         }
@@ -75,14 +75,14 @@ class FavoritesController: SearchController  {
     override func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchBar.showsCancelButton = true
         if searchBar.text?.count == 0 {
-            favoritesEntries = homeController?.userRealm.objects(Entries.self)
+            favoritesEntries = homeController?.userRealm.objects(Favorites.self)
         } else {
             favoritesEntries = favoritesEntries?.filter("jyutping CONTAINS[cd] %@ OR englishWord CONTAINS[cd] %@ OR cantoWord CONTAINS[cd] %@ OR mandarinWord CONTAINS[cd] %@", searchBar.text!, searchBar.text!, searchBar.text!, searchBar.text!).sorted(byKeyPath: "englishWord", ascending: true)
         }
     }
     
     override func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        favoritesEntries = homeController?.userRealm.objects(Entries.self)
+        favoritesEntries = homeController?.userRealm.objects(Favorites.self)
         searchBar.text = ""
         searchBar.showsCancelButton = false
         searchBar.resignFirstResponder()
