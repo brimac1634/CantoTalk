@@ -23,9 +23,7 @@ class EntranceController: UIViewController {
             
             self.present(navController, animated: true, completion: nil)
         }
-        
-        
+  
     }
-
 
 }
