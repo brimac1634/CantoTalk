@@ -38,14 +38,14 @@ class LoadingAnimation: BaseView {
         view.addSubview(self)
         
         NSLayoutConstraint.activate([
-            self.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            self.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            self.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            self.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             self.widthAnchor.constraint(equalToConstant: diameter),
             self.heightAnchor.constraint(equalToConstant: diameter)
             ])
         
         UIView.animate(withDuration: 0.2) {
-            self.loadingImage.alpha = 0.8
+            self.loadingImage.alpha = 1
         }
     }
     

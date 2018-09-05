@@ -122,21 +122,17 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     }
     
     func loadData() {
-        recentlyViewed = userRealm.objects(RecentlyViewedItems.self).sorted(byKeyPath: "dateViewed", ascending: true)
+        recentlyViewed = userRealm.objects(RecentlyViewedItems.self).sorted(byKeyPath: "dateViewed", ascending: false)
         collectionView.reloadData()
     }
     
 
     //MARK: - CollectionView Methods
-    
 
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if searchBar.isFirstResponder == true {
             searchBar.resignFirstResponder()
         }
-//        let loadingAnimation = LoadingAnimation()
-//        loadingAnimation.loadAnimation(view: view)
         
         let entryView = EntryView()
         
@@ -150,8 +146,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
                         recentlyViewedItem.entryID = entry.entryID
                         let date = Date()
                         let dateFormatter = DateFormatter()
-                        dateFormatter.timeStyle = DateFormatter.Style.none
-                        dateFormatter.dateStyle = DateFormatter.Style.medium
+                        dateFormatter.dateFormat = "y-MM-dd H:m:ss"
                         let dateString = dateFormatter.string(from: date)
                         recentlyViewedItem.dateViewed = dateString
                         userRealm.add(recentlyViewedItem)
@@ -159,7 +154,6 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
                 } catch {
                     print("error saving searchedItem: \(error)")
                 }
-                loadData()
                 return
             }
         } else {
@@ -170,8 +164,6 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
                 }
             }
         }
-//        loadingAnimation.stopAnimation()
-        loadData()
 
     }
     
@@ -193,6 +185,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
             }
         } else {
             if let recent = recentlyViewed?[indexPath.item] {
+                print(recent.dateViewed)
                 if let entry = homeController?.mainRealm.objects(Entries.self).filter("entryID = \(recent.entryID)").first {
                     cell.selectedEntry = entry
                 }
@@ -258,6 +251,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     func showHistoryView() {
         fadedView.isHidden = false
         historyButton.tintColor = UIColor.cantoPink(a: 1)
+        loadData()
         isHistoryShowing = true
         collectionView.reloadData()
         guard recentlyViewed?.count != 0 else {return}
