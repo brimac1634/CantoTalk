@@ -12,14 +12,6 @@ import AVFoundation
 
 class EntryView: BaseView, AVSpeechSynthesizerDelegate {
 
-    
-    override func setupViews() {
-        super.setupViews()
-        setupView()
-        speaker.delegate = self
-    }
-
-
     let userRealm = try! Realm()
     let speaker = AVSpeechSynthesizer()
     var favoritesController: FavoritesController?
@@ -28,6 +20,15 @@ class EntryView: BaseView, AVSpeechSynthesizerDelegate {
     var isFavorited: Bool?
     var currentEntry: Favorites?
     var cantoWordString: String?
+    
+    override func setupViews() {
+        super.setupViews()
+        setupView()
+        speaker.delegate = self
+    }
+
+    
+    
 
     var selectedEntry: Entries? {
         didSet {

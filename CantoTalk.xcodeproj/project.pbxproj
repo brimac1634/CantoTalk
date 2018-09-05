@@ -14,6 +14,8 @@
 		D281F257213D36FA00548B43 /* LearningKeyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281F256213D36FA00548B43 /* LearningKeyController.swift */; };
 		D287EB0B213E3C81006EBC2C /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB0A213E3C81006EBC2C /* Favorites.swift */; };
 		D287EB0D213E3F77006EBC2C /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D287EB0C213E3F77006EBC2C /* default.realm */; };
+		D287EB0F213F6F95006EBC2C /* LoadingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB0E213F6F95006EBC2C /* LoadingAnimation.swift */; };
+		D287EB11213F8A45006EBC2C /* EntranceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB10213F8A45006EBC2C /* EntranceController.swift */; };
 		D28CD659211997AD001A613F /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD658211997AD001A613F /* MenuBar.swift */; };
 		D28CD65D2119AB1C001A613F /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD65C2119AB1C001A613F /* FavoritesController.swift */; };
 		D2A40EFB212DBF6D00EE39C5 /* WordOfTheDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A40EFA212DBF6D00EE39C5 /* WordOfTheDay.swift */; };
@@ -43,6 +45,8 @@
 		D281F256213D36FA00548B43 /* LearningKeyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningKeyController.swift; sourceTree = "<group>"; };
 		D287EB0A213E3C81006EBC2C /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		D287EB0C213E3F77006EBC2C /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
+		D287EB0E213F6F95006EBC2C /* LoadingAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimation.swift; sourceTree = "<group>"; };
+		D287EB10213F8A45006EBC2C /* EntranceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntranceController.swift; sourceTree = "<group>"; };
 		D28CD658211997AD001A613F /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		D28CD65C2119AB1C001A613F /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
 		D2A40EFA212DBF6D00EE39C5 /* WordOfTheDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordOfTheDay.swift; sourceTree = "<group>"; };
@@ -155,6 +159,7 @@
 				D28CD658211997AD001A613F /* MenuBar.swift */,
 				D2D45C70211D5EAD008A6CF7 /* WordOfTheDayCells.swift */,
 				D2E001512122849B0031553E /* SettingsCell.swift */,
+				D287EB0E213F6F95006EBC2C /* LoadingAnimation.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -162,6 +167,7 @@
 		D2D6A06621105ADB002E0CCE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D287EB10213F8A45006EBC2C /* EntranceController.swift */,
 				D2D6A05421105AA4002E0CCE /* HomeController.swift */,
 				D2814329211C026000005604 /* SearchController.swift */,
 				D28CD65C2119AB1C001A613F /* FavoritesController.swift */,
@@ -328,10 +334,12 @@
 				D2D6A06921105C87002E0CCE /* Extensions.swift in Sources */,
 				D2F8FB99211A9CA700E260B9 /* BaseCells.swift in Sources */,
 				D2D6A05321105AA4002E0CCE /* AppDelegate.swift in Sources */,
+				D287EB0F213F6F95006EBC2C /* LoadingAnimation.swift in Sources */,
 				D2D6A08121144C78002E0CCE /* SlideUpViewController.swift in Sources */,
 				D2D6A083211452A8002E0CCE /* Entries.swift in Sources */,
 				D2A40EFB212DBF6D00EE39C5 /* WordOfTheDay.swift in Sources */,
 				D2E001522122849B0031553E /* SettingsCell.swift in Sources */,
+				D287EB11213F8A45006EBC2C /* EntranceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

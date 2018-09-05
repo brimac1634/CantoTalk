@@ -97,7 +97,6 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
             searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: -2),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             searchTrailing,
-//            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -45),
             searchBar.heightAnchor.constraint(equalToConstant: 45),
             
             blueView.topAnchor.constraint(equalTo: view.topAnchor, constant: -2),
@@ -136,12 +135,15 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         if searchBar.isFirstResponder == true {
             searchBar.resignFirstResponder()
         }
-        let view = EntryView()
+//        let loadingAnimation = LoadingAnimation()
+//        loadingAnimation.loadAnimation(view: view)
+        
+        let entryView = EntryView()
         
         if isHistoryShowing == false {
             if let entry = entries?[indexPath.item] {
-                view.selectedEntry = entry
-                slideUpViewController.showEntryView(slideUpView: view)
+                entryView.selectedEntry = entry
+                slideUpViewController.showEntryView(slideUpView: entryView)
                 do {
                     try userRealm.write {
                         let recentlyViewedItem = RecentlyViewedItems()
@@ -163,12 +165,12 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         } else {
             if let recent = recentlyViewed?[indexPath.item] {
                 if let entry = homeController?.mainRealm.objects(Entries.self).filter("entryID = \(recent.entryID)").first {
-                    view.selectedEntry = entry
-                    slideUpViewController.showEntryView(slideUpView: view)
+                    entryView.selectedEntry = entry
+                    slideUpViewController.showEntryView(slideUpView: entryView)
                 }
             }
         }
-        
+//        loadingAnimation.stopAnimation()
         loadData()
 
     }
