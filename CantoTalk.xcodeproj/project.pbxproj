@@ -16,6 +16,7 @@
 		D287EB0D213E3F77006EBC2C /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D287EB0C213E3F77006EBC2C /* default.realm */; };
 		D287EB0F213F6F95006EBC2C /* LoadingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB0E213F6F95006EBC2C /* LoadingAnimation.swift */; };
 		D287EB11213F8A45006EBC2C /* EntranceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB10213F8A45006EBC2C /* EntranceController.swift */; };
+		D287EB35213FBC61006EBC2C /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB34213FBC61006EBC2C /* CameraController.swift */; };
 		D28CD659211997AD001A613F /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD658211997AD001A613F /* MenuBar.swift */; };
 		D28CD65D2119AB1C001A613F /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD65C2119AB1C001A613F /* FavoritesController.swift */; };
 		D2A40EFB212DBF6D00EE39C5 /* WordOfTheDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A40EFA212DBF6D00EE39C5 /* WordOfTheDay.swift */; };
@@ -47,6 +48,7 @@
 		D287EB0C213E3F77006EBC2C /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
 		D287EB0E213F6F95006EBC2C /* LoadingAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimation.swift; sourceTree = "<group>"; };
 		D287EB10213F8A45006EBC2C /* EntranceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntranceController.swift; sourceTree = "<group>"; };
+		D287EB34213FBC61006EBC2C /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		D28CD658211997AD001A613F /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		D28CD65C2119AB1C001A613F /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
 		D2A40EFA212DBF6D00EE39C5 /* WordOfTheDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordOfTheDay.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				D281432D211C03A500005604 /* SettingsController.swift */,
 				D2D6A08021144C78002E0CCE /* SlideUpViewController.swift */,
 				D281F256213D36FA00548B43 /* LearningKeyController.swift */,
+				D287EB34213FBC61006EBC2C /* CameraController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				D2D6A05521105AA4002E0CCE /* HomeController.swift in Sources */,
 				D2D6A06B21106140002E0CCE /* WordCells.swift in Sources */,
 				D2113CCF2133EF7600249DD6 /* RecentlyViewedItems.swift in Sources */,
+				D287EB35213FBC61006EBC2C /* CameraController.swift in Sources */,
 				D281F257213D36FA00548B43 /* LearningKeyController.swift in Sources */,
 				D2D6A0772112FCA9002E0CCE /* WordOfTheDayController.swift in Sources */,
 				D2D45C71211D5EAD008A6CF7 /* WordOfTheDayCells.swift in Sources */,

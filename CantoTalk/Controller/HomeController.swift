@@ -20,6 +20,7 @@ class HomeController: UIViewController {
     var favoritesController: FavoritesController!
     var wordOfTheDayController: WordOfTheDayController!
     var learningKeyController: LearningKeyController!
+    var cameraController: CameraController!
     
     var viewControllers: [UIViewController]!
     
@@ -110,7 +111,8 @@ class HomeController: UIViewController {
     }
     
     @objc func handleCamera() {
-        print(456)
+        cameraController = CameraController()
+        navigationController?.pushViewController(cameraController, animated: true)
     }
     func addView(menuIndex: Int) {
         if lastVCIndex != menuIndex {

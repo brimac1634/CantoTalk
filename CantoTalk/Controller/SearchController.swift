@@ -185,7 +185,6 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
             }
         } else {
             if let recent = recentlyViewed?[indexPath.item] {
-                print(recent.dateViewed)
                 if let entry = homeController?.mainRealm.objects(Entries.self).filter("entryID = \(recent.entryID)").first {
                     cell.selectedEntry = entry
                 }
