@@ -171,6 +171,10 @@ class EntryView: BaseView, AVSpeechSynthesizerDelegate {
                 if let entry = selectedEntry {
                     let newFavorite = Favorites()
                     newFavorite.entryID = entry.entryID
+                    newFavorite.cantoWord = entry.cantoWord
+                    newFavorite.jyutping = entry.jyutping
+                    newFavorite.englishWord = entry.englishWord
+                    newFavorite.mandarinWord = entry.mandarinWord
                     
                     let formatter = DateFormatter()
                     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -246,7 +250,7 @@ class EntryView: BaseView, AVSpeechSynthesizerDelegate {
             speakerButton.widthAnchor.constraint(equalToConstant: 40),
             speakerButton.heightAnchor.constraint(equalToConstant: 40),
             
-            heartButton.topAnchor.constraint(equalTo: speakerButton.bottomAnchor, constant: 8),
+            heartButton.topAnchor.constraint(equalTo: speakerButton.bottomAnchor, constant: 16),
             heartButton.centerXAnchor.constraint(equalTo: speakerButton.centerXAnchor),
             heartButton.widthAnchor.constraint(equalTo: speakerButton.widthAnchor, multiplier: 1),
             heartButton.heightAnchor.constraint(equalTo: speakerButton.heightAnchor, multiplier: 1),

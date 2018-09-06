@@ -26,7 +26,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         bar.placeholder = "English/Cantonese/Mandarin/Jyutping"
         let historyImage = UIImage(named: "history")?.withRenderingMode(.alwaysTemplate)
         bar.barTintColor = UIColor.cantoDarkBlue(a: 1)
-        bar.tintColor = UIColor.cantoWhite(a: 1)
+        bar.tintColor = UIColor.lightGray
         bar.autocorrectionType = .yes
         bar.delegate = self
         bar.translatesAutoresizingMaskIntoConstraints = false
@@ -78,6 +78,9 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     override func viewDidLoad() {
         
         collectionView.register(WordCells.self, forCellWithReuseIdentifier: cellID)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap))
+        collectionView.backgroundView = UIView(frame: collectionView.bounds)
+        collectionView.backgroundView?.addGestureRecognizer(tapGesture)
     
         view.addSubview(collectionView)
         view.addSubview(searchBar)
@@ -130,9 +133,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     //MARK: - CollectionView Methods
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if searchBar.isFirstResponder == true {
-            searchBar.resignFirstResponder()
-        }
+        UISearchBar.resignIfFirstResponder(searchBar: searchBar)
         
         let entryView = EntryView()
         
@@ -202,6 +203,16 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         return 0
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if searchBar.isFirstResponder == true {
+            searchBar.resignFirstResponder()
+        }
+    }
+    
+    @objc func handleBackgroundTap() {
+        UISearchBar.resignIfFirstResponder(searchBar: searchBar)
+    }
+    
     
     //MARK: - SearchBar Methods
 
@@ -211,9 +222,8 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchBar.showsCancelButton = true
         if searchBar.text?.count == 0 {
-            checkIfHistoryIsOn()
+            resetEntriesList()
         } else {
             hideHistoryView()
             searchWithFilter()
@@ -224,22 +234,12 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         entries = entries?.filter("jyutping CONTAINS[cd] %@ OR englishWord CONTAINS[cd] %@ OR cantoWord CONTAINS[cd] %@ OR mandarinWord CONTAINS[cd] %@", searchBar.text!, searchBar.text!, searchBar.text!, searchBar.text!).sorted(byKeyPath: "englishWord", ascending: true)
     }
 
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        checkIfHistoryIsOn()
-        searchBar.text = ""
-        searchBar.showsCancelButton = false
-        searchBar.resignFirstResponder()
-        
-    }
-    
-    func checkIfHistoryIsOn() {
-        if isHistoryShowing == false {
-            entries = homeController?.mainRealm.objects(Entries.self)
-        }
-    }
+
     
     @objc func handleHistory() {
+        UISearchBar.resignIfFirstResponder(searchBar: searchBar)
+        searchBar.text = ""
+        resetEntriesList()
         if isHistoryShowing == false {
             showHistoryView()
         } else {
@@ -262,6 +262,10 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         historyButton.tintColor = UIColor.cantoWhite(a: 1)
         isHistoryShowing = false
         loadData()
+    }
+    
+    func resetEntriesList() {
+        entries = homeController?.mainRealm.objects(Entries.self)
     }
     
 }

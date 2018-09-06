@@ -35,6 +35,8 @@ class FavoritesController: SearchController  {
         loadData()
     }
     
+    //MARK: - CollectionView Methods
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if searchBar.isFirstResponder == true {
             searchBar.resignFirstResponder()
@@ -68,24 +70,13 @@ class FavoritesController: SearchController  {
     
     //MARK: - SearchBar Methods
     
-    override func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    override func searchWithFilter() {
         favoritesEntries = favoritesEntries?.filter("jyutping CONTAINS[cd] %@ OR englishWord CONTAINS[cd] %@ OR cantoWord CONTAINS[cd] %@ OR mandarinWord CONTAINS[cd] %@", searchBar.text!, searchBar.text!, searchBar.text!, searchBar.text!).sorted(byKeyPath: "englishWord", ascending: true)
     }
     
-    override func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchBar.showsCancelButton = true
-        if searchBar.text?.count == 0 {
-            favoritesEntries = homeController?.userRealm.objects(Favorites.self)
-        } else {
-            favoritesEntries = favoritesEntries?.filter("jyutping CONTAINS[cd] %@ OR englishWord CONTAINS[cd] %@ OR cantoWord CONTAINS[cd] %@ OR mandarinWord CONTAINS[cd] %@", searchBar.text!, searchBar.text!, searchBar.text!, searchBar.text!).sorted(byKeyPath: "englishWord", ascending: true)
-        }
-    }
-    
-    override func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    override func resetEntriesList() {
         favoritesEntries = homeController?.userRealm.objects(Favorites.self)
-        searchBar.text = ""
-        searchBar.showsCancelButton = false
-        searchBar.resignFirstResponder()
+        print(favoritesEntries?.count)
     }
     
 

@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.rootViewController = EntranceController()
-//        window?.rootViewController = UINavigationController(rootViewController: HomeController())
         
         application.statusBarStyle = .lightContent
         
@@ -34,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             statusBarBackgroundView.heightAnchor.constraint(equalToConstant: 20).isActive = true
         }
         
-//        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
+        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
         
         return true
     }

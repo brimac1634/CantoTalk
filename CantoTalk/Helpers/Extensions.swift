@@ -39,7 +39,13 @@ extension Date {
     }
 }
 
-
+extension UISearchBar {
+    static func resignIfFirstResponder(searchBar: UISearchBar) {
+        if  searchBar.isFirstResponder == true {
+            searchBar.resignFirstResponder()
+        }
+    }
+}
 
 
 

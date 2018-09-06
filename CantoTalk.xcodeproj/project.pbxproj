@@ -108,6 +108,14 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D287EB362140DDFD006EBC2C /* Singletons */ = {
+			isa = PBXGroup;
+			children = (
+				D2D6A05221105AA4002E0CCE /* AppDelegate.swift */,
+			);
+			path = Singletons;
+			sourceTree = "<group>";
+		};
 		D2D6A04621105AA4002E0CCE = {
 			isa = PBXGroup;
 			children = (
@@ -129,11 +137,11 @@
 		D2D6A05121105AA4002E0CCE /* CantoTalk */ = {
 			isa = PBXGroup;
 			children = (
+				D287EB362140DDFD006EBC2C /* Singletons */,
 				D2D6A06421105AC7002E0CCE /* Model */,
 				D2D6A06521105ACE002E0CCE /* View */,
 				D2D6A06621105ADB002E0CCE /* Controller */,
 				D2D6A06721105AE5002E0CCE /* Helpers */,
-				D2D6A05221105AA4002E0CCE /* AppDelegate.swift */,
 				D2D6A05621105AA5002E0CCE /* Main.storyboard */,
 				D2D6A05B21105AA9002E0CCE /* LaunchScreen.storyboard */,
 				D2D6A05E21105AA9002E0CCE /* Info.plist */,
