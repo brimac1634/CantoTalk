@@ -64,6 +64,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     var entries: Results<Entries>? {
         didSet {
             loadData()
+            print(entries?.count)
         }
     }
     
@@ -226,6 +227,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
             resetEntriesList()
         } else {
             hideHistoryView()
+            resetEntriesList()
             searchWithFilter()
         }
     }
@@ -235,6 +237,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     }
 
 
+    //MARK: - History Methods
     
     @objc func handleHistory() {
         UISearchBar.resignIfFirstResponder(searchBar: searchBar)

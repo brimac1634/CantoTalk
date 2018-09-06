@@ -13,11 +13,7 @@ class FavoritesController: SearchController  {
     
     let mainRealm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: true))
     
-    var favoritesEntries: Results<Favorites>? {
-        didSet {
-            loadData()
-        }
-    }
+    var favoritesEntries: Results<Favorites>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +22,11 @@ class FavoritesController: SearchController  {
         historyButton.isHidden = true
         
         searchTrailing.constant = 0
-        
-        searchBar.layoutIfNeeded()
+    }
+    
+    override func loadData() {
+        favoritesEntries = userRealm.objects(Favorites.self).sorted(byKeyPath: "dateFavorited", ascending: false)
+        collectionView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,9 +37,7 @@ class FavoritesController: SearchController  {
     //MARK: - CollectionView Methods
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if searchBar.isFirstResponder == true {
-            searchBar.resignFirstResponder()
-        }
+        UISearchBar.resignIfFirstResponder(searchBar: searchBar)
         
         let view = EntryView()
         if let selectedFavoriteEntry = favoritesEntries?[indexPath.item] {
@@ -75,8 +72,7 @@ class FavoritesController: SearchController  {
     }
     
     override func resetEntriesList() {
-        super.resetEntriesList()
+        loadData()
     }
-    
 
 }

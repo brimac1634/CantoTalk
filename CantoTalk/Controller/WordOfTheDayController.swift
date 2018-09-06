@@ -13,6 +13,7 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
  
     let defaults = UserDefaults.standard
     
+    let userRealm = try! Realm()
     var homeController: HomeController?
     var wordOfTheDay: Results<WordOfTheDay>?
     let cellID = "cellID"
@@ -57,15 +58,12 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     private func updateData() {
-        if let userRealm = homeController?.userRealm {
-            wordOfTheDay = userRealm.objects(WordOfTheDay.self)
-        }
+        wordOfTheDay = userRealm.objects(WordOfTheDay.self)
         collectionView.reloadData()
     }
     
     private func loadWordOfTheDay() {
 
-        guard let userRealm = homeController?.userRealm else {return}
         let currentDate = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = DateFormatter.Style.none
