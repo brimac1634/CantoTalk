@@ -265,7 +265,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     }
     
     func resetEntriesList() {
-        entries = homeController?.mainRealm.objects(Entries.self)
+        homeController?.loadData()
     }
     
 }

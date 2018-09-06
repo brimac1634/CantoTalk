@@ -71,12 +71,11 @@ class FavoritesController: SearchController  {
     //MARK: - SearchBar Methods
     
     override func searchWithFilter() {
-        favoritesEntries = favoritesEntries?.filter("jyutping CONTAINS[cd] %@ OR englishWord CONTAINS[cd] %@ OR cantoWord CONTAINS[cd] %@ OR mandarinWord CONTAINS[cd] %@", searchBar.text!, searchBar.text!, searchBar.text!, searchBar.text!).sorted(byKeyPath: "englishWord", ascending: true)
+        favoritesEntries = favoritesEntries?.filter("jyutping CONTAINS[cd] %@ OR englishWord CONTAINS[cd] %@ OR cantoWord CONTAINS[cd] %@ OR mandarinWord CONTAINS[cd] %@", searchBar.text!, searchBar.text!, searchBar.text!, searchBar.text!).sorted(byKeyPath: "dateFavorited", ascending: false)
     }
     
     override func resetEntriesList() {
-        favoritesEntries = homeController?.userRealm.objects(Favorites.self)
-        print(favoritesEntries?.count)
+        super.resetEntriesList()
     }
     
 
