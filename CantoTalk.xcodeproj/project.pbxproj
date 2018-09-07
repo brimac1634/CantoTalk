@@ -17,6 +17,8 @@
 		D287EB0F213F6F95006EBC2C /* LoadingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB0E213F6F95006EBC2C /* LoadingAnimation.swift */; };
 		D287EB11213F8A45006EBC2C /* EntranceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB10213F8A45006EBC2C /* EntranceController.swift */; };
 		D287EB35213FBC61006EBC2C /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB34213FBC61006EBC2C /* CameraController.swift */; };
+		D287EB3821410459006EBC2C /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB3721410459006EBC2C /* CameraView.swift */; };
+		D287EB3A21422627006EBC2C /* Inceptionv3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D287EB3921422627006EBC2C /* Inceptionv3.mlmodel */; };
 		D28CD659211997AD001A613F /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD658211997AD001A613F /* MenuBar.swift */; };
 		D28CD65D2119AB1C001A613F /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD65C2119AB1C001A613F /* FavoritesController.swift */; };
 		D2A40EFB212DBF6D00EE39C5 /* WordOfTheDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A40EFA212DBF6D00EE39C5 /* WordOfTheDay.swift */; };
@@ -49,6 +51,8 @@
 		D287EB0E213F6F95006EBC2C /* LoadingAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimation.swift; sourceTree = "<group>"; };
 		D287EB10213F8A45006EBC2C /* EntranceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntranceController.swift; sourceTree = "<group>"; };
 		D287EB34213FBC61006EBC2C /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
+		D287EB3721410459006EBC2C /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		D287EB3921422627006EBC2C /* Inceptionv3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Inceptionv3.mlmodel; sourceTree = "<group>"; };
 		D28CD658211997AD001A613F /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		D28CD65C2119AB1C001A613F /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
 		D2A40EFA212DBF6D00EE39C5 /* WordOfTheDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordOfTheDay.swift; sourceTree = "<group>"; };
@@ -102,6 +106,7 @@
 		D27C0A5A211803A000E615EB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D287EB3921422627006EBC2C /* Inceptionv3.mlmodel */,
 				D287EB0C213E3F77006EBC2C /* default.realm */,
 				D2D6A05921105AA9002E0CCE /* Assets.xcassets */,
 			);
@@ -170,6 +175,7 @@
 				D2D45C70211D5EAD008A6CF7 /* WordOfTheDayCells.swift */,
 				D2E001512122849B0031553E /* SettingsCell.swift */,
 				D287EB0E213F6F95006EBC2C /* LoadingAnimation.swift */,
+				D287EB3721410459006EBC2C /* CameraView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -343,11 +349,13 @@
 				D28CD65D2119AB1C001A613F /* FavoritesController.swift in Sources */,
 				D2D6A06D2111A36C002E0CCE /* EntryView.swift in Sources */,
 				D28CD659211997AD001A613F /* MenuBar.swift in Sources */,
+				D287EB3A21422627006EBC2C /* Inceptionv3.mlmodel in Sources */,
 				D2D6A06921105C87002E0CCE /* Extensions.swift in Sources */,
 				D2F8FB99211A9CA700E260B9 /* BaseCells.swift in Sources */,
 				D2D6A05321105AA4002E0CCE /* AppDelegate.swift in Sources */,
 				D287EB0F213F6F95006EBC2C /* LoadingAnimation.swift in Sources */,
 				D2D6A08121144C78002E0CCE /* SlideUpViewController.swift in Sources */,
+				D287EB3821410459006EBC2C /* CameraView.swift in Sources */,
 				D2D6A083211452A8002E0CCE /* Entries.swift in Sources */,
 				D2A40EFB212DBF6D00EE39C5 /* WordOfTheDay.swift in Sources */,
 				D2E001522122849B0031553E /* SettingsCell.swift in Sources */,

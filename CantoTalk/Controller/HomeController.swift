@@ -12,9 +12,6 @@ import RealmSwift
 class HomeController: UIViewController {
 
     let mainRealm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: true))
-//    let userRealm = try! Realm()
-    
-
 
     var searchController: SearchController!
     var favoritesController: FavoritesController!
@@ -70,10 +67,12 @@ class HomeController: UIViewController {
     
     private func setupNavBar() {
         
-        if let navController = navigationController {
-            navController.navigationBar.barTintColor = UIColor.cantoDarkBlue(a: 1)
-            navController.navigationBar.tintColor = UIColor.cantoWhite(a: 1)
-            navController.navigationBar.isTranslucent = false
+        if let navBar = navigationController?.navigationBar {
+            navBar.barTintColor = UIColor.cantoDarkBlue(a: 1)
+            navBar.tintColor = UIColor.cantoWhite(a: 1)
+            navBar.isTranslucent = false
+            navBar.shadowImage = UIImage()
+            navBar.setBackgroundImage(UIImage(), for: .default)
         }
         
         let titleImageView = UIImageView(image: #imageLiteral(resourceName: "CantoTalkIconCircle"))

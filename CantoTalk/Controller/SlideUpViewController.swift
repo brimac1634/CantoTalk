@@ -38,7 +38,7 @@ class SlideUpViewController: NSObject {
             
 
             
-            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 self.blackView.alpha = 1
                 slideUpView.frame = CGRect(x: 0, y: y, width: window.frame.width, height: height)
             }, completion: nil)

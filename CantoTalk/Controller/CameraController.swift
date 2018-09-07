@@ -8,73 +8,98 @@
 
 import UIKit
 import AVFoundation
+import CoreML
+import Vision
 
-class CameraController: UIViewController {
-
-    var captureSession = AVCaptureSession()
-    var backCamera: AVCaptureDevice?
-    var frontCamera: AVCaptureDevice?
-    var currentCamera: AVCaptureDevice?
+class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
-    var photoOutput: AVCapturePhotoOutput?
+    let cameraView: CameraView = {
+        let view = CameraView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
-    var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
+    
+    
+    private var requests = [VNRequest]()
+    private lazy var cameraLayer: AVCaptureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
+    private lazy var captureSession: AVCaptureSession = {
+        let session = AVCaptureSession()
+        session.sessionPreset = AVCaptureSession.Preset.photo
+        guard
+            let backCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),
+            let input = try? AVCaptureDeviceInput(device: backCamera)
+            else { return session }
+        session.addInput(input)
+        return session
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViews()
+        self.cameraView.layer.addSublayer(self.cameraLayer)
+        let videoOutput = AVCaptureVideoDataOutput()
+        videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "MyQueue"))
+        self.captureSession.addOutput(videoOutput)
+        self.captureSession.startRunning()
+        setupVision()
+    }
+    
+    func setupViews() {
+        view.addSubview(cameraView)
+        
+        NSLayoutConstraint.activate([
+            cameraView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            cameraView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            cameraView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            cameraView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            ])
 
-        setupCaptureSession()
-        setupDevice()
-        setupInputOutput()
-        setupPreviewLayer()
-        startRunningCaptureSession()
     }
     
-    
-    //Mark: - Configure Camera View
-    
-    private func setupCaptureSession() {
-        captureSession.sessionPreset = AVCaptureSession.Preset.medium
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.cameraLayer.frame = self.cameraView.bounds
     }
     
-    private func setupDevice() {
-        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: AVCaptureDevice.Position.unspecified)
-        let devices = deviceDiscoverySession.devices
-        for device in devices {
-            if device.position == AVCaptureDevice.Position.back {
-                backCamera = device
-            } else if device.position == AVCaptureDevice.Position.front {
-                frontCamera = device
-            }
+    func setupVision() {
+        guard let visionModel = try? VNCoreMLModel(for: Inceptionv3().model)
+            else { fatalError("Can't load VisionML model") }
+        let classificationRequest = VNCoreMLRequest(model: visionModel, completionHandler: handleClassifications)
+        classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOption.centerCrop
+        self.requests = [classificationRequest]
+    }
+    
+    func handleClassifications(request: VNRequest, error: Error?) {
+        guard let observations = request.results
+            else { print("no results: \(error!)"); return }
+        let classifications = observations[0...4]
+            .compactMap({ $0 as? VNClassificationObservation })
+            .filter({ $0.confidence > 0.3 })
+            .sorted(by: { $0.confidence > $1.confidence })
+            .map {
+                (prediction: VNClassificationObservation) -> String in
+                return "\(round(prediction.confidence * 100 * 100)/100)%: \(prediction.identifier)"
         }
-        currentCamera = backCamera
+        DispatchQueue.main.async {
+            print(classifications.joined(separator: "###"))
+//            self classificationText.text = classifications.joined(separator: "\n")
+        }
     }
     
-    private func setupInputOutput() {
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+            return
+        }
+        var requestOptions:[VNImageOption : Any] = [:]
+        if let cameraIntrinsicData = CMGetAttachment(sampleBuffer, kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix, nil) {
+            requestOptions = [.cameraIntrinsics:cameraIntrinsicData]
+        }
+        let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: CGImagePropertyOrientation(rawValue: 1)!, options: requestOptions)
         do {
-            let captureDeviceInput = try AVCaptureDeviceInput(device: currentCamera!)
-            captureSession.addInput(captureDeviceInput)
-            photoOutput?.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])], completionHandler: nil)
+            try imageRequestHandler.perform(self.requests)
         } catch {
             print(error)
         }
     }
-    
-    private func setupPreviewLayer() {
-        cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
-        cameraPreviewLayer?.frame = self.view.frame
-        self.view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
-    }
-
-    private func startRunningCaptureSession() {
-        captureSession.startRunning()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
-
 }
