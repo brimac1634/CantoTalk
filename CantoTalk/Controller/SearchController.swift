@@ -64,7 +64,6 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     var entries: Results<Entries>? {
         didSet {
             loadData()
-            print(entries?.count)
         }
     }
     
