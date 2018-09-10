@@ -62,15 +62,15 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
         
         
         NSLayoutConstraint.activate([
-            cameraView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            cameraView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            cameraView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            cameraView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            cameraView.topAnchor.constraint(equalTo: view.topAnchor),
+            cameraView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            cameraView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            cameraView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            cameraDisplay.topAnchor.constraint(equalTo: cameraView.topAnchor),
-            cameraDisplay.leadingAnchor.constraint(equalTo: cameraView.leadingAnchor),
-            cameraDisplay.trailingAnchor.constraint(equalTo: cameraView.trailingAnchor),
-            cameraDisplay.bottomAnchor.constraint(equalTo: cameraView.bottomAnchor)
+            cameraDisplay.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            cameraDisplay.leadingAnchor.constraint(equalTo: cameraView.safeAreaLayoutGuide.leadingAnchor),
+            cameraDisplay.trailingAnchor.constraint(equalTo: cameraView.safeAreaLayoutGuide.trailingAnchor),
+            cameraDisplay.bottomAnchor.constraint(equalTo: cameraView.safeAreaLayoutGuide.bottomAnchor)
             ])
 
     }
@@ -78,6 +78,7 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.cameraLayer.frame = self.cameraView.bounds
+        self.cameraLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
     }
     
     func setupVision() {
@@ -100,6 +101,8 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
             for word in individualWords {
                 if let entry = entryList.filter("englishWord CONTAINS[cd] %@", word).sorted(byKeyPath: "englishWord").first {
                     self.cameraDisplay.selectedEntry = entry
+                } else {
+                    self.cameraDisplay.selectedEntry = nil
                 }
             }
 

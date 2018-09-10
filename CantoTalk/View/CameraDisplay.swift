@@ -8,11 +8,8 @@
 
 import Foundation
 import UIKit
-import AVFoundation
 
-class CameraDisplay: BaseView, AVSpeechSynthesizerDelegate {
-    
-    let speaker = AVSpeechSynthesizer()
+class CameraDisplay: BaseView {
     
     var selectedEntry: Entries? {
         didSet {
@@ -21,17 +18,18 @@ class CameraDisplay: BaseView, AVSpeechSynthesizerDelegate {
             if entry.classifier != "" {
                 topText.append(NSAttributedString(string: " (cl:\(entry.classifier))", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.cantoWhite(a: 1)]))
             }
-            topText.append(NSAttributedString(string: "\(entry.jyutping)", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20), NSAttributedStringKey.foregroundColor: UIColor.cantoWhite(a: 1)]))
+            topText.append(NSAttributedString(string: "  \(entry.jyutping)", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20), NSAttributedStringKey.foregroundColor: UIColor.cantoWhite(a: 1)]))
             
             topTextView.attributedText = topText
             
             let bottomText = NSMutableAttributedString(string: "\nEn: ", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.cantoLightBlue(a: 0.8)])
             bottomText.append(NSAttributedString(string: entry.englishWord, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
-            bottomText.append(NSMutableAttributedString(string: " 普: ", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.cantoLightBlue(a: 0.8)]))
+            bottomText.append(NSMutableAttributedString(string: "  普: ", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.cantoLightBlue(a: 0.8)]))
             bottomText.append(NSAttributedString(string: entry.mandarinWord, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
             
             bottomTextView.attributedText = bottomText
-            print(bottomText)
+            
+            speakerButton.spokenWord = entry.cantoWord
             
         }
     }
@@ -42,21 +40,20 @@ class CameraDisplay: BaseView, AVSpeechSynthesizerDelegate {
         return view
     }()
     
-    let closeButton: UIButton = {
-        let button = UIButton()
-        
-        return button
-    }()
+//    let closeButton: UIButton = {
+//        let button = UIButton(type: .custom)
+//        let image = UIImage(named: "exit")?.withRenderingMode(.alwaysOriginal)
+//        button.setImage(image, for: .normal)
+//        button.addTarget(self, action: #selector(handleExit), for: .touchUpInside)
+//        return button
+//    }()
     
     let textView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.cantoWhite(a: 1)
-        view.layer.cornerRadius = 25
+        view.layer.cornerRadius = 14
         view.clipsToBounds = true
-        view.layer.masksToBounds = false
-        view.layer.shadowOffset = CGSize(width: -1, height: 1)
-        view.layer.shadowRadius = 5
-        view.layer.shadowOpacity = 0.5
+        view.dropShadow()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -74,7 +71,9 @@ class CameraDisplay: BaseView, AVSpeechSynthesizerDelegate {
     let topBlueView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.cantoDarkBlue(a: 1)
-        view.mask?.clipsToBounds = true
+        view.layer.cornerRadius = 14
+        view.clipsToBounds = true
+        view.dropShadow()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -89,42 +88,14 @@ class CameraDisplay: BaseView, AVSpeechSynthesizerDelegate {
         return label
     }()
     
-    let speakerButton: UIButton = {
-        let button = UIButton(type: .custom)
-        let image = UIImage(named: "speaker")?.withRenderingMode(.alwaysTemplate)
-        button.setBackgroundImage(image, for: .normal)
-        button.tintColor = UIColor.cantoWhite(a: 1)
+    let speakerButton: SpeakerButton = {
+        let button = SpeakerButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(handleSpeaker), for: .touchUpInside)
         return button
     }()
     
-    @objc func handleSpeaker() {
-        if speaker.isSpeaking {
-            speaker.stopSpeaking(at: .immediate)
-            speakerButton.tintColor = UIColor.cantoWhite(a: 1)
-        } else {
-            speakerButton.tintColor = UIColor.cantoPink(a: 1)
-            let audioSession = AVAudioSession.sharedInstance()
-            try? audioSession.setCategory(AVAudioSessionCategoryPlayback, with: .duckOthers)
-            
-            guard let cantoWord = selectedEntry?.cantoWord else {return}
-            let voice = AVSpeechSynthesisVoice(language: "zh-HK")
-            let context = AVSpeechUtterance(string: cantoWord)
-            context.voice = voice
-            speaker.speak(context)
-        }
-    }
-    
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        speakerButton.tintColor = UIColor.cantoWhite(a: 1)
-        let audioSession = AVAudioSession.sharedInstance()
-        try? audioSession.setActive(false)
-    }
-    
     override func setupViews() {
         super.setupViews()
-        speaker.delegate = self
         
         backgroundColor = UIColor(white: 1, alpha: 0)
         

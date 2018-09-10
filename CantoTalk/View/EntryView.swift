@@ -8,12 +8,10 @@
 
 import UIKit
 import RealmSwift
-import AVFoundation
 
-class EntryView: BaseView, AVSpeechSynthesizerDelegate {
+class EntryView: BaseView {
 
     let userRealm = try! Realm()
-    let speaker = AVSpeechSynthesizer()
     var favoritesController: FavoritesController?
     let selectedHeartColor = UIColor.cantoPink(a: 1)
     let unselectedHeartColor = UIColor.cantoLightBlue(a: 1)
@@ -24,11 +22,7 @@ class EntryView: BaseView, AVSpeechSynthesizerDelegate {
     override func setupViews() {
         super.setupViews()
         setupView()
-        speaker.delegate = self
     }
-
-    
-    
 
     var selectedEntry: Entries? {
         didSet {
@@ -66,6 +60,8 @@ class EntryView: BaseView, AVSpeechSynthesizerDelegate {
             }
             
             cantoWordString = entry.cantoWord
+            
+            speakerButton.spokenWord = entry.cantoWord
         }
     }
     
@@ -111,13 +107,9 @@ class EntryView: BaseView, AVSpeechSynthesizerDelegate {
         return label
     }()
 
-    let speakerButton: UIButton = {
-        let button = UIButton(type: .custom)
-        let image = UIImage(named: "speaker")?.withRenderingMode(.alwaysTemplate)
-        button.setBackgroundImage(image, for: .normal)
-        button.tintColor = UIColor.cantoDarkBlue(a: 1)
+    let speakerButton: SpeakerButton = {
+        let button = SpeakerButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(handleSpeaker), for: .touchUpInside)
         return button
     }()
 
@@ -140,30 +132,6 @@ class EntryView: BaseView, AVSpeechSynthesizerDelegate {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    @objc func handleSpeaker() {
-        if speaker.isSpeaking {
-            speaker.stopSpeaking(at: .immediate)
-            speakerButton.tintColor = UIColor.cantoDarkBlue(a: 1)
-        } else {
-            speakerButton.tintColor = UIColor.cantoPink(a: 1)
-            let audioSession = AVAudioSession.sharedInstance()
-            try? audioSession.setCategory(AVAudioSessionCategoryPlayback, with: .duckOthers)
-            
-            guard let cantoWord = cantoWordString else {return}
-            let voice = AVSpeechSynthesisVoice(language: "zh-HK")
-            let context = AVSpeechUtterance(string: cantoWord)
-            context.voice = voice
-            print(cantoWord)
-            speaker.speak(context)
-        }
-    }
-    
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        speakerButton.tintColor = UIColor.cantoDarkBlue(a: 1)
-        let audioSession = AVAudioSession.sharedInstance()
-        try? audioSession.setActive(false)
-    }
 
     @objc func handleFavorite() {
         if isFavorited == false {
@@ -276,6 +244,7 @@ class EntryView: BaseView, AVSpeechSynthesizerDelegate {
             sentenceLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -32)
             ])
 
+        speakerButton.setColor(color: UIColor.cantoDarkBlue(a: 1))
         heartButtonTitle.alpha = 0
 
     }
