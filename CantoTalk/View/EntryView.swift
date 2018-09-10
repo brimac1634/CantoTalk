@@ -17,7 +17,6 @@ class EntryView: BaseView {
     let unselectedHeartColor = UIColor.cantoLightBlue(a: 1)
     var isFavorited: Bool?
     var currentEntry: Favorites?
-    var cantoWordString: String?
     
     override func setupViews() {
         super.setupViews()
@@ -59,7 +58,6 @@ class EntryView: BaseView {
                 heartButton.tintColor = unselectedHeartColor
             }
             
-            cantoWordString = entry.cantoWord
             
             speakerButton.spokenWord = entry.cantoWord
         }
