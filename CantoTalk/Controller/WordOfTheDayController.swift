@@ -81,10 +81,7 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     
     private func loadWordOfTheDay() {
 
-//        let currentDate = Date()
-        let date = Calendar.current.date(byAdding: .day, value: 5, to: Date())
-        guard let currentDate = date else {return}
-        
+        let currentDate = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = DateFormatter.Style.none
         dateFormatter.dateStyle = DateFormatter.Style.medium
