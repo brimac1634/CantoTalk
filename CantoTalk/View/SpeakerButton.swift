@@ -12,9 +12,8 @@ import AVFoundation
 class SpeakerButton: BaseView, AVSpeechSynthesizerDelegate {
     
     let speaker = AVSpeechSynthesizer()
-    var spokenWord: String?
+    var spokenWord = ""
     var normalColor = UIColor.cantoWhite(a: 1)
-    var selectedColor = UIColor.cantoPink(a: 1)
     
     let speakerButton: UIButton = {
         let button = UIButton(type: .custom)
@@ -47,19 +46,27 @@ class SpeakerButton: BaseView, AVSpeechSynthesizerDelegate {
         speakerButton.tintColor = color
     }
     
+    func parseCantoWord(cantoWord: String) {
+        let wordArray = cantoWord.components(separatedBy: ", ")
+        for word in wordArray {
+            if word.containsChineseCharacters {
+                spokenWord.append("\(word), ")
+            }
+        }
+    }
+    
     
     @objc func handleSpeaker() {
         if speaker.isSpeaking {
             speaker.stopSpeaking(at: .immediate)
             speakerButton.tintColor = normalColor
         } else {
-            speakerButton.tintColor = selectedColor
+            speakerButton.tintColor = UIColor.cantoPink(a: 1)
             let audioSession = AVAudioSession.sharedInstance()
             try? audioSession.setCategory(AVAudioSessionCategoryPlayback, with: .duckOthers)
             
             let voice = AVSpeechSynthesisVoice(language: "zh-HK")
-            guard let word = spokenWord else {return}
-            let context = AVSpeechUtterance(string: word)
+            let context = AVSpeechUtterance(string: spokenWord)
             context.voice = voice
             speaker.speak(context)
         }

@@ -99,7 +99,7 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
         
         DispatchQueue.main.async {
             for word in individualWords {
-                if let entry = entryList.filter("englishWord CONTAINS[cd] %@", word).sorted(byKeyPath: "englishWord").first {
+                if let entry = entryList.filter("englishWord = %@", word).sorted(byKeyPath: "englishWord").first {
                     self.cameraDisplay.selectedEntry = entry
                 } else {
                     self.cameraDisplay.selectedEntry = nil

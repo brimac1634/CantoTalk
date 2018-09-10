@@ -17,6 +17,7 @@ class EntryView: BaseView {
     let unselectedHeartColor = UIColor.cantoLightBlue(a: 1)
     var isFavorited: Bool?
     var currentEntry: Favorites?
+    var heartButtonTopConstraint: NSLayoutConstraint!
     
     override func setupViews() {
         super.setupViews()
@@ -58,8 +59,12 @@ class EntryView: BaseView {
                 heartButton.tintColor = unselectedHeartColor
             }
             
+            if entry.cantoWord.containsChineseCharacters == false {
+                speakerButton.alpha = 0
+                heartButtonTopConstraint.constant = -40
+            }
             
-            speakerButton.spokenWord = entry.cantoWord
+            speakerButton.parseCantoWord(cantoWord: entry.cantoWord)
         }
     }
     
@@ -107,6 +112,7 @@ class EntryView: BaseView {
 
     let speakerButton: SpeakerButton = {
         let button = SpeakerButton()
+        button.normalColor = UIColor.cantoDarkBlue(a: 1)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -188,8 +194,6 @@ class EntryView: BaseView {
             favoritesController?.loadData()
         }
     }
-    
-    
 
 
     func setupView() {
@@ -210,13 +214,15 @@ class EntryView: BaseView {
         addSubview(middleStackView)
         addSubview(sentenceLabel)
         
+        heartButtonTopConstraint = heartButton.topAnchor.constraint(equalTo: speakerButton.bottomAnchor, constant: 16)
+        
         NSLayoutConstraint.activate([
             speakerButton.topAnchor.constraint(equalTo: topAnchor, constant: 32),
             speakerButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
             speakerButton.widthAnchor.constraint(equalToConstant: 40),
             speakerButton.heightAnchor.constraint(equalToConstant: 40),
             
-            heartButton.topAnchor.constraint(equalTo: speakerButton.bottomAnchor, constant: 16),
+            heartButtonTopConstraint,
             heartButton.centerXAnchor.constraint(equalTo: speakerButton.centerXAnchor),
             heartButton.widthAnchor.constraint(equalTo: speakerButton.widthAnchor, multiplier: 1),
             heartButton.heightAnchor.constraint(equalTo: speakerButton.heightAnchor, multiplier: 1),

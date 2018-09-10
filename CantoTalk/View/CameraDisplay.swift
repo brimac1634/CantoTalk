@@ -29,7 +29,7 @@ class CameraDisplay: BaseView {
             
             bottomTextView.attributedText = bottomText
             
-            speakerButton.spokenWord = entry.cantoWord
+            speakerButton.parseCantoWord(cantoWord: entry.cantoWord)
             
         }
     }
