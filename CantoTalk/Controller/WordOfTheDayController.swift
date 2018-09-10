@@ -24,7 +24,7 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 16
+//        layout.minimumLineSpacing = 16
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = UIColor(white: 1, alpha: 0)
         cv.showsHorizontalScrollIndicator = false
@@ -105,6 +105,7 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
             guard let pastDate = lastDate else {return}
             let dayDifference = (currentDate.interval(ofComponent: .day, fromDate: pastDate)) - 1
             print("day difference: \(dayDifference)")
+            guard dayDifference >= 0 else {return}
             for n in (0...dayDifference).reversed() {
                 guard let date = Calendar.current.date(byAdding: .day, value: -n, to: currentDate) else {return}
                 let dateFormatter = DateFormatter()
@@ -166,7 +167,7 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(0, 16, 0, 16)
+        return UIEdgeInsetsMake(0, 8, 0, 8)
     }
 
 }

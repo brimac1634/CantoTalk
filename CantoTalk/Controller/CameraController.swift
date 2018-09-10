@@ -93,21 +93,17 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
         guard let observations = request.results as? [VNClassificationObservation] else { print("no results: \(error!)"); return }
         guard let firstResult = observations.first?.identifier else {return}
         let individualWords = firstResult.components(separatedBy: ", ")
-        print(individualWords[1])
+        print(individualWords)
         guard let entryList = entries else {return}
         
-        for word in individualWords {
-            if let entry = entryList.filter("englishWord CONTAINS[cd] %@", word).first {
-                entryArray?.append(entry)
-            }
-        }
-        
-        
-        
         DispatchQueue.main.async {
-            guard let entryList = self.entryArray else {return}
-            print(entryList[0].cantoWord)
-            self.cameraDisplay.classificationText.text = entryList[0].cantoWord
+            for word in individualWords {
+                if let entry = entryList.filter("englishWord CONTAINS[cd] %@", word).sorted(byKeyPath: "englishWord").first {
+                    self.cameraDisplay.selectedEntry = entry
+                }
+            }
+
+            
 
             
         }

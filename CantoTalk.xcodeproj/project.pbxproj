@@ -18,7 +18,7 @@
 		D287EB35213FBC61006EBC2C /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB34213FBC61006EBC2C /* CameraController.swift */; };
 		D287EB3821410459006EBC2C /* CameraDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB3721410459006EBC2C /* CameraDisplay.swift */; };
 		D287EB3A21422627006EBC2C /* Inceptionv3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D287EB3921422627006EBC2C /* Inceptionv3.mlmodel */; };
-		D287EB3C2142699D006EBC2C /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D287EB3B2142699D006EBC2C /* default.realm */; };
+		D287EB3E21463371006EBC2C /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D287EB3D21463371006EBC2C /* default.realm */; };
 		D28CD659211997AD001A613F /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD658211997AD001A613F /* MenuBar.swift */; };
 		D28CD65D2119AB1C001A613F /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD65C2119AB1C001A613F /* FavoritesController.swift */; };
 		D2A40EFB212DBF6D00EE39C5 /* WordOfTheDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A40EFA212DBF6D00EE39C5 /* WordOfTheDay.swift */; };
@@ -52,7 +52,7 @@
 		D287EB34213FBC61006EBC2C /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		D287EB3721410459006EBC2C /* CameraDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDisplay.swift; sourceTree = "<group>"; };
 		D287EB3921422627006EBC2C /* Inceptionv3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Inceptionv3.mlmodel; sourceTree = "<group>"; };
-		D287EB3B2142699D006EBC2C /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
+		D287EB3D21463371006EBC2C /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
 		D28CD658211997AD001A613F /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		D28CD65C2119AB1C001A613F /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
 		D2A40EFA212DBF6D00EE39C5 /* WordOfTheDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordOfTheDay.swift; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 		D27C0A5A211803A000E615EB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D287EB3B2142699D006EBC2C /* default.realm */,
+				D287EB3D21463371006EBC2C /* default.realm */,
 				D287EB3921422627006EBC2C /* Inceptionv3.mlmodel */,
 				D2D6A05921105AA9002E0CCE /* Assets.xcassets */,
 			);
@@ -267,7 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2D6A05D21105AA9002E0CCE /* LaunchScreen.storyboard in Resources */,
-				D287EB3C2142699D006EBC2C /* default.realm in Resources */,
+				D287EB3E21463371006EBC2C /* default.realm in Resources */,
 				D2D6A05A21105AA9002E0CCE /* Assets.xcassets in Resources */,
 				D2D6A05821105AA5002E0CCE /* Main.storyboard in Resources */,
 			);
