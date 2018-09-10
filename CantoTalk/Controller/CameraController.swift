@@ -10,16 +10,26 @@ import UIKit
 import AVFoundation
 import CoreML
 import Vision
+import RealmSwift
 
 class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
-    let cameraView: CameraView = {
-        let view = CameraView()
+    let mainRealm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: true))
+    
+    let cameraView: UIView = {
+        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
+    let cameraDisplay: CameraDisplay = {
+        let view = CameraDisplay()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
+    var entries: Results<Entries>?
+    var entryArray: [Entries]?
     
     private var requests = [VNRequest]()
     private lazy var cameraLayer: AVCaptureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
@@ -36,8 +46,8 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        entries = mainRealm.objects(Entries.self)
         setupViews()
-        self.cameraView.layer.addSublayer(self.cameraLayer)
         let videoOutput = AVCaptureVideoDataOutput()
         videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "MyQueue"))
         self.captureSession.addOutput(videoOutput)
@@ -47,12 +57,20 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
     
     func setupViews() {
         view.addSubview(cameraView)
+        cameraView.layer.addSublayer(self.cameraLayer)
+        view.addSubview(cameraDisplay)
+        
         
         NSLayoutConstraint.activate([
             cameraView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             cameraView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             cameraView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             cameraView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            cameraDisplay.topAnchor.constraint(equalTo: cameraView.topAnchor),
+            cameraDisplay.leadingAnchor.constraint(equalTo: cameraView.leadingAnchor),
+            cameraDisplay.trailingAnchor.constraint(equalTo: cameraView.trailingAnchor),
+            cameraDisplay.bottomAnchor.constraint(equalTo: cameraView.bottomAnchor)
             ])
 
     }
@@ -66,24 +84,32 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
         guard let visionModel = try? VNCoreMLModel(for: Inceptionv3().model)
             else { fatalError("Can't load VisionML model") }
         let classificationRequest = VNCoreMLRequest(model: visionModel, completionHandler: handleClassifications)
-        classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOption.centerCrop
+        classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOption.scaleFill
         self.requests = [classificationRequest]
     }
     
     func handleClassifications(request: VNRequest, error: Error?) {
-        guard let observations = request.results
-            else { print("no results: \(error!)"); return }
-        let classifications = observations[0...4]
-            .compactMap({ $0 as? VNClassificationObservation })
-            .filter({ $0.confidence > 0.3 })
-            .sorted(by: { $0.confidence > $1.confidence })
-            .map {
-                (prediction: VNClassificationObservation) -> String in
-                return "\(round(prediction.confidence * 100 * 100)/100)%: \(prediction.identifier)"
+        entryArray = []
+        guard let observations = request.results as? [VNClassificationObservation] else { print("no results: \(error!)"); return }
+        guard let firstResult = observations.first?.identifier else {return}
+        let individualWords = firstResult.components(separatedBy: ", ")
+        print(individualWords[1])
+        guard let entryList = entries else {return}
+        
+        for word in individualWords {
+            if let entry = entryList.filter("englishWord CONTAINS[cd] %@", word).first {
+                entryArray?.append(entry)
+            }
         }
+        
+        
+        
         DispatchQueue.main.async {
-            print(classifications.joined(separator: "###"))
-//            self classificationText.text = classifications.joined(separator: "\n")
+            guard let entryList = self.entryArray else {return}
+            print(entryList[0].cantoWord)
+            self.cameraDisplay.classificationText.text = entryList[0].cantoWord
+
+            
         }
     }
     
@@ -102,4 +128,5 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
             print(error)
         }
     }
+    
 }

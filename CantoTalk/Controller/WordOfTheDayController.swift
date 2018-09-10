@@ -62,23 +62,46 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
         collectionView.reloadData()
     }
     
+    private func setupView() {
+        view.backgroundColor = UIColor.cantoDarkBlue(a: 1)
+        view.addSubview(collectionView)
+        
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
+            ])
+        
+        collectionView.register(WordOfTheDayCells.self, forCellWithReuseIdentifier: cellID)
+        collectionView.contentInset = UIEdgeInsetsMake(0, 8, 0, 8)
+    }
+    
+    //MARK: - Word of the day methods
+    
     private func loadWordOfTheDay() {
 
-        let currentDate = Date()
+//        let currentDate = Date()
+        let date = Calendar.current.date(byAdding: .day, value: 5, to: Date())
+        guard let currentDate = date else {return}
+        
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = DateFormatter.Style.none
         dateFormatter.dateStyle = DateFormatter.Style.medium
         let currentDateString = dateFormatter.string(from: currentDate)
         
+        
         lastDateString = defaults.string(forKey: "lastDateString")
-        if let dateString = lastDateString {
-            lastDate = dateFormatter.date(from: dateString)
+        if let date = defaults.object(forKey: "lastDate") {
+            lastDate = (date as! Date)
         }
         
         if lastDateString == nil {
             createWordOfTheDay(date: currentDateString, userRealm: userRealm)
             lastDateString = currentDateString
+            lastDate = currentDate
             defaults.set(self.lastDateString, forKey: "lastDateString")
+            defaults.set(self.lastDate, forKey: "lastDate")
         } else if lastDateString == currentDateString {
             return
         } else {
@@ -94,25 +117,11 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
                 createWordOfTheDay(date: dateString, userRealm: userRealm)
             }
             lastDateString = currentDateString
+            lastDate = currentDate
             defaults.set(self.lastDateString, forKey: "lastDateString")
+            defaults.set(self.lastDate, forKey: "lastDate")
         }
     }
-
-    private func setupView() {
-        view.backgroundColor = UIColor.cantoDarkBlue(a: 1)
-        view.addSubview(collectionView)
-        
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
-            ])
-        
-        collectionView.register(WordOfTheDayCells.self, forCellWithReuseIdentifier: cellID)
-        collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 8)
-    }
-
 
     func createWordOfTheDay(date: String, userRealm: Realm) {
         
@@ -131,6 +140,8 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
         }
     }
     
+    
+    //MARK: - CollectionView Methods
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return wordOfTheDay?.count ?? 0

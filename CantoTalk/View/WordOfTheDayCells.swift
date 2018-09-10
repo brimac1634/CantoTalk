@@ -45,6 +45,7 @@ class WordOfTheDayCells: BaseCell {
     override func setupViews() {
         super.setupViews()
         
+        
         addSubview(cellView)
         cellView.addSubview(dateText)
         cellView.addSubview(entryView)
