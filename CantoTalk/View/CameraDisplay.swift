@@ -14,6 +14,7 @@ class CameraDisplay: BaseView {
     var selectedEntry: Entries? {
         didSet {
             guard let entry = selectedEntry else {return}
+            
             let topText = NSMutableAttributedString(string: entry.cantoWord, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 25), NSAttributedStringKey.foregroundColor: UIColor.cantoWhite(a: 1)])
             if entry.classifier != "" {
                 topText.append(NSAttributedString(string: " (cl:\(entry.classifier))", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.cantoWhite(a: 1)]))

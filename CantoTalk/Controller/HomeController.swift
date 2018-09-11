@@ -110,7 +110,6 @@ class HomeController: UIViewController {
     @objc func handleCamera() {
         cameraController = CameraController()
         navigationController?.pushViewController(cameraController, animated: true)
-        navigationController?.navigationBar.barTintColor = UIColor(white: 0, alpha: 0)
     }
     func addView(menuIndex: Int) {
         if lastVCIndex != menuIndex {

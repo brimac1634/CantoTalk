@@ -55,6 +55,12 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
         setupVision()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        self.captureSession.stopRunning()
+    }
+    
+    //MARK: - View Setup Methods
+    
     func setupViews() {
         view.addSubview(cameraView)
         cameraView.layer.addSublayer(self.cameraLayer)
@@ -81,6 +87,8 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
         self.cameraLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
     }
     
+    //MARK: - Camera and CoreML configuration
+    
     func setupVision() {
         guard let visionModel = try? VNCoreMLModel(for: Inceptionv3().model)
             else { fatalError("Can't load VisionML model") }
@@ -102,7 +110,7 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
                 if let entry = entryList.filter("englishWord = %@", word).sorted(byKeyPath: "englishWord").first {
                     self.cameraDisplay.selectedEntry = entry
                 } else {
-                    self.cameraDisplay.selectedEntry = nil
+                    //make display go clear
                 }
             }
 
