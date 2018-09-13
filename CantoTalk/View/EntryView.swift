@@ -242,7 +242,7 @@ class EntryView: BaseView {
             middleStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
             middleStackView.heightAnchor.constraint(equalToConstant: 80),
             
-            sentenceLabel.topAnchor.constraint(equalTo: middleStackView.bottomAnchor, constant: 16),
+            sentenceLabel.topAnchor.constraint(equalTo: middleStackView.bottomAnchor, constant: 32),
             sentenceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
             sentenceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
             sentenceLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -32)

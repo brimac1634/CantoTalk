@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8AF88F06A050B72BA3F9F4FD /* Pods_CantoTalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D7916B28C01480D1110757F /* Pods_CantoTalk.framework */; };
 		D2113CCF2133EF7600249DD6 /* RecentlyViewedItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2113CCE2133EF7600249DD6 /* RecentlyViewedItems.swift */; };
+		D25F2C87214A2EFA00EBDBB5 /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D25F2C86214A2EF900EBDBB5 /* default.realm */; };
 		D281432A211C026000005604 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2814329211C026000005604 /* SearchController.swift */; };
 		D281432E211C03A500005604 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281432D211C03A500005604 /* SettingsController.swift */; };
 		D281F257213D36FA00548B43 /* LearningKeyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281F256213D36FA00548B43 /* LearningKeyController.swift */; };
@@ -18,7 +19,6 @@
 		D287EB35213FBC61006EBC2C /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB34213FBC61006EBC2C /* CameraController.swift */; };
 		D287EB3821410459006EBC2C /* CameraDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB3721410459006EBC2C /* CameraDisplay.swift */; };
 		D287EB3A21422627006EBC2C /* Inceptionv3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D287EB3921422627006EBC2C /* Inceptionv3.mlmodel */; };
-		D287EB3E21463371006EBC2C /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D287EB3D21463371006EBC2C /* default.realm */; };
 		D287EB4021465D90006EBC2C /* SpeakerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB3F21465D8F006EBC2C /* SpeakerButton.swift */; };
 		D28CD659211997AD001A613F /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD658211997AD001A613F /* MenuBar.swift */; };
 		D28CD65D2119AB1C001A613F /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD65C2119AB1C001A613F /* FavoritesController.swift */; };
@@ -44,6 +44,7 @@
 		4663D8A86CF49ED59902881C /* Pods-CantoTalk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoTalk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CantoTalk/Pods-CantoTalk.debug.xcconfig"; sourceTree = "<group>"; };
 		A7F127D3C5D096AF1602DDE3 /* Pods-CantoTalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoTalk.release.xcconfig"; path = "Pods/Target Support Files/Pods-CantoTalk/Pods-CantoTalk.release.xcconfig"; sourceTree = "<group>"; };
 		D2113CCE2133EF7600249DD6 /* RecentlyViewedItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyViewedItems.swift; sourceTree = "<group>"; };
+		D25F2C86214A2EF900EBDBB5 /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
 		D2814329211C026000005604 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		D281432D211C03A500005604 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		D281F256213D36FA00548B43 /* LearningKeyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningKeyController.swift; sourceTree = "<group>"; };
@@ -53,7 +54,6 @@
 		D287EB34213FBC61006EBC2C /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		D287EB3721410459006EBC2C /* CameraDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDisplay.swift; sourceTree = "<group>"; };
 		D287EB3921422627006EBC2C /* Inceptionv3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Inceptionv3.mlmodel; sourceTree = "<group>"; };
-		D287EB3D21463371006EBC2C /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
 		D287EB3F21465D8F006EBC2C /* SpeakerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerButton.swift; sourceTree = "<group>"; };
 		D28CD658211997AD001A613F /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		D28CD65C2119AB1C001A613F /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 		D27C0A5A211803A000E615EB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D287EB3D21463371006EBC2C /* default.realm */,
+				D25F2C86214A2EF900EBDBB5 /* default.realm */,
 				D287EB3921422627006EBC2C /* Inceptionv3.mlmodel */,
 				D2D6A05921105AA9002E0CCE /* Assets.xcassets */,
 			);
@@ -270,7 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2D6A05D21105AA9002E0CCE /* LaunchScreen.storyboard in Resources */,
-				D287EB3E21463371006EBC2C /* default.realm in Resources */,
+				D25F2C87214A2EFA00EBDBB5 /* default.realm in Resources */,
 				D2D6A05A21105AA9002E0CCE /* Assets.xcassets in Resources */,
 				D2D6A05821105AA5002E0CCE /* Main.storyboard in Resources */,
 			);
