@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8AF88F06A050B72BA3F9F4FD /* Pods_CantoTalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D7916B28C01480D1110757F /* Pods_CantoTalk.framework */; };
 		D2113CCF2133EF7600249DD6 /* RecentlyViewedItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2113CCE2133EF7600249DD6 /* RecentlyViewedItems.swift */; };
+		D236CB65214F684400F8DDCF /* InfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236CB64214F684400F8DDCF /* InfoController.swift */; };
+		D236CB67214F8DE100F8DDCF /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236CB66214F8DE100F8DDCF /* CircleView.swift */; };
 		D25F2C87214A2EFA00EBDBB5 /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D25F2C86214A2EF900EBDBB5 /* default.realm */; };
 		D281432A211C026000005604 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2814329211C026000005604 /* SearchController.swift */; };
 		D281432E211C03A500005604 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281432D211C03A500005604 /* SettingsController.swift */; };
@@ -44,6 +46,8 @@
 		4663D8A86CF49ED59902881C /* Pods-CantoTalk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoTalk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CantoTalk/Pods-CantoTalk.debug.xcconfig"; sourceTree = "<group>"; };
 		A7F127D3C5D096AF1602DDE3 /* Pods-CantoTalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoTalk.release.xcconfig"; path = "Pods/Target Support Files/Pods-CantoTalk/Pods-CantoTalk.release.xcconfig"; sourceTree = "<group>"; };
 		D2113CCE2133EF7600249DD6 /* RecentlyViewedItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyViewedItems.swift; sourceTree = "<group>"; };
+		D236CB64214F684400F8DDCF /* InfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoController.swift; sourceTree = "<group>"; };
+		D236CB66214F8DE100F8DDCF /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		D25F2C86214A2EF900EBDBB5 /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
 		D2814329211C026000005604 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		D281432D211C03A500005604 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
@@ -179,6 +183,7 @@
 				D287EB0E213F6F95006EBC2C /* LoadingAnimation.swift */,
 				D287EB3721410459006EBC2C /* CameraDisplay.swift */,
 				D287EB3F21465D8F006EBC2C /* SpeakerButton.swift */,
+				D236CB66214F8DE100F8DDCF /* CircleView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -195,6 +200,7 @@
 				D2D6A08021144C78002E0CCE /* SlideUpViewController.swift */,
 				D281F256213D36FA00548B43 /* LearningKeyController.swift */,
 				D287EB34213FBC61006EBC2C /* CameraController.swift */,
+				D236CB64214F684400F8DDCF /* InfoController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -340,6 +346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D281432A211C026000005604 /* SearchController.swift in Sources */,
+				D236CB65214F684400F8DDCF /* InfoController.swift in Sources */,
 				D287EB0B213E3C81006EBC2C /* Favorites.swift in Sources */,
 				D287EB4021465D90006EBC2C /* SpeakerButton.swift in Sources */,
 				D281432E211C03A500005604 /* SettingsController.swift in Sources */,
@@ -356,6 +363,7 @@
 				D287EB3A21422627006EBC2C /* Inceptionv3.mlmodel in Sources */,
 				D2D6A06921105C87002E0CCE /* Extensions.swift in Sources */,
 				D2F8FB99211A9CA700E260B9 /* BaseCells.swift in Sources */,
+				D236CB67214F8DE100F8DDCF /* CircleView.swift in Sources */,
 				D2D6A05321105AA4002E0CCE /* AppDelegate.swift in Sources */,
 				D287EB0F213F6F95006EBC2C /* LoadingAnimation.swift in Sources */,
 				D2D6A08121144C78002E0CCE /* SlideUpViewController.swift in Sources */,

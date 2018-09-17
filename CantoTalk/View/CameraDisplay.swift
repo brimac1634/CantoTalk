@@ -41,13 +41,11 @@ class CameraDisplay: BaseView {
         return view
     }()
     
-//    let closeButton: UIButton = {
-//        let button = UIButton(type: .custom)
-//        let image = UIImage(named: "exit")?.withRenderingMode(.alwaysOriginal)
-//        button.setImage(image, for: .normal)
-//        button.addTarget(self, action: #selector(handleExit), for: .touchUpInside)
-//        return button
-//    }()
+    let circleView: CircleView = {
+        let shape = CircleView()
+        shape.translatesAutoresizingMaskIntoConstraints = false
+        return shape
+    }()
     
     let textView: UIView = {
         let view = UIView()
@@ -107,6 +105,7 @@ class CameraDisplay: BaseView {
         stackView.spacing = 0
         
         addSubview(cameraDisplay)
+        addSubview(circleView)
         addSubview(textView)
         textView.addSubview(topBlueView)
         textView.addSubview(stackView)
@@ -118,10 +117,15 @@ class CameraDisplay: BaseView {
             cameraDisplay.trailingAnchor.constraint(equalTo: trailingAnchor),
             cameraDisplay.bottomAnchor.constraint(equalTo: bottomAnchor),
             
+            circleView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            circleView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -50),
+            circleView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1),
+            circleView.heightAnchor.constraint(equalTo: circleView.widthAnchor, multiplier: 1),
+            
             textView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
             textView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50),
             textView.heightAnchor.constraint(equalToConstant: 120),
-            textView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -100),
+            textView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50),
             
             topBlueView.topAnchor.constraint(equalTo: textView.topAnchor),
             topBlueView.leadingAnchor.constraint(equalTo: textView.leadingAnchor),

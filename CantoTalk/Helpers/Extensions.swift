@@ -67,6 +67,16 @@ extension String {
     }
 }
 
+extension UIButton {
+    func navBarButtonSetup(image: UIImage) {
+        translatesAutoresizingMaskIntoConstraints = false
+        setBackgroundImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
+        widthAnchor.constraint(equalToConstant: 28).isActive = true
+        heightAnchor.constraint(equalToConstant: 28).isActive = true
+        tintColor = UIColor.cantoWhite(a: 1)
+    }
+}
+
 
 
 

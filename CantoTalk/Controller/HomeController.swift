@@ -18,6 +18,7 @@ class HomeController: UIViewController {
     var wordOfTheDayController: WordOfTheDayController!
     var learningKeyController: LearningKeyController!
     var cameraController: CameraController!
+    var infoController: InfoController!
     
     var viewControllers: [UIViewController]!
     
@@ -81,21 +82,18 @@ class HomeController: UIViewController {
         navigationItem.titleView = titleImageView
         
         let settingsButton = UIButton(type: .custom)
-        settingsButton.translatesAutoresizingMaskIntoConstraints = false
-        settingsButton.setBackgroundImage(#imageLiteral(resourceName: "settings").withRenderingMode(.alwaysTemplate), for: .normal)
-        settingsButton.widthAnchor.constraint(equalToConstant: 28).isActive = true
-        settingsButton.heightAnchor.constraint(equalToConstant: 28).isActive = true
-        settingsButton.tintColor = UIColor.cantoWhite(a: 1)
+        settingsButton.navBarButtonSetup(image: #imageLiteral(resourceName: "settings"))
         settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: settingsButton)
+        
+        let infoButton = UIButton(type: .custom)
+        infoButton.navBarButtonSetup(image: #imageLiteral(resourceName: "info"))
+        infoButton.addTarget(self, action: #selector(handleInfo), for: .touchUpInside)
+        
+        navigationItem.leftBarButtonItems = [UIBarButtonItem(customView: settingsButton), UIBarButtonItem(customView: infoButton)]
         
         
         let cameraButton = UIButton(type: .custom)
-        cameraButton.translatesAutoresizingMaskIntoConstraints = false
-        cameraButton.setBackgroundImage(#imageLiteral(resourceName: "camera").withRenderingMode(.alwaysTemplate), for: .normal)
-        cameraButton.widthAnchor.constraint(equalToConstant: 28).isActive = true
-        cameraButton.heightAnchor.constraint(equalToConstant: 28).isActive = true
-        cameraButton.tintColor = UIColor.cantoWhite(a: 1)
+        cameraButton.navBarButtonSetup(image: #imageLiteral(resourceName: "camera"))
         cameraButton.addTarget(self, action: #selector(handleCamera), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cameraButton)
         
@@ -105,6 +103,11 @@ class HomeController: UIViewController {
     @objc func handleSettings() {
         let settingsController = SettingsController()
         navigationController?.pushViewController(settingsController, animated: true)
+    }
+    
+    @objc func handleInfo() {
+        let infoController = InfoController()
+        navigationController?.pushViewController(infoController, animated: true)
     }
     
     @objc func handleCamera() {

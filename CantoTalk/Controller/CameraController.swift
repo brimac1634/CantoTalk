@@ -55,6 +55,10 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
         setupVision()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        setupDisplay()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         self.captureSession.stopRunning()
     }
@@ -64,21 +68,29 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
     func setupViews() {
         view.addSubview(cameraView)
         cameraView.layer.addSublayer(self.cameraLayer)
-        view.addSubview(cameraDisplay)
+        
         
         
         NSLayoutConstraint.activate([
             cameraView.topAnchor.constraint(equalTo: view.topAnchor),
             cameraView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             cameraView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            cameraView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            cameraView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             
+            
+            ])
+
+    }
+    
+    func setupDisplay() {
+        view.addSubview(cameraDisplay)
+        
+        NSLayoutConstraint.activate([
             cameraDisplay.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             cameraDisplay.leadingAnchor.constraint(equalTo: cameraView.safeAreaLayoutGuide.leadingAnchor),
             cameraDisplay.trailingAnchor.constraint(equalTo: cameraView.safeAreaLayoutGuide.trailingAnchor),
             cameraDisplay.bottomAnchor.constraint(equalTo: cameraView.safeAreaLayoutGuide.bottomAnchor)
             ])
-
     }
     
     override func viewDidLayoutSubviews() {
