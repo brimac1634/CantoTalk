@@ -91,6 +91,8 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
             cameraDisplay.trailingAnchor.constraint(equalTo: cameraView.safeAreaLayoutGuide.trailingAnchor),
             cameraDisplay.bottomAnchor.constraint(equalTo: cameraView.safeAreaLayoutGuide.bottomAnchor)
             ])
+        
+        cameraDisplay.circleView.animate()
     }
     
     override func viewDidLayoutSubviews() {
