@@ -24,7 +24,6 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-//        layout.minimumLineSpacing = 16
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = UIColor(white: 1, alpha: 0)
         cv.showsHorizontalScrollIndicator = false

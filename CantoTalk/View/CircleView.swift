@@ -11,6 +11,7 @@ import UIKit
 class CircleView: UIView {
     
     override func draw(_ rect: CGRect) {
+        
         let path = UIBezierPath()
         let radius: Double = Double(rect.width / 2) - 20
         let center = CGPoint(x: rect.width / 2, y: rect.height / 2)
@@ -34,26 +35,10 @@ class CircleView: UIView {
         path.lineWidth = 3
         path.stroke()
     }
-    
-//    func animate() {
-//        UIView.animate(withDuration: 10, delay: 0, options: [.repeat, .curveLinear], animations: {
-//            UIView.animate(withDuration: 5.0, delay: 0, options: .curveLinear, animations: {
-//                self.transform = CGAffineTransform(rotationAngle: .pi)
-//            }, completion: nil)
-//
-//            UIView.animate(withDuration: 5.0, delay: 5.0, options: .curveLinear, animations: {
-//                self.transform = CGAffineTransform(rotationAngle: .pi * 2)
-//            }, completion: nil)
-//        }, completion: nil)
-//    }
+
     
     func animate() {
         rotateView(targetView: self, duration: 10)
-    }
-    
-
-    func pauseAnimation() {
-        
     }
     
     func rotateView(targetView: UIView, duration: Double = 10) {
@@ -62,5 +47,20 @@ class CircleView: UIView {
         }) { finished in
             self.rotateView(targetView: targetView, duration: duration)
         }
+    }
+    
+    func pauseLayer(layer: CALayer) {
+        let pausedTime: CFTimeInterval = layer.convertTime(CACurrentMediaTime(), from: nil)
+        layer.speed = 0.0
+        layer.timeOffset = pausedTime
+    }
+    
+    func resumeLayer(layer: CALayer) {
+        let pausedTime: CFTimeInterval = layer.timeOffset
+        layer.speed = 1.0
+        layer.timeOffset = 0.0
+        layer.beginTime = 0.0
+        let timeSincePause: CFTimeInterval = layer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
+        layer.beginTime = timeSincePause
     }
 }

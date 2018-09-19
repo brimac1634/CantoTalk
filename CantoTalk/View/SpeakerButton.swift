@@ -67,6 +67,7 @@ class SpeakerButton: BaseView, AVSpeechSynthesizerDelegate {
             
             let voice = AVSpeechSynthesisVoice(language: "zh-HK")
             let context = AVSpeechUtterance(string: spokenWord)
+            print(spokenWord)
             context.voice = voice
             speaker.speak(context)
         }

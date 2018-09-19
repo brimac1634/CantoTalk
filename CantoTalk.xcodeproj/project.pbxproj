@@ -38,6 +38,8 @@
 		D2D6A08121144C78002E0CCE /* SlideUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A08021144C78002E0CCE /* SlideUpViewController.swift */; };
 		D2D6A083211452A8002E0CCE /* Entries.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A082211452A8002E0CCE /* Entries.swift */; };
 		D2E001522122849B0031553E /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E001512122849B0031553E /* SettingsCell.swift */; };
+		D2E58B4721520B0900B06AEC /* KeyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E58B4621520B0900B06AEC /* KeyCell.swift */; };
+		D2E58B4921524AD000B06AEC /* PronounciationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E58B4821524AD000B06AEC /* PronounciationKey.swift */; };
 		D2F8FB99211A9CA700E260B9 /* BaseCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F8FB98211A9CA700E260B9 /* BaseCells.swift */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +79,8 @@
 		D2D6A08021144C78002E0CCE /* SlideUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUpViewController.swift; sourceTree = "<group>"; };
 		D2D6A082211452A8002E0CCE /* Entries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entries.swift; sourceTree = "<group>"; };
 		D2E001512122849B0031553E /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		D2E58B4621520B0900B06AEC /* KeyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCell.swift; sourceTree = "<group>"; };
+		D2E58B4821524AD000B06AEC /* PronounciationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PronounciationKey.swift; sourceTree = "<group>"; };
 		D2F8FB98211A9CA700E260B9 /* BaseCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCells.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -168,6 +172,7 @@
 				D287EB0A213E3C81006EBC2C /* Favorites.swift */,
 				D2A40EFA212DBF6D00EE39C5 /* WordOfTheDay.swift */,
 				D2113CCE2133EF7600249DD6 /* RecentlyViewedItems.swift */,
+				D2E58B4821524AD000B06AEC /* PronounciationKey.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -184,6 +189,7 @@
 				D287EB3721410459006EBC2C /* CameraDisplay.swift */,
 				D287EB3F21465D8F006EBC2C /* SpeakerButton.swift */,
 				D236CB66214F8DE100F8DDCF /* CircleView.swift */,
+				D2E58B4621520B0900B06AEC /* KeyCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -354,6 +360,7 @@
 				D2D6A06B21106140002E0CCE /* WordCells.swift in Sources */,
 				D2113CCF2133EF7600249DD6 /* RecentlyViewedItems.swift in Sources */,
 				D287EB35213FBC61006EBC2C /* CameraController.swift in Sources */,
+				D2E58B4921524AD000B06AEC /* PronounciationKey.swift in Sources */,
 				D281F257213D36FA00548B43 /* LearningKeyController.swift in Sources */,
 				D2D6A0772112FCA9002E0CCE /* WordOfTheDayController.swift in Sources */,
 				D2D45C71211D5EAD008A6CF7 /* WordOfTheDayCells.swift in Sources */,
@@ -365,6 +372,7 @@
 				D2F8FB99211A9CA700E260B9 /* BaseCells.swift in Sources */,
 				D236CB67214F8DE100F8DDCF /* CircleView.swift in Sources */,
 				D2D6A05321105AA4002E0CCE /* AppDelegate.swift in Sources */,
+				D2E58B4721520B0900B06AEC /* KeyCell.swift in Sources */,
 				D287EB0F213F6F95006EBC2C /* LoadingAnimation.swift in Sources */,
 				D2D6A08121144C78002E0CCE /* SlideUpViewController.swift in Sources */,
 				D287EB3821410459006EBC2C /* CameraDisplay.swift in Sources */,

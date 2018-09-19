@@ -15,7 +15,6 @@ class WordOfTheDayCells: BaseCell {
         view.backgroundColor = UIColor.cantoWhite(a: 1)
         view.layer.cornerRadius = 14
         view.clipsToBounds = true
-        view.dropShadow()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

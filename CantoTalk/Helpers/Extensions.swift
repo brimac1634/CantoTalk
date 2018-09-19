@@ -78,6 +78,17 @@ extension UIButton {
     }
 }
 
+extension UITextView {
+    func makeLabel() {
+        isEditable = false
+        isScrollEnabled = false
+        translatesAutoresizingMaskIntoConstraints = false
+        textAlignment = .center
+        textColor = UIColor.cantoDarkBlue(a: 1)
+        font = UIFont.systemFont(ofSize: 18)
+        backgroundColor = UIColor.cantoWhite(a: 1)
+    }
+}
 
 
 

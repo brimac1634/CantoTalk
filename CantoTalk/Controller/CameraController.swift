@@ -30,9 +30,10 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
     
     var entries: Results<Entries>?
     var entryArray: [Entries]?
-    
+
     private var requests = [VNRequest]()
     private lazy var cameraLayer: AVCaptureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
+    
     private lazy var captureSession: AVCaptureSession = {
         let session = AVCaptureSession()
         session.sessionPreset = AVCaptureSession.Preset.photo
@@ -116,15 +117,18 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
         guard let observations = request.results as? [VNClassificationObservation] else { print("no results: \(error!)"); return }
         guard let firstResult = observations.first?.identifier else {return}
         let individualWords = firstResult.components(separatedBy: ", ")
-        print(individualWords)
         guard let entryList = entries else {return}
         
         DispatchQueue.main.async {
+            //once new model is created, remove the individualWords var and make the resulted word match exactly with database
             for word in individualWords {
                 if let entry = entryList.filter("englishWord = %@", word).sorted(byKeyPath: "englishWord").first {
                     self.cameraDisplay.selectedEntry = entry
+                    self.pauseAnimation()
+                    
                 } else {
-                    //make display go clear
+                    self.cameraDisplay.selectedEntry = nil
+                    self.resumeAnimation()
                 }
             }
 
@@ -148,6 +152,19 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
         } catch {
             print(error)
         }
+    }
+    
+    func pauseAnimation() {
+        let circle = cameraDisplay.circleView
+        let layer = circle.layer
+        circle.pauseLayer(layer: layer)
+        
+    }
+    
+    func resumeAnimation() {
+        let circle = cameraDisplay.circleView
+        let layer = circle.layer
+        circle.resumeLayer(layer: layer)
     }
     
 }

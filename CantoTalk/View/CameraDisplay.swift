@@ -43,6 +43,7 @@ class CameraDisplay: BaseView {
     
     let circleView: CircleView = {
         let shape = CircleView()
+        shape.backgroundColor = .clear
         shape.translatesAutoresizingMaskIntoConstraints = false
         return shape
     }()
