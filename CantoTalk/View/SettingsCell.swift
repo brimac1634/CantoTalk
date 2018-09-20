@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingCell: UITableViewCell {
+class SettingCell: BaseTableViewCell {
     
     override var isHighlighted: Bool {
         didSet {
@@ -45,13 +45,8 @@ class SettingCell: UITableViewCell {
         return label
     }()
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupViews()
-    }
     
-    
-    func setupViews() {
+    override func setupViews() {
         addSubview(cellImage)
         addSubview(cellTitleLabel)
         
@@ -65,10 +60,6 @@ class SettingCell: UITableViewCell {
             cellTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
             ])
         
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
 }

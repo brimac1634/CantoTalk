@@ -8,61 +8,69 @@
 
 import UIKit
 
-class InfoController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class InfoController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     let allKeys = PronounciationKeyBank()
-    let numberOfKeys: Int = PronounciationKeyBank.init().keys.count
+    let keySections: [[PronounciationKey]] = PronounciationKeyBank.init().keys
     let cellID = "cellID"
     
-    lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.backgroundColor = UIColor.cantoWhite(a: 1)
-        cv.contentInset = UIEdgeInsets(top: 200, left: 0, bottom: 0, right: 0)
-        cv.delegate = self
-        cv.dataSource = self
-        return cv
+    lazy var tableView: UITableView = {
+        let view = UITableView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.cantoWhite(a: 1)
+        view.delegate = self
+        view.dataSource = self
+        return view
     }()
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = UIColor.cantoWhite(a: 1)
         setupView()
     }
 
 
     func setupView() {
         
-        view.addSubview(collectionView)
+        view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 300),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ])
         
-        collectionView.register(KeyCell.self, forCellWithReuseIdentifier: cellID)
+        tableView.register(KeyCell.self, forCellReuseIdentifier: cellID)
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return numberOfKeys
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return keySections.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! KeyCell
-        cell.pronounciationKey = allKeys.keys[indexPath.item]
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return allKeys.keyHeaders[section]
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return keySections[section].count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! KeyCell
+        cell.pronounciationKey = allKeys.keys[indexPath.section][indexPath.row]
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 60)
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
+
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
+    
+
+    
+
 }

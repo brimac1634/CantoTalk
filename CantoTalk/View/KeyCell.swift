@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KeyCell: BaseCell {
+class KeyCell: BaseTableViewCell {
     
     var pronounciationKey: PronounciationKey? {
         didSet {
@@ -26,9 +26,12 @@ class KeyCell: BaseCell {
     }
     
     
-    let keyLabel: UITextView = {
-        let label = UITextView()
-        label.makeLabel()
+    let keyLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
     
@@ -39,9 +42,12 @@ class KeyCell: BaseCell {
         return view
     }()
 
-    let exampleLabel: UITextView = {
-        let label = UITextView()
-        label.makeLabel()
+    let exampleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
 
@@ -59,9 +65,12 @@ class KeyCell: BaseCell {
         return view
     }()
 
-    let englishLabel: UITextView = {
-        let label = UITextView()
-        label.makeLabel()
+    let englishLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
     
@@ -71,9 +80,9 @@ class KeyCell: BaseCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+
     
     override func setupViews() {
-        super.setupViews()
         
         backgroundColor = UIColor.cantoWhite(a: 1)
         
@@ -105,7 +114,7 @@ class KeyCell: BaseCell {
             speakerButton.heightAnchor.constraint(equalToConstant: 40),
             speakerButton.widthAnchor.constraint(equalToConstant: 40),
             speakerButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            speakerButton.trailingAnchor.constraint(equalTo: dividerView2.leadingAnchor, constant: -8),
+            speakerButton.trailingAnchor.constraint(equalTo: dividerView2.leadingAnchor, constant: -16),
             
             exampleLabel.leadingAnchor.constraint(equalTo: dividerView.trailingAnchor),
             exampleLabel.heightAnchor.constraint(equalTo: heightAnchor),
@@ -121,4 +130,5 @@ class KeyCell: BaseCell {
         speakerButton.setColor(color: UIColor.cantoDarkBlue(a: 1))
     }
     
+
 }

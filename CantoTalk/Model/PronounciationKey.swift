@@ -23,15 +23,33 @@ class PronounciationKey {
 }
 
 class PronounciationKeyBank {
-    var keys = [PronounciationKey]()
+    var keys = [[PronounciationKey]]()
+    var keyHeaders = [String]()
     
     init() {
-        let firstKey = PronounciationKey(key: "p", jyutping: "paa1", canto: "趴", english: "prostrate")
-        keys.append(firstKey)
         
-        keys.append(PronounciationKey(key: "t", jyutping: "taa1", canto: "他", english: "he"))
-        keys.append(PronounciationKey(key: "k", jyutping: "kaa1", canto: "卡", english: "card"))
-        keys.append(PronounciationKey(key: "c", jyutping: "caa1", canto: "叉", english: "fork"))
-        keys.append(PronounciationKey(key: "kw", jyutping: "kwaa1", canto: "誇", english: "boast"))
+        keyHeaders = ["Cantonese Initials", "Aspirated:", "Unaspirated:", "Nasal:"]
+        
+        keys = [
+            [],
+            [PronounciationKey(key: "p", jyutping: "paa1", canto: "趴", english: "prostrate"),
+             PronounciationKey(key: "t", jyutping: "taa1", canto: "他", english: "he"),
+             PronounciationKey(key: "k", jyutping: "kaa1", canto: "卡", english: "card"),
+             PronounciationKey(key: "c", jyutping: "caa1", canto: "叉", english: "fork"),
+             PronounciationKey(key: "kw", jyutping: "kwaa1", canto: "誇", english: "boast")
+            ],
+            
+            [PronounciationKey(key: "b", jyutping: "baa1", canto: "爸", english: "father"),
+             PronounciationKey(key: "d", jyutping: "daa1", canto: "打", english: "dozen"),
+             PronounciationKey(key: "g", jyutping: "gaa1", canto: "家", english: "family"),
+             PronounciationKey(key: "z", jyutping: "zaa1", canto: "渣", english: "dregs"),
+             PronounciationKey(key: "gw", jyutping: "gwaa1", canto: "瓜", english: "melon")
+            ],
+            
+            [PronounciationKey(key: "m", jyutping: "maa1", canto: "媽", english: "mother"),
+             PronounciationKey(key: "n", jyutping: "naa1", canto: "哪", english: "scar")
+            ]
+        ]
+        
     }
 }
