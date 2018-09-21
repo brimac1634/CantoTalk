@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8AF88F06A050B72BA3F9F4FD /* Pods_CantoTalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D7916B28C01480D1110757F /* Pods_CantoTalk.framework */; };
 		D2113CCF2133EF7600249DD6 /* RecentlyViewedItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2113CCE2133EF7600249DD6 /* RecentlyViewedItems.swift */; };
+		D22E30ED2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22E30EC2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift */; };
 		D236CB65214F684400F8DDCF /* InfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236CB64214F684400F8DDCF /* InfoController.swift */; };
 		D236CB67214F8DE100F8DDCF /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236CB66214F8DE100F8DDCF /* CircleView.swift */; };
 		D25F2C87214A2EFA00EBDBB5 /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D25F2C86214A2EF900EBDBB5 /* default.realm */; };
@@ -48,6 +49,7 @@
 		4663D8A86CF49ED59902881C /* Pods-CantoTalk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoTalk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CantoTalk/Pods-CantoTalk.debug.xcconfig"; sourceTree = "<group>"; };
 		A7F127D3C5D096AF1602DDE3 /* Pods-CantoTalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoTalk.release.xcconfig"; path = "Pods/Target Support Files/Pods-CantoTalk/Pods-CantoTalk.release.xcconfig"; sourceTree = "<group>"; };
 		D2113CCE2133EF7600249DD6 /* RecentlyViewedItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyViewedItems.swift; sourceTree = "<group>"; };
+		D22E30EC2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalPagesCollectionViewController.swift; sourceTree = "<group>"; };
 		D236CB64214F684400F8DDCF /* InfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoController.swift; sourceTree = "<group>"; };
 		D236CB66214F8DE100F8DDCF /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		D25F2C86214A2EF900EBDBB5 /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				D281F256213D36FA00548B43 /* LearningKeyController.swift */,
 				D287EB34213FBC61006EBC2C /* CameraController.swift */,
 				D236CB64214F684400F8DDCF /* InfoController.swift */,
+				D22E30EC2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 				TargetAttributes = {
 					D2D6A04E21105AA4002E0CCE = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -364,6 +368,7 @@
 				D281F257213D36FA00548B43 /* LearningKeyController.swift in Sources */,
 				D2D6A0772112FCA9002E0CCE /* WordOfTheDayController.swift in Sources */,
 				D2D45C71211D5EAD008A6CF7 /* WordOfTheDayCells.swift in Sources */,
+				D22E30ED2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift in Sources */,
 				D28CD65D2119AB1C001A613F /* FavoritesController.swift in Sources */,
 				D2D6A06D2111A36C002E0CCE /* EntryView.swift in Sources */,
 				D28CD659211997AD001A613F /* MenuBar.swift in Sources */,
@@ -533,7 +538,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.brianmacpherson.CantoTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -552,7 +557,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.brianmacpherson.CantoTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

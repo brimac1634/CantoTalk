@@ -14,22 +14,22 @@ class WordCells: BaseCell {
     var selectedEntry: Entries? {
         didSet {
             if let entry = selectedEntry {
-                let cantoWordText = NSMutableAttributedString(string: entry.cantoWord, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 25), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
+                let cantoWordText = NSMutableAttributedString(string: entry.cantoWord, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 25), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
                 if entry.classifier != "" {
-                    cantoWordText.append(NSAttributedString(string: " (cl:\(entry.classifier))", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+                    cantoWordText.append(NSAttributedString(string: " (cl:\(entry.classifier))", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
                 }
                 
                 
                 cantoWordLabel.attributedText = cantoWordText
                 jyutpingLabel.text = entry.jyutping
                 
-                let englishWordText = NSMutableAttributedString(string: "En: ", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
-                englishWordText.append(NSAttributedString(string: entry.englishWord, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+                let englishWordText = NSMutableAttributedString(string: "En: ", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
+                englishWordText.append(NSAttributedString(string: entry.englishWord, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
                 
                 englishWordLabel.attributedText = englishWordText
                 
-                let mandarinWordText = NSMutableAttributedString(string: "普: ", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
-                mandarinWordText.append(NSAttributedString(string: entry.mandarinWord, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+                let mandarinWordText = NSMutableAttributedString(string: "普: ", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
+                mandarinWordText.append(NSAttributedString(string: entry.mandarinWord, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
                 
                 mandarinWordLabel.attributedText = mandarinWordText
                 

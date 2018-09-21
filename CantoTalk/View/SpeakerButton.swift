@@ -63,7 +63,8 @@ class SpeakerButton: BaseView, AVSpeechSynthesizerDelegate {
         } else {
             speakerButton.tintColor = UIColor.cantoPink(a: 1)
             let audioSession = AVAudioSession.sharedInstance()
-            try? audioSession.setCategory(AVAudioSessionCategoryPlayback, with: .duckOthers)
+//            try? audioSession.setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playback), with: .duckOthers)
+            try? audioSession.setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playback)), mode: .default, options: .duckOthers)
             
             let voice = AVSpeechSynthesisVoice(language: "zh-HK")
             let context = AVSpeechUtterance(string: spokenWord)
@@ -81,3 +82,8 @@ class SpeakerButton: BaseView, AVSpeechSynthesizerDelegate {
 }
 
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
+}

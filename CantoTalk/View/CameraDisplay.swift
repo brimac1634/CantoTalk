@@ -15,18 +15,18 @@ class CameraDisplay: BaseView {
         didSet {
             guard let entry = selectedEntry else {return}
             
-            let topText = NSMutableAttributedString(string: entry.cantoWord, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 25), NSAttributedStringKey.foregroundColor: UIColor.cantoWhite(a: 1)])
+            let topText = NSMutableAttributedString(string: entry.cantoWord, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 25), NSAttributedString.Key.foregroundColor: UIColor.cantoWhite(a: 1)])
             if entry.classifier != "" {
-                topText.append(NSAttributedString(string: " (cl:\(entry.classifier))", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.cantoWhite(a: 1)]))
+                topText.append(NSAttributedString(string: " (cl:\(entry.classifier))", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.cantoWhite(a: 1)]))
             }
-            topText.append(NSAttributedString(string: "  \(entry.jyutping)", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20), NSAttributedStringKey.foregroundColor: UIColor.cantoWhite(a: 1)]))
+            topText.append(NSAttributedString(string: "  \(entry.jyutping)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20), NSAttributedString.Key.foregroundColor: UIColor.cantoWhite(a: 1)]))
             
             topTextView.attributedText = topText
             
-            let bottomText = NSMutableAttributedString(string: "\nEn: ", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.cantoLightBlue(a: 0.8)])
-            bottomText.append(NSAttributedString(string: entry.englishWord, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
-            bottomText.append(NSMutableAttributedString(string: "  普: ", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.cantoLightBlue(a: 0.8)]))
-            bottomText.append(NSAttributedString(string: entry.mandarinWord, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20), NSAttributedStringKey.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+            let bottomText = NSMutableAttributedString(string: "\nEn: ", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.cantoLightBlue(a: 0.8)])
+            bottomText.append(NSAttributedString(string: entry.englishWord, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+            bottomText.append(NSMutableAttributedString(string: "  普: ", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.cantoLightBlue(a: 0.8)]))
+            bottomText.append(NSAttributedString(string: entry.mandarinWord, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
             
             bottomTextView.attributedText = bottomText
             

@@ -117,17 +117,17 @@ class HomeController: UIViewController {
     func addView(menuIndex: Int) {
         if lastVCIndex != menuIndex {
             let previousVC = viewControllers[lastVCIndex]
-            previousVC.willMove(toParentViewController: nil)
+            previousVC.willMove(toParent: nil)
             previousVC.view.removeFromSuperview()
-            previousVC.removeFromParentViewController()
+            previousVC.removeFromParent()
         }
         
         let selectedVC = viewControllers[menuIndex]
 
-        addChildViewController(selectedVC)
+        addChild(selectedVC)
         selectedVC.view.frame = contentView.bounds
         contentView.addSubview(selectedVC.view)
-        selectedVC.didMove(toParentViewController: self)
+        selectedVC.didMove(toParent: self)
         
         if menuIndex == 0 {
             searchController.hideHistoryView()

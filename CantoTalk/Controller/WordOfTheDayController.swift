@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class WordOfTheDayController: HorizontalPeekingPagesCollectionViewController {
  
     let defaults = UserDefaults.standard
     
@@ -20,19 +20,7 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     var lastDate: Date?
     var lastDateString: String?
     var numberOfEntries: Int?
-
-    lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = UIColor(white: 1, alpha: 0)
-        cv.showsHorizontalScrollIndicator = false
-        cv.isPagingEnabled = true
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.dataSource = self
-        cv.delegate = self
-        return cv
-    }()
+    var currentOffset: CGFloat = 0
 
     var entries: Results<Entries>? {
         didSet {
@@ -44,8 +32,12 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         setupView()
         loadWordOfTheDay()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         updateData()
     }
     
@@ -54,26 +46,19 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
             let lastItemIndex = IndexPath(item: numberOfEntries - 1, section: 0)
             collectionView.scrollToItem(at: lastItemIndex, at: .right, animated: false)
         }
+        
+        animateScroll()
     }
     
     private func updateData() {
         wordOfTheDay = userRealm.objects(WordOfTheDay.self)
+        dataSourceCount = wordOfTheDay?.count ?? 0
         collectionView.reloadData()
     }
     
     private func setupView() {
         view.backgroundColor = UIColor.cantoDarkBlue(a: 1)
-        view.addSubview(collectionView)
-        
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
-            ])
-        
         collectionView.register(WordOfTheDayCells.self, forCellWithReuseIdentifier: cellID)
-        collectionView.contentInset = UIEdgeInsetsMake(0, 8, 0, 8)
     }
     
     //MARK: - Word of the day methods
@@ -137,14 +122,35 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
         }
     }
     
+    //MARK： - Animation Method
+    
+    func animateScroll() {
+        guard let numberOfWords = wordOfTheDay?.count else {return}
+        if numberOfWords > 1 {
+            currentOffset = collectionView.contentOffset.x
+            UIView.animate(withDuration: 0.4, delay: 5, options: .curveEaseIn, animations: {
+                self.collectionView.contentOffset.x = self.currentOffset - 80
+            }) { finished in
+                UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
+                    self.collectionView.contentOffset.x = self.currentOffset
+                }, completion: nil)
+            }
+        }
+
+    }
+    
     
     //MARK: - CollectionView Methods
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    
+    override func calculateSectionInset() -> CGFloat {
+        return 16
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return wordOfTheDay?.count ?? 0
     }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! WordOfTheDayCells
         if let wordOfTheDayEntry = wordOfTheDay?[indexPath.item] {
             if let entryList = entries {
@@ -156,17 +162,5 @@ class WordOfTheDayController: UIViewController, UICollectionViewDataSource, UICo
         }
         return cell
     }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - 32, height: collectionView.frame.height - 32)
-    }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 32
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(0, 8, 0, 8)
-    }
-
 }
