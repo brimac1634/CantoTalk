@@ -64,7 +64,7 @@ class EntryView: BaseView {
                 heartButtonTopConstraint.constant = -40
             }
             
-            speakerButton.parseCantoWord(cantoWord: entry.cantoWord)
+            speakerButton.cantoWord = entry.cantoWord
         }
     }
     

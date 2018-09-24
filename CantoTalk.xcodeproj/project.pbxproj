@@ -10,9 +10,9 @@
 		8AF88F06A050B72BA3F9F4FD /* Pods_CantoTalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D7916B28C01480D1110757F /* Pods_CantoTalk.framework */; };
 		D2113CCF2133EF7600249DD6 /* RecentlyViewedItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2113CCE2133EF7600249DD6 /* RecentlyViewedItems.swift */; };
 		D22E30ED2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22E30EC2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift */; };
+		D22E30EF2158B85C003F1DC6 /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D22E30EE2158B85C003F1DC6 /* default.realm */; };
 		D236CB65214F684400F8DDCF /* InfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236CB64214F684400F8DDCF /* InfoController.swift */; };
 		D236CB67214F8DE100F8DDCF /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236CB66214F8DE100F8DDCF /* CircleView.swift */; };
-		D25F2C87214A2EFA00EBDBB5 /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D25F2C86214A2EF900EBDBB5 /* default.realm */; };
 		D281432A211C026000005604 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2814329211C026000005604 /* SearchController.swift */; };
 		D281432E211C03A500005604 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281432D211C03A500005604 /* SettingsController.swift */; };
 		D281F257213D36FA00548B43 /* LearningKeyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281F256213D36FA00548B43 /* LearningKeyController.swift */; };
@@ -50,9 +50,9 @@
 		A7F127D3C5D096AF1602DDE3 /* Pods-CantoTalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoTalk.release.xcconfig"; path = "Pods/Target Support Files/Pods-CantoTalk/Pods-CantoTalk.release.xcconfig"; sourceTree = "<group>"; };
 		D2113CCE2133EF7600249DD6 /* RecentlyViewedItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyViewedItems.swift; sourceTree = "<group>"; };
 		D22E30EC2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalPagesCollectionViewController.swift; sourceTree = "<group>"; };
+		D22E30EE2158B85C003F1DC6 /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
 		D236CB64214F684400F8DDCF /* InfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoController.swift; sourceTree = "<group>"; };
 		D236CB66214F8DE100F8DDCF /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
-		D25F2C86214A2EF900EBDBB5 /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
 		D2814329211C026000005604 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		D281432D211C03A500005604 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		D281F256213D36FA00548B43 /* LearningKeyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningKeyController.swift; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 		D27C0A5A211803A000E615EB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D25F2C86214A2EF900EBDBB5 /* default.realm */,
+				D22E30EE2158B85C003F1DC6 /* default.realm */,
 				D287EB3921422627006EBC2C /* Inceptionv3.mlmodel */,
 				D2D6A05921105AA9002E0CCE /* Assets.xcassets */,
 			);
@@ -286,7 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2D6A05D21105AA9002E0CCE /* LaunchScreen.storyboard in Resources */,
-				D25F2C87214A2EFA00EBDBB5 /* default.realm in Resources */,
+				D22E30EF2158B85C003F1DC6 /* default.realm in Resources */,
 				D2D6A05A21105AA9002E0CCE /* Assets.xcassets in Resources */,
 				D2D6A05821105AA5002E0CCE /* Main.storyboard in Resources */,
 			);

@@ -46,8 +46,6 @@ class WordOfTheDayController: HorizontalPeekingPagesCollectionViewController {
             let lastItemIndex = IndexPath(item: numberOfEntries - 1, section: 0)
             collectionView.scrollToItem(at: lastItemIndex, at: .right, animated: false)
         }
-        
-        animateScroll()
     }
     
     private func updateData() {
@@ -121,24 +119,6 @@ class WordOfTheDayController: HorizontalPeekingPagesCollectionViewController {
             print(error)
         }
     }
-    
-    //MARK： - Animation Method
-    
-    func animateScroll() {
-        guard let numberOfWords = wordOfTheDay?.count else {return}
-        if numberOfWords > 1 {
-            currentOffset = collectionView.contentOffset.x
-            UIView.animate(withDuration: 0.4, delay: 5, options: .curveEaseIn, animations: {
-                self.collectionView.contentOffset.x = self.currentOffset - 80
-            }) { finished in
-                UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
-                    self.collectionView.contentOffset.x = self.currentOffset
-                }, completion: nil)
-            }
-        }
-
-    }
-    
     
     //MARK: - CollectionView Methods
     

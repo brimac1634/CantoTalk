@@ -13,6 +13,8 @@ class WordOfTheDayCells: BaseCell {
     let cellView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.cantoWhite(a: 1)
+        view.layer.cornerRadius = 14
+        view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -64,16 +66,16 @@ class WordOfTheDayCells: BaseCell {
             
             dividerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1),
             dividerView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            dividerView.widthAnchor.constraint(equalToConstant: 8),
+            dividerView.widthAnchor.constraint(equalToConstant: 4),
             
             trailingDividerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1),
             trailingDividerView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            trailingDividerView.widthAnchor.constraint(equalToConstant: 8),
+            trailingDividerView.widthAnchor.constraint(equalToConstant: 4),
             
             cellView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             cellView.leadingAnchor.constraint(equalTo: dividerView.trailingAnchor),
             cellView.trailingAnchor.constraint(equalTo: trailingDividerView.leadingAnchor),
-            cellView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 16),
+            cellView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
             
             dateText.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 8),
             dateText.leadingAnchor.constraint(equalTo: cellView.leadingAnchor),

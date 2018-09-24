@@ -15,6 +15,15 @@ class SpeakerButton: BaseView, AVSpeechSynthesizerDelegate {
     var spokenWord = ""
     var normalColor = UIColor.cantoWhite(a: 1)
     
+    var cantoWord: String? {
+        didSet {
+            guard let word = cantoWord else {return}
+            spokenWord = ""
+            parseCantoWord(cantoWord: word)
+        }
+    }
+    
+    
     let speakerButton: UIButton = {
         let button = UIButton(type: .custom)
         let image = UIImage(named: "speaker")?.withRenderingMode(.alwaysTemplate)
@@ -68,7 +77,6 @@ class SpeakerButton: BaseView, AVSpeechSynthesizerDelegate {
             
             let voice = AVSpeechSynthesisVoice(language: "zh-HK")
             let context = AVSpeechUtterance(string: spokenWord)
-            print(spokenWord)
             context.voice = voice
             speaker.speak(context)
         }

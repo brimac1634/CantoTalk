@@ -30,7 +30,7 @@ class KeyCell: BaseTableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 20)
+        label.font = UIFont.systemFont(ofSize: 22)
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
@@ -46,7 +46,7 @@ class KeyCell: BaseTableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 20)
+        label.font = UIFont.systemFont(ofSize: 22)
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
@@ -69,7 +69,7 @@ class KeyCell: BaseTableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 20)
+        label.font = UIFont.systemFont(ofSize: 22)
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
