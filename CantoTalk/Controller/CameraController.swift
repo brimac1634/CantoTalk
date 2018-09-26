@@ -42,7 +42,6 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
             let backCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),
             let input = try? AVCaptureDeviceInput(device: backCamera)
             else { return session }
-        
         session.addInput(input)
         return session
     }()
