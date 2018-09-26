@@ -10,6 +10,10 @@ import UIKit
 
 class CircleView: UIView {
     
+    var lineWidth: CGFloat = 3
+    let selectedAlpha: CGFloat = 1
+    let unselectedAlpha: CGFloat = 0.3
+    
     override func draw(_ rect: CGRect) {
         
         let path = UIBezierPath()
@@ -32,7 +36,7 @@ class CircleView: UIView {
         let dashLine = circumference / dividedBy
         UIColor.cantoWhite(a: 1).setStroke()
         path.setLineDash([dashLine, dashLine / dividedBy - 1], count: 2, phase: 0.0)
-        path.lineWidth = 3
+        path.lineWidth = lineWidth
         path.stroke()
     }
 
@@ -49,18 +53,18 @@ class CircleView: UIView {
         }
     }
     
-    func pauseLayer(layer: CALayer) {
-        let pausedTime: CFTimeInterval = layer.convertTime(CACurrentMediaTime(), from: nil)
-        layer.speed = 0.0
-        layer.timeOffset = pausedTime
-    }
-    
-    func resumeLayer(layer: CALayer) {
-        let pausedTime: CFTimeInterval = layer.timeOffset
-        layer.speed = 1.0
-        layer.timeOffset = 0.0
-        layer.beginTime = 0.0
-        let timeSincePause: CFTimeInterval = layer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
-        layer.beginTime = timeSincePause
-    }
+//    func pauseLayer(layer: CALayer) {
+//        let pausedTime: CFTimeInterval = layer.convertTime(CACurrentMediaTime(), from: nil)
+//        layer.speed = 0.0
+//        layer.timeOffset = pausedTime
+//    }
+//    
+//    func resumeLayer(layer: CALayer) {
+//        let pausedTime: CFTimeInterval = layer.timeOffset
+//        layer.speed = 1.0
+//        layer.timeOffset = 0.0
+//        layer.beginTime = 0.0
+//        let timeSincePause: CFTimeInterval = layer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
+//        layer.beginTime = timeSincePause
+//    }
 }

@@ -28,7 +28,7 @@ class PronounciationKeyBank {
     
     init() {
         
-        keyHeaders = ["Cantonese Initials", "Aspirated:", "Unaspirated:", "Nasal:"]
+        keyHeaders = ["Cantonese Initials", "Aspirated:", "Unaspirated:", "Nasal:", "Fricative & Continuant:", "Semi-Vowel:"]
         
         keys = [
             [],
@@ -47,7 +47,18 @@ class PronounciationKeyBank {
             ],
             
             [PronounciationKey(key: "m", jyutping: "maa1", canto: "媽", english: "mother"),
-             PronounciationKey(key: "n", jyutping: "naa1", canto: "哪", english: "scar")
+             PronounciationKey(key: "n", jyutping: "naa1", canto: "哪", english: "scar"),
+             PronounciationKey(key: "ng", jyutping: "ngaa1", canto: "鴉", english: "crow")
+            ],
+            
+            [PronounciationKey(key: "f", jyutping: "faa1", canto: "花", english: "flower"),
+             PronounciationKey(key: "l", jyutping: "laa1", canto: "啦", english: "final particle"),
+             PronounciationKey(key: "h", jyutping: "haa1", canto: "蝦", english: "shrimp"),
+             PronounciationKey(key: "s", jyutping: "saa1", canto: "沙", english: "sand")
+            ],
+            
+            [PronounciationKey(key: "j", jyutping: "jaa1", canto: "吔", english: "interjection"),
+             PronounciationKey(key: "w", jyutping: "waa1", canto: "娃", english: "baby")
             ]
         ]
         

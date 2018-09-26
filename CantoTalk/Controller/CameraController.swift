@@ -30,6 +30,7 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
     
     var entries: Results<Entries>?
     var entryArray: [Entries]?
+    var resultFound: Bool = false
 
     private var requests = [VNRequest]()
     private lazy var cameraLayer: AVCaptureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
@@ -41,6 +42,7 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
             let backCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),
             let input = try? AVCaptureDeviceInput(device: backCamera)
             else { return session }
+        
         session.addInput(input)
         return session
     }()
@@ -69,9 +71,7 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
     func setupViews() {
         view.addSubview(cameraView)
         cameraView.layer.addSublayer(self.cameraLayer)
-        
-        
-        
+
         NSLayoutConstraint.activate([
             cameraView.topAnchor.constraint(equalTo: view.topAnchor),
             cameraView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -105,7 +105,7 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
     //MARK: - Camera and CoreML configuration
     
     func setupVision() {
-        guard let visionModel = try? VNCoreMLModel(for: Inceptionv3().model)
+        guard let visionModel = try? VNCoreMLModel(for: CantoTalkTestClassifier().model)
             else { fatalError("Can't load VisionML model") }
         let classificationRequest = VNCoreMLRequest(model: visionModel, completionHandler: handleClassifications)
         classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOption.scaleFill
@@ -116,24 +116,20 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
         entryArray = []
         guard let observations = request.results as? [VNClassificationObservation] else { print("no results: \(error!)"); return }
         guard let firstResult = observations.first?.identifier else {return}
-        let individualWords = firstResult.components(separatedBy: ", ")
+        guard let firstResultConfidence = observations.first?.confidence else {return}
+        print("\(firstResult): \(firstResultConfidence)")
         guard let entryList = entries else {return}
         
         DispatchQueue.main.async {
-            //once new model is created, remove the individualWords var and make the resulted word match exactly with database
-            for word in individualWords {
-                if let entry = entryList.filter("englishWord = %@", word).sorted(byKeyPath: "englishWord").first {
-                    self.cameraDisplay.selectedEntry = entry
-                    self.pauseAnimation()
-                    
-                } else {
-                    self.cameraDisplay.selectedEntry = nil
-                    self.resumeAnimation()
-                }
+            if firstResultConfidence > 0.6 {
+                guard let entry = entryList.filter("englishWord = %@", firstResult).first else {return}
+                self.cameraDisplay.selectedEntry = entry
+                self.resultFound = true
+                self.updateDisplay()
+            } else {
+                self.resultFound = false
+                self.updateDisplay()
             }
-
-            
-
             
         }
     }
@@ -154,17 +150,21 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
         }
     }
     
-    func pauseAnimation() {
+    private func updateDisplay() {
         let circle = cameraDisplay.circleView
-        let layer = circle.layer
-        circle.pauseLayer(layer: layer)
-        
-    }
-    
-    func resumeAnimation() {
-        let circle = cameraDisplay.circleView
-        let layer = circle.layer
-        circle.resumeLayer(layer: layer)
+        if resultFound {
+            cameraDisplay.speakerButton.alpha = 1
+            circle.lineWidth = 6
+            circle.alpha = circle.selectedAlpha
+            circle.setNeedsDisplay()
+        } else {
+            cameraDisplay.topTextView.text = ""
+            cameraDisplay.bottomTextView.text = ""
+            cameraDisplay.speakerButton.alpha = 0
+            circle.lineWidth = 3
+            circle.alpha = circle.unselectedAlpha
+            circle.setNeedsDisplay()
+        }
     }
     
 }

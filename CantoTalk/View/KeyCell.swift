@@ -105,7 +105,7 @@ class KeyCell: BaseTableViewCell {
             
             englishLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             englishLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1),
-            englishLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.25),
+            englishLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.35),
             
             dividerView2.trailingAnchor.constraint(equalTo: englishLabel.leadingAnchor),
             dividerView2.widthAnchor.constraint(equalToConstant: 1),

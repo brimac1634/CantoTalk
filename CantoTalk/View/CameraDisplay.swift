@@ -30,7 +30,7 @@ class CameraDisplay: BaseView {
             
             bottomTextView.attributedText = bottomText
             
-            speakerButton.parseCantoWord(cantoWord: entry.cantoWord)
+            speakerButton.cantoWord = entry.cantoWord
             
         }
     }
@@ -44,6 +44,7 @@ class CameraDisplay: BaseView {
     let circleView: CircleView = {
         let shape = CircleView()
         shape.backgroundColor = .clear
+        shape.alpha = shape.unselectedAlpha
         shape.translatesAutoresizingMaskIntoConstraints = false
         return shape
     }()
