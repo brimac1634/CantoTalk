@@ -17,10 +17,27 @@ class FlashCardDeckCell: BaseCell {
         }
     }
     
+    let card: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.cantoWhite(a: 1)
+        view.dropShadow()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let card2: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.cantoWhite(a: 1)
+        view.dropShadow()
+        view.transform = CGAffineTransform(rotationAngle: 0.087)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     let deckImage: UIImageView = {
         let image = UIImageView(image: UIImage(named: "CantoTalkIconCircle"))
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.alpha = 0.3
+        image.alpha = 0.2
         image.contentMode = .scaleAspectFit
         return image
     }()
@@ -29,26 +46,41 @@ class FlashCardDeckCell: BaseCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Home"
+        label.textColor = UIColor.cantoDarkBlue(a: 1)
+        label.font = UIFont.systemFont(ofSize: 18)
         label.textAlignment = .center
         return label
     }()
     
     override func setupViews() {
         super.setupViews()
-        backgroundColor = .clear
+        backgroundColor = UIColor.cantoWhite(a: 1)
         
-        addSubview(deckImage)
+        
+        addSubview(card2)
+        addSubview(card)
+        card.addSubview(deckImage)
         addSubview(deckTitle)
         
         NSLayoutConstraint.activate([
-            
             deckTitle.bottomAnchor.constraint(equalTo: bottomAnchor),
             deckTitle.widthAnchor.constraint(equalTo: widthAnchor),
-            deckTitle.heightAnchor.constraint(equalToConstant: 20),
+            deckTitle.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2),
             
-            deckImage.widthAnchor.constraint(equalTo: widthAnchor),
-            deckImage.topAnchor.constraint(equalTo: topAnchor),
-            deckImage.bottomAnchor.constraint(equalTo: deckTitle.topAnchor)
+            card2.centerXAnchor.constraint(equalTo: centerXAnchor),
+            card2.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
+            card2.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8),
+            card2.bottomAnchor.constraint(equalTo: deckTitle.topAnchor),
+            
+            card.centerXAnchor.constraint(equalTo: centerXAnchor),
+            card.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
+            card.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8),
+            card.bottomAnchor.constraint(equalTo: deckTitle.topAnchor),
+            
+            deckImage.widthAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.6),
+            deckImage.heightAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.6),
+            deckImage.centerXAnchor.constraint(equalTo: card.centerXAnchor),
+            deckImage.centerYAnchor.constraint(equalTo: card.centerYAnchor)
             ])
         
     }
