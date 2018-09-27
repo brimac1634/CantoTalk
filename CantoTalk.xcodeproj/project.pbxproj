@@ -14,7 +14,7 @@
 		D236CB67214F8DE100F8DDCF /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236CB66214F8DE100F8DDCF /* CircleView.swift */; };
 		D281432A211C026000005604 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2814329211C026000005604 /* SearchController.swift */; };
 		D281432E211C03A500005604 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281432D211C03A500005604 /* SettingsController.swift */; };
-		D281F257213D36FA00548B43 /* LearningKeyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281F256213D36FA00548B43 /* LearningKeyController.swift */; };
+		D281F257213D36FA00548B43 /* FlashCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281F256213D36FA00548B43 /* FlashCardController.swift */; };
 		D287EB0B213E3C81006EBC2C /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB0A213E3C81006EBC2C /* Favorites.swift */; };
 		D287EB0F213F6F95006EBC2C /* LoadingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB0E213F6F95006EBC2C /* LoadingAnimation.swift */; };
 		D287EB11213F8A45006EBC2C /* EntranceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB10213F8A45006EBC2C /* EntranceController.swift */; };
@@ -23,6 +23,9 @@
 		D287EB4021465D90006EBC2C /* SpeakerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB3F21465D8F006EBC2C /* SpeakerButton.swift */; };
 		D28CD659211997AD001A613F /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD658211997AD001A613F /* MenuBar.swift */; };
 		D28CD65D2119AB1C001A613F /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD65C2119AB1C001A613F /* FavoritesController.swift */; };
+		D29400A2215C67D500069DF0 /* CantoTalkTestClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D29400A1215C67D500069DF0 /* CantoTalkTestClassifier.mlmodel */; };
+		D29400A4215C6E7E00069DF0 /* FlashCardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29400A3215C6E7E00069DF0 /* FlashCardDeck.swift */; };
+		D29400A6215C6F4600069DF0 /* FlashCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29400A5215C6F4600069DF0 /* FlashCard.swift */; };
 		D2A40EFB212DBF6D00EE39C5 /* WordOfTheDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A40EFA212DBF6D00EE39C5 /* WordOfTheDay.swift */; };
 		D2D45C71211D5EAD008A6CF7 /* WordOfTheDayCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D45C70211D5EAD008A6CF7 /* WordOfTheDayCells.swift */; };
 		D2D6A05321105AA4002E0CCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A05221105AA4002E0CCE /* AppDelegate.swift */; };
@@ -39,7 +42,6 @@
 		D2E001522122849B0031553E /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E001512122849B0031553E /* SettingsCell.swift */; };
 		D2E58B4721520B0900B06AEC /* KeyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E58B4621520B0900B06AEC /* KeyCell.swift */; };
 		D2E58B4921524AD000B06AEC /* PronounciationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E58B4821524AD000B06AEC /* PronounciationKey.swift */; };
-		D2EEFD77215B23BA00D599DF /* CantoTalkTestClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D2EEFD76215B23BA00D599DF /* CantoTalkTestClassifier.mlmodel */; };
 		D2EEFD7B215B720500D599DF /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = D2EEFD7A215B720500D599DF /* default.realm */; };
 		D2EEFD7D215B7F2600D599DF /* FlashCardDeckCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EEFD7C215B7F2600D599DF /* FlashCardDeckCell.swift */; };
 		D2F8FB99211A9CA700E260B9 /* BaseCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F8FB98211A9CA700E260B9 /* BaseCells.swift */; };
@@ -55,7 +57,7 @@
 		D236CB66214F8DE100F8DDCF /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		D2814329211C026000005604 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		D281432D211C03A500005604 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
-		D281F256213D36FA00548B43 /* LearningKeyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningKeyController.swift; sourceTree = "<group>"; };
+		D281F256213D36FA00548B43 /* FlashCardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardController.swift; sourceTree = "<group>"; };
 		D287EB0A213E3C81006EBC2C /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		D287EB0E213F6F95006EBC2C /* LoadingAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimation.swift; sourceTree = "<group>"; };
 		D287EB10213F8A45006EBC2C /* EntranceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntranceController.swift; sourceTree = "<group>"; };
@@ -64,6 +66,9 @@
 		D287EB3F21465D8F006EBC2C /* SpeakerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerButton.swift; sourceTree = "<group>"; };
 		D28CD658211997AD001A613F /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		D28CD65C2119AB1C001A613F /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
+		D29400A1215C67D500069DF0 /* CantoTalkTestClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CantoTalkTestClassifier.mlmodel; sourceTree = "<group>"; };
+		D29400A3215C6E7E00069DF0 /* FlashCardDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardDeck.swift; sourceTree = "<group>"; };
+		D29400A5215C6F4600069DF0 /* FlashCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCard.swift; sourceTree = "<group>"; };
 		D2A40EFA212DBF6D00EE39C5 /* WordOfTheDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordOfTheDay.swift; sourceTree = "<group>"; };
 		D2D45C70211D5EAD008A6CF7 /* WordOfTheDayCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordOfTheDayCells.swift; sourceTree = "<group>"; };
 		D2D6A04F21105AA4002E0CCE /* CantoTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CantoTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,7 +87,6 @@
 		D2E001512122849B0031553E /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		D2E58B4621520B0900B06AEC /* KeyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCell.swift; sourceTree = "<group>"; };
 		D2E58B4821524AD000B06AEC /* PronounciationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PronounciationKey.swift; sourceTree = "<group>"; };
-		D2EEFD76215B23BA00D599DF /* CantoTalkTestClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CantoTalkTestClassifier.mlmodel; sourceTree = "<group>"; };
 		D2EEFD7A215B720500D599DF /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
 		D2EEFD7C215B7F2600D599DF /* FlashCardDeckCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardDeckCell.swift; sourceTree = "<group>"; };
 		D2F8FB98211A9CA700E260B9 /* BaseCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCells.swift; sourceTree = "<group>"; };
@@ -120,8 +124,8 @@
 		D27C0A5A211803A000E615EB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D29400A1215C67D500069DF0 /* CantoTalkTestClassifier.mlmodel */,
 				D2EEFD7A215B720500D599DF /* default.realm */,
-				D2EEFD76215B23BA00D599DF /* CantoTalkTestClassifier.mlmodel */,
 				D2D6A05921105AA9002E0CCE /* Assets.xcassets */,
 			);
 			path = "Supporting Files";
@@ -177,6 +181,8 @@
 				D2A40EFA212DBF6D00EE39C5 /* WordOfTheDay.swift */,
 				D2113CCE2133EF7600249DD6 /* RecentlyViewedItems.swift */,
 				D2E58B4821524AD000B06AEC /* PronounciationKey.swift */,
+				D29400A3215C6E7E00069DF0 /* FlashCardDeck.swift */,
+				D29400A5215C6F4600069DF0 /* FlashCard.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -209,7 +215,7 @@
 				D2D6A0762112FCA9002E0CCE /* WordOfTheDayController.swift */,
 				D281432D211C03A500005604 /* SettingsController.swift */,
 				D2D6A08021144C78002E0CCE /* SlideUpViewController.swift */,
-				D281F256213D36FA00548B43 /* LearningKeyController.swift */,
+				D281F256213D36FA00548B43 /* FlashCardController.swift */,
 				D287EB34213FBC61006EBC2C /* CameraController.swift */,
 				D236CB64214F684400F8DDCF /* InfoController.swift */,
 				D22E30EC2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift */,
@@ -368,16 +374,17 @@
 				D2113CCF2133EF7600249DD6 /* RecentlyViewedItems.swift in Sources */,
 				D287EB35213FBC61006EBC2C /* CameraController.swift in Sources */,
 				D2E58B4921524AD000B06AEC /* PronounciationKey.swift in Sources */,
-				D281F257213D36FA00548B43 /* LearningKeyController.swift in Sources */,
+				D281F257213D36FA00548B43 /* FlashCardController.swift in Sources */,
 				D2D6A0772112FCA9002E0CCE /* WordOfTheDayController.swift in Sources */,
 				D2D45C71211D5EAD008A6CF7 /* WordOfTheDayCells.swift in Sources */,
+				D29400A4215C6E7E00069DF0 /* FlashCardDeck.swift in Sources */,
 				D22E30ED2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift in Sources */,
 				D28CD65D2119AB1C001A613F /* FavoritesController.swift in Sources */,
 				D2D6A06D2111A36C002E0CCE /* EntryView.swift in Sources */,
 				D28CD659211997AD001A613F /* MenuBar.swift in Sources */,
 				D2D6A06921105C87002E0CCE /* Extensions.swift in Sources */,
-				D2EEFD77215B23BA00D599DF /* CantoTalkTestClassifier.mlmodel in Sources */,
 				D2F8FB99211A9CA700E260B9 /* BaseCells.swift in Sources */,
+				D29400A2215C67D500069DF0 /* CantoTalkTestClassifier.mlmodel in Sources */,
 				D236CB67214F8DE100F8DDCF /* CircleView.swift in Sources */,
 				D2D6A05321105AA4002E0CCE /* AppDelegate.swift in Sources */,
 				D2E58B4721520B0900B06AEC /* KeyCell.swift in Sources */,
@@ -387,6 +394,7 @@
 				D287EB3821410459006EBC2C /* CameraDisplay.swift in Sources */,
 				D2D6A083211452A8002E0CCE /* Entries.swift in Sources */,
 				D2A40EFB212DBF6D00EE39C5 /* WordOfTheDay.swift in Sources */,
+				D29400A6215C6F4600069DF0 /* FlashCard.swift in Sources */,
 				D2E001522122849B0031553E /* SettingsCell.swift in Sources */,
 				D287EB11213F8A45006EBC2C /* EntranceController.swift in Sources */,
 			);

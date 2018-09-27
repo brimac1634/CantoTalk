@@ -120,7 +120,7 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
         guard let entryList = entries else {return}
         
         DispatchQueue.main.async {
-            if firstResultConfidence > 0.6 {
+            if firstResultConfidence > 0.7 {
                 guard let entry = entryList.filter("englishWord = %@", firstResult).first else {return}
                 self.cameraDisplay.selectedEntry = entry
                 self.resultFound = true

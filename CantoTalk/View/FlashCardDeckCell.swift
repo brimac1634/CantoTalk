@@ -10,10 +10,17 @@ import UIKit
 
 class FlashCardDeckCell: BaseCell {
     
+    var cardDeck: FlashCardDeck? {
+        didSet {
+            guard let deck = cardDeck else {return}
+            deckTitle.text = deck.deckTitle
+        }
+    }
     
     let deckImage: UIImageView = {
         let image = UIImageView(image: UIImage(named: "CantoTalkIconCircle"))
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.alpha = 0.3
         image.contentMode = .scaleAspectFit
         return image
     }()
@@ -22,6 +29,7 @@ class FlashCardDeckCell: BaseCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Home"
+        label.textAlignment = .center
         return label
     }()
     
@@ -34,6 +42,13 @@ class FlashCardDeckCell: BaseCell {
         
         NSLayoutConstraint.activate([
             
+            deckTitle.bottomAnchor.constraint(equalTo: bottomAnchor),
+            deckTitle.widthAnchor.constraint(equalTo: widthAnchor),
+            deckTitle.heightAnchor.constraint(equalToConstant: 20),
+            
+            deckImage.widthAnchor.constraint(equalTo: widthAnchor),
+            deckImage.topAnchor.constraint(equalTo: topAnchor),
+            deckImage.bottomAnchor.constraint(equalTo: deckTitle.topAnchor)
             ])
         
     }
