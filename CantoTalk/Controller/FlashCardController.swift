@@ -9,9 +9,11 @@
 import UIKit
 import RealmSwift
 
-class FlashCardController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class FlashCardController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CustomAlertViewDelegate {
+    
 
     let userRealm = try! Realm()
+    let alert = CustomAlertController()
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -24,13 +26,8 @@ class FlashCardController: UIViewController, UICollectionViewDelegate, UICollect
         return cv
     }()
     
-    lazy var emptyCard: FlashCardDeckCell = {
-        let view = FlashCardDeckCell()
-        view.card2.alpha = 0
-        view.deckImage.image = UIImage(named: "add")?.withRenderingMode(.alwaysTemplate)
-        view.deckImage.tintColor = UIColor.cantoDarkBlue(a: 1)
-        view.deckImage.alpha = 1
-        view.deckTitle.text = "Create New Deck"
+    lazy var emptyCard: EmptyDeckView = {
+        let view = EmptyDeckView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -61,7 +58,12 @@ class FlashCardController: UIViewController, UICollectionViewDelegate, UICollect
         
         
         collectionView.register(FlashCardDeckCell.self, forCellWithReuseIdentifier: cellID)
+        emptyCard.addTarget(self, action: #selector(handleNewDeck), for: .touchUpInside)
     }
+    
+    
+    
+    //MARK: - Collection View Methods
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(123)
@@ -92,5 +94,26 @@ class FlashCardController: UIViewController, UICollectionViewDelegate, UICollect
         return view.frame.width / 8
     }
     
+    //MARK: - Create new deck
     
+    @objc func handleNewDeck() {
+        let customAlert = CustomAlertController()
+        customAlert.providesPresentationContextTransitionStyle = true
+        customAlert.definesPresentationContext = true
+        customAlert.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        customAlert.delegate = self
+        self.present(customAlert, animated: true, completion: nil)
+    }
+    
+    
+    func createButtonTapped(textFieldValue: String) {
+        print("TextField has value: \(textFieldValue)")
+    }
+    
+    func cancelButtonTapped() {
+        print("cancelButtonTapped")
+    }
+    
+
 }

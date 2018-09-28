@@ -27,6 +27,8 @@
 		D29400A4215C6E7E00069DF0 /* FlashCardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29400A3215C6E7E00069DF0 /* FlashCardDeck.swift */; };
 		D29400A6215C6F4600069DF0 /* FlashCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29400A5215C6F4600069DF0 /* FlashCard.swift */; };
 		D29400A8215CCAF100069DF0 /* EmptyDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29400A7215CCAF100069DF0 /* EmptyDeckView.swift */; };
+		D29400AA215DCD6900069DF0 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29400A9215DCD6900069DF0 /* CustomAlertView.swift */; };
+		D29400AC215DE72200069DF0 /* CustomAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29400AB215DE72200069DF0 /* CustomAlertController.swift */; };
 		D2A40EFB212DBF6D00EE39C5 /* WordOfTheDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A40EFA212DBF6D00EE39C5 /* WordOfTheDay.swift */; };
 		D2D45C71211D5EAD008A6CF7 /* WordOfTheDayCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D45C70211D5EAD008A6CF7 /* WordOfTheDayCells.swift */; };
 		D2D6A05321105AA4002E0CCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A05221105AA4002E0CCE /* AppDelegate.swift */; };
@@ -71,6 +73,8 @@
 		D29400A3215C6E7E00069DF0 /* FlashCardDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardDeck.swift; sourceTree = "<group>"; };
 		D29400A5215C6F4600069DF0 /* FlashCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCard.swift; sourceTree = "<group>"; };
 		D29400A7215CCAF100069DF0 /* EmptyDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDeckView.swift; sourceTree = "<group>"; };
+		D29400A9215DCD6900069DF0 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
+		D29400AB215DE72200069DF0 /* CustomAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertController.swift; sourceTree = "<group>"; };
 		D2A40EFA212DBF6D00EE39C5 /* WordOfTheDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordOfTheDay.swift; sourceTree = "<group>"; };
 		D2D45C70211D5EAD008A6CF7 /* WordOfTheDayCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordOfTheDayCells.swift; sourceTree = "<group>"; };
 		D2D6A04F21105AA4002E0CCE /* CantoTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CantoTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -204,6 +208,7 @@
 				D2E58B4621520B0900B06AEC /* KeyCell.swift */,
 				D2EEFD7C215B7F2600D599DF /* FlashCardDeckCell.swift */,
 				D29400A7215CCAF100069DF0 /* EmptyDeckView.swift */,
+				D29400A9215DCD6900069DF0 /* CustomAlertView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -222,6 +227,7 @@
 				D287EB34213FBC61006EBC2C /* CameraController.swift */,
 				D236CB64214F684400F8DDCF /* InfoController.swift */,
 				D22E30EC2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift */,
+				D29400AB215DE72200069DF0 /* CustomAlertController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -382,11 +388,13 @@
 				D2D6A0772112FCA9002E0CCE /* WordOfTheDayController.swift in Sources */,
 				D2D45C71211D5EAD008A6CF7 /* WordOfTheDayCells.swift in Sources */,
 				D29400A4215C6E7E00069DF0 /* FlashCardDeck.swift in Sources */,
+				D29400AA215DCD6900069DF0 /* CustomAlertView.swift in Sources */,
 				D22E30ED2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift in Sources */,
 				D28CD65D2119AB1C001A613F /* FavoritesController.swift in Sources */,
 				D2D6A06D2111A36C002E0CCE /* EntryView.swift in Sources */,
 				D28CD659211997AD001A613F /* MenuBar.swift in Sources */,
 				D2D6A06921105C87002E0CCE /* Extensions.swift in Sources */,
+				D29400AC215DE72200069DF0 /* CustomAlertController.swift in Sources */,
 				D2F8FB99211A9CA700E260B9 /* BaseCells.swift in Sources */,
 				D29400A2215C67D500069DF0 /* CantoTalkTestClassifier.mlmodel in Sources */,
 				D236CB67214F8DE100F8DDCF /* CircleView.swift in Sources */,

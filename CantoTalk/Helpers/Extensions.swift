@@ -55,7 +55,6 @@ extension UIView {
         layer.shadowOpacity = 0.5
     }
 
-
 }
 
 extension String {
