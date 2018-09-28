@@ -38,6 +38,16 @@ class FlashCardController: UIViewController, UICollectionViewDelegate, UICollect
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadData()
+        setupViews()
+    }
+    
+    func loadData() {
+        cardDecks = userRealm.objects(FlashCardDeck.self).sorted(byKeyPath: "dateAdded", ascending: false)
+        collectionView.reloadData()
+    }
+    
+    func setupViews() {
         view.backgroundColor = UIColor.cantoWhite(a: 1)
         cellWidth = view.frame.width / 2.5
         
@@ -62,7 +72,6 @@ class FlashCardController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     
-    
     //MARK: - Collection View Methods
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -70,7 +79,7 @@ class FlashCardController: UIViewController, UICollectionViewDelegate, UICollect
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 24
+        return cardDecks?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -82,7 +91,7 @@ class FlashCardController: UIViewController, UICollectionViewDelegate, UICollect
         if indexPath.item == 0 {
             cell.alpha = 0
         } else {
-            if let decks = cardDecks {
+            if let decks = cardDecks?.sorted(byKeyPath: "dateAdded", ascending: false) {
                 cell.cardDeck = decks[indexPath.item - 1]
             }
         }
@@ -108,7 +117,13 @@ class FlashCardController: UIViewController, UICollectionViewDelegate, UICollect
     
     
     func createButtonTapped(textFieldValue: String) {
-        print("TextField has value: \(textFieldValue)")
+        try! userRealm.write {
+            let newDeck = FlashCardDeck()
+            newDeck.deckTitle = textFieldValue
+            newDeck.dateAdded = Date()
+            userRealm.add(newDeck)
+        }
+        loadData()
     }
     
     func cancelButtonTapped() {

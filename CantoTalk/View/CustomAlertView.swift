@@ -11,15 +11,7 @@ import UIKit
 class CustomAlertView: BaseView {
     
     
-    var alertViewHeight: CGFloat = 180
-    
-    
-    let blackView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(white: 0, alpha: 0.5)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    var alertViewHeight: CGFloat = 200
     
     let alertView: UIView = {
         let view = UIView()
@@ -83,21 +75,12 @@ class CustomAlertView: BaseView {
         alertStackView.spacing = 8
         alertStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        addSubview(blackView)
         addSubview(alertView)
         alertView.addSubview(alertStackView)
-        
-        if let window = UIApplication.shared.keyWindow {
-            //black view here
-        }
 
         
         NSLayoutConstraint.activate([
-//            blackView.topAnchor.constraint(equalTo: topAnchor),
-//            blackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            blackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            blackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            
+
             alertView.centerXAnchor.constraint(equalTo: centerXAnchor),
             alertView.centerYAnchor.constraint(equalTo: centerYAnchor),
             alertView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
@@ -109,7 +92,6 @@ class CustomAlertView: BaseView {
             alertStackView.bottomAnchor.constraint(equalTo: alertView.bottomAnchor)
             ])
         
-        blackView.alpha = 0
         
     }
 }
