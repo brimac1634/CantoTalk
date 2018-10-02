@@ -12,9 +12,10 @@
 		D22E30ED2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22E30EC2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift */; };
 		D236CB65214F684400F8DDCF /* InfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236CB64214F684400F8DDCF /* InfoController.swift */; };
 		D236CB67214F8DE100F8DDCF /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236CB66214F8DE100F8DDCF /* CircleView.swift */; };
+		D239A9292163114300A5B9A0 /* AddFlashCardSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239A9282163114300A5B9A0 /* AddFlashCardSearchController.swift */; };
 		D281432A211C026000005604 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2814329211C026000005604 /* SearchController.swift */; };
 		D281432E211C03A500005604 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281432D211C03A500005604 /* SettingsController.swift */; };
-		D281F257213D36FA00548B43 /* FlashCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281F256213D36FA00548B43 /* FlashCardController.swift */; };
+		D281F257213D36FA00548B43 /* FlashCardDeckController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281F256213D36FA00548B43 /* FlashCardDeckController.swift */; };
 		D287EB0B213E3C81006EBC2C /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB0A213E3C81006EBC2C /* Favorites.swift */; };
 		D287EB0F213F6F95006EBC2C /* LoadingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB0E213F6F95006EBC2C /* LoadingAnimation.swift */; };
 		D287EB11213F8A45006EBC2C /* EntranceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB10213F8A45006EBC2C /* EntranceController.swift */; };
@@ -58,9 +59,10 @@
 		D22E30EC2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalPagesCollectionViewController.swift; sourceTree = "<group>"; };
 		D236CB64214F684400F8DDCF /* InfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoController.swift; sourceTree = "<group>"; };
 		D236CB66214F8DE100F8DDCF /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
+		D239A9282163114300A5B9A0 /* AddFlashCardSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFlashCardSearchController.swift; sourceTree = "<group>"; };
 		D2814329211C026000005604 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		D281432D211C03A500005604 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
-		D281F256213D36FA00548B43 /* FlashCardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardController.swift; sourceTree = "<group>"; };
+		D281F256213D36FA00548B43 /* FlashCardDeckController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardDeckController.swift; sourceTree = "<group>"; };
 		D287EB0A213E3C81006EBC2C /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		D287EB0E213F6F95006EBC2C /* LoadingAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimation.swift; sourceTree = "<group>"; };
 		D287EB10213F8A45006EBC2C /* EntranceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntranceController.swift; sourceTree = "<group>"; };
@@ -222,11 +224,10 @@
 				D28CD65C2119AB1C001A613F /* FavoritesController.swift */,
 				D2D6A0762112FCA9002E0CCE /* WordOfTheDayController.swift */,
 				D281432D211C03A500005604 /* SettingsController.swift */,
-				D2D6A08021144C78002E0CCE /* SlideUpViewController.swift */,
-				D281F256213D36FA00548B43 /* FlashCardController.swift */,
+				D281F256213D36FA00548B43 /* FlashCardDeckController.swift */,
+				D239A9282163114300A5B9A0 /* AddFlashCardSearchController.swift */,
 				D287EB34213FBC61006EBC2C /* CameraController.swift */,
 				D236CB64214F684400F8DDCF /* InfoController.swift */,
-				D22E30EC2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift */,
 				D29400AB215DE72200069DF0 /* CustomAlertController.swift */,
 			);
 			path = Controller;
@@ -235,6 +236,8 @@
 		D2D6A06721105AE5002E0CCE /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				D2D6A08021144C78002E0CCE /* SlideUpViewController.swift */,
+				D22E30EC2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift */,
 				D2F8FB98211A9CA700E260B9 /* BaseCells.swift */,
 				D2D6A06821105C87002E0CCE /* Extensions.swift */,
 			);
@@ -384,7 +387,7 @@
 				D2113CCF2133EF7600249DD6 /* RecentlyViewedItems.swift in Sources */,
 				D287EB35213FBC61006EBC2C /* CameraController.swift in Sources */,
 				D2E58B4921524AD000B06AEC /* PronounciationKey.swift in Sources */,
-				D281F257213D36FA00548B43 /* FlashCardController.swift in Sources */,
+				D281F257213D36FA00548B43 /* FlashCardDeckController.swift in Sources */,
 				D2D6A0772112FCA9002E0CCE /* WordOfTheDayController.swift in Sources */,
 				D2D45C71211D5EAD008A6CF7 /* WordOfTheDayCells.swift in Sources */,
 				D29400A4215C6E7E00069DF0 /* FlashCardDeck.swift in Sources */,
@@ -399,6 +402,7 @@
 				D29400A2215C67D500069DF0 /* CantoTalkTestClassifier.mlmodel in Sources */,
 				D236CB67214F8DE100F8DDCF /* CircleView.swift in Sources */,
 				D2D6A05321105AA4002E0CCE /* AppDelegate.swift in Sources */,
+				D239A9292163114300A5B9A0 /* AddFlashCardSearchController.swift in Sources */,
 				D2E58B4721520B0900B06AEC /* KeyCell.swift in Sources */,
 				D2EEFD7D215B7F2600D599DF /* FlashCardDeckCell.swift in Sources */,
 				D287EB0F213F6F95006EBC2C /* LoadingAnimation.swift in Sources */,

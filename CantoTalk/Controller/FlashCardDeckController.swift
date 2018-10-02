@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class FlashCardController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CustomAlertViewDelegate {
+class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CustomAlertViewDelegate {
     
 
     let userRealm = try! Realm()
@@ -75,7 +75,11 @@ class FlashCardController: UIViewController, UICollectionViewDelegate, UICollect
     //MARK: - Collection View Methods
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(123)
+        let addFlashCardController = AddFlashCardSearchController()
+        if let cardDeck = cardDecks {
+            addFlashCardController.selectedCardDeck = cardDeck[indexPath.item]
+        }
+        navigationController?.pushViewController(addFlashCardController, animated: true)
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -40,14 +40,14 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         return view
     }()
     
-    let historyButton: UIButton = {
+    let searchBarButton: UIButton = {
         let button = UIButton()
         let image = UIImage(named: "history")?.withRenderingMode(.alwaysTemplate)
         button.setBackgroundImage(image, for: .normal)
         button.backgroundColor = UIColor.cantoDarkBlue(a: 1)
         button.tintColor = UIColor.cantoWhite(a: 1)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(handleHistory), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleSearchBarButton), for: .touchUpInside)
         return button
     }()
     
@@ -85,7 +85,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         view.addSubview(collectionView)
         view.addSubview(searchBar)
         view.addSubview(blueView)
-        view.addSubview(historyButton)
+        view.addSubview(searchBarButton)
         view.addSubview(fadedView)
         
         searchTrailing = searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -45)
@@ -107,10 +107,10 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
             blueView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             blueView.heightAnchor.constraint(equalToConstant: 45),
             
-            historyButton.widthAnchor.constraint(equalToConstant: 28),
-            historyButton.heightAnchor.constraint(equalToConstant: 28),
-            historyButton.centerYAnchor.constraint(equalTo: searchBar.centerYAnchor),
-            historyButton.centerXAnchor.constraint(equalTo: view.trailingAnchor, constant: -26),
+            searchBarButton.widthAnchor.constraint(equalToConstant: 28),
+            searchBarButton.heightAnchor.constraint(equalToConstant: 28),
+            searchBarButton.centerYAnchor.constraint(equalTo: searchBar.centerYAnchor),
+            searchBarButton.centerXAnchor.constraint(equalTo: view.trailingAnchor, constant: -26),
             
             fadedView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             fadedView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -238,7 +238,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
 
     //MARK: - History Methods
     
-    @objc func handleHistory() {
+    @objc func handleSearchBarButton() {
         UISearchBar.resignIfFirstResponder(searchBar: searchBar)
         searchBar.text = ""
         resetEntriesList()
@@ -251,7 +251,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     
     func showHistoryView() {
         fadedView.isHidden = false
-        historyButton.tintColor = UIColor.cantoPink(a: 1)
+        searchBarButton.tintColor = UIColor.cantoPink(a: 1)
         loadData()
         isHistoryShowing = true
         collectionView.reloadData()
@@ -261,7 +261,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     
     func hideHistoryView() {
         fadedView.isHidden = true
-        historyButton.tintColor = UIColor.cantoWhite(a: 1)
+        searchBarButton.tintColor = UIColor.cantoWhite(a: 1)
         isHistoryShowing = false
         loadData()
     }

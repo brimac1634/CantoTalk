@@ -19,7 +19,7 @@ class FavoritesController: SearchController  {
         super.viewDidLoad()
   
         blueView.isHidden = true
-        historyButton.isHidden = true
+        searchBarButton.isHidden = true
         
         searchTrailing.constant = 0
     }

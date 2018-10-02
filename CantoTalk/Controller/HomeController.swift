@@ -16,7 +16,7 @@ class HomeController: UIViewController {
     var searchController: SearchController!
     var favoritesController: FavoritesController!
     var wordOfTheDayController: WordOfTheDayController!
-    var flashCardController: FlashCardController!
+    var flashCardDeckController: FlashCardDeckController!
     var cameraController: CameraController!
     var infoController: InfoController!
     
@@ -54,9 +54,9 @@ class HomeController: UIViewController {
         favoritesController = FavoritesController()
         wordOfTheDayController = WordOfTheDayController()
         wordOfTheDayController.homeController = self
-        flashCardController = FlashCardController()
+        flashCardDeckController = FlashCardDeckController()
         
-        viewControllers = [searchController, favoritesController, wordOfTheDayController, flashCardController]
+        viewControllers = [searchController, favoritesController, wordOfTheDayController, flashCardDeckController]
     }
     
     func loadData() {
