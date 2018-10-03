@@ -82,6 +82,17 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         collectionView.backgroundView = UIView(frame: collectionView.bounds)
         collectionView.backgroundView?.addGestureRecognizer(tapGesture)
     
+        setupViews()
+        
+        loadData()
+    }
+    
+    func loadData() {
+        recentlyViewed = userRealm.objects(RecentlyViewedItems.self).sorted(byKeyPath: "dateViewed", ascending: false)
+        collectionView.reloadData()
+    }
+    
+    func setupViews() {
         view.addSubview(collectionView)
         view.addSubview(searchBar)
         view.addSubview(blueView)
@@ -89,20 +100,20 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         view.addSubview(fadedView)
         
         searchTrailing = searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -45)
-
+        
         NSLayoutConstraint.activate([
+            
+            searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchTrailing,
+            searchBar.heightAnchor.constraint(equalToConstant: 45),
             
             collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: -2),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            searchTrailing,
-            searchBar.heightAnchor.constraint(equalToConstant: 45),
-            
-            blueView.topAnchor.constraint(equalTo: view.topAnchor, constant: -2),
+            blueView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
             blueView.leadingAnchor.constraint(equalTo: searchBar.trailingAnchor),
             blueView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             blueView.heightAnchor.constraint(equalToConstant: 45),
@@ -116,20 +127,12 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
             fadedView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             fadedView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             fadedView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-
+            
             ])
-
-        fadedView.isHidden = true
         
-        loadData()
+        fadedView.isHidden = true
     }
     
-    func loadData() {
-        recentlyViewed = userRealm.objects(RecentlyViewedItems.self).sorted(byKeyPath: "dateViewed", ascending: false)
-        collectionView.reloadData()
-    }
-    
-
     //MARK: - CollectionView Methods
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

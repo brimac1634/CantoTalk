@@ -11,30 +11,36 @@ import RealmSwift
 
 class WordCells: BaseCell {
     
+    var cellStackViewTrailingConstraint: NSLayoutConstraint!
+    
     var selectedEntry: Entries? {
         didSet {
             if let entry = selectedEntry {
-                let cantoWordText = NSMutableAttributedString(string: entry.cantoWord, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 25), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
-                if entry.classifier != "" {
-                    cantoWordText.append(NSAttributedString(string: " (cl:\(entry.classifier))", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
-                }
-                
-                
-                cantoWordLabel.attributedText = cantoWordText
-                jyutpingLabel.text = entry.jyutping
-                
-                let englishWordText = NSMutableAttributedString(string: "En: ", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
-                englishWordText.append(NSAttributedString(string: entry.englishWord, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
-                
-                englishWordLabel.attributedText = englishWordText
-                
-                let mandarinWordText = NSMutableAttributedString(string: "普: ", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
-                mandarinWordText.append(NSAttributedString(string: entry.mandarinWord, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
-                
-                mandarinWordLabel.attributedText = mandarinWordText
+                setupCellContent(entry: entry)
                 
             }
         }
+    }
+    
+    func setupCellContent(entry: Entries) {
+        let cantoWordText = NSMutableAttributedString(string: entry.cantoWord, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 25), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
+        if entry.classifier != "" {
+            cantoWordText.append(NSAttributedString(string: " (cl:\(entry.classifier))", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+        }
+        
+        
+        cantoWordLabel.attributedText = cantoWordText
+        jyutpingLabel.text = entry.jyutping
+        
+        let englishWordText = NSMutableAttributedString(string: "En: ", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
+        englishWordText.append(NSAttributedString(string: entry.englishWord, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+        
+        englishWordLabel.attributedText = englishWordText
+        
+        let mandarinWordText = NSMutableAttributedString(string: "普: ", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
+        mandarinWordText.append(NSAttributedString(string: entry.mandarinWord, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+        
+        mandarinWordLabel.attributedText = mandarinWordText
     }
     
     
@@ -43,7 +49,7 @@ class WordCells: BaseCell {
         label.isEditable = false
         label.isScrollEnabled = false
         label.isUserInteractionEnabled = false
-        label.backgroundColor = UIColor.cantoWhite(a: 1)
+        label.backgroundColor = UIColor.clear
         return label
     }()
     
@@ -53,7 +59,7 @@ class WordCells: BaseCell {
         label.isScrollEnabled = false
         label.isUserInteractionEnabled = false
         label.font = UIFont.systemFont(ofSize: 18)
-        label.backgroundColor = UIColor.cantoWhite(a: 1)
+        label.backgroundColor = UIColor.clear
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
@@ -64,7 +70,7 @@ class WordCells: BaseCell {
         label.isScrollEnabled = false
         label.isUserInteractionEnabled = false
         label.font = UIFont.systemFont(ofSize: 18)
-        label.backgroundColor = UIColor.cantoWhite(a: 1)
+        label.backgroundColor = UIColor.clear
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
@@ -75,7 +81,7 @@ class WordCells: BaseCell {
         label.isScrollEnabled = false
         label.isUserInteractionEnabled = false
         label.font = UIFont.systemFont(ofSize: 18)
-        label.backgroundColor = UIColor.cantoWhite(a: 1)
+        label.backgroundColor = UIColor.clear
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
@@ -105,11 +111,13 @@ class WordCells: BaseCell {
         addSubview(cellStackView)
         addSubview(separatorView)
         
+        cellStackViewTrailingConstraint = cellStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+        
         NSLayoutConstraint.activate([
             
             cellStackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             cellStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            cellStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            cellStackViewTrailingConstraint,
             cellStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
             
             separatorView.leadingAnchor.constraint(equalTo: leadingAnchor),

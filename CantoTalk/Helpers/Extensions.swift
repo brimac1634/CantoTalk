@@ -73,6 +73,26 @@ extension UIButton {
     }
 }
 
+//extension FlashCardSearchCells {
+//    func selected() {
+//        checkMarkView.alpha = 1
+//        backgroundColor = UIColor.lightGray
+//        cantoWordLabel.backgroundColor = UIColor.lightGray
+//        jyutpingLabel.backgroundColor = UIColor.lightGray
+//        englishWordLabel.backgroundColor = UIColor.lightGray
+//        mandarinWordLabel.backgroundColor = UIColor.lightGray
+//    }
+//    
+//    func unselected() {
+//        checkMarkView.alpha = 0
+//        backgroundColor = UIColor.cantoWhite(a: 1)
+//        cantoWordLabel.backgroundColor = UIColor.cantoWhite(a: 1)
+//        jyutpingLabel.backgroundColor = UIColor.cantoWhite(a: 1)
+//        englishWordLabel.backgroundColor = UIColor.cantoWhite(a: 1)
+//        mandarinWordLabel.backgroundColor = UIColor.cantoWhite(a: 1)
+//    }
+//}
+
 
 
 

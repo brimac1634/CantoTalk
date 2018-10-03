@@ -11,6 +11,7 @@ import RealmSwift
 
 class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CustomAlertViewDelegate {
     
+    let mainRealm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: true))
 
     let userRealm = try! Realm()
     let alert = CustomAlertController()
@@ -77,7 +78,8 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let addFlashCardController = AddFlashCardSearchController()
         if let cardDeck = cardDecks {
-            addFlashCardController.selectedCardDeck = cardDeck[indexPath.item]
+            addFlashCardController.selectedCardDeck = cardDeck[indexPath.item - 1]
+            addFlashCardController.entries = mainRealm.objects(Entries.self)
         }
         navigationController?.pushViewController(addFlashCardController, animated: true)
     }
