@@ -14,6 +14,7 @@
 		D236CB67214F8DE100F8DDCF /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236CB66214F8DE100F8DDCF /* CircleView.swift */; };
 		D239A9292163114300A5B9A0 /* AddFlashCardSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239A9282163114300A5B9A0 /* AddFlashCardSearchController.swift */; };
 		D239A92D21636BE700A5B9A0 /* FlashCardSearchCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239A92C21636BE700A5B9A0 /* FlashCardSearchCells.swift */; };
+		D239A9312164D6C900A5B9A0 /* SlideUpOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239A9302164D6C900A5B9A0 /* SlideUpOptionView.swift */; };
 		D281432A211C026000005604 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2814329211C026000005604 /* SearchController.swift */; };
 		D281432E211C03A500005604 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281432D211C03A500005604 /* SettingsController.swift */; };
 		D281F257213D36FA00548B43 /* FlashCardDeckController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281F256213D36FA00548B43 /* FlashCardDeckController.swift */; };
@@ -62,6 +63,7 @@
 		D236CB66214F8DE100F8DDCF /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		D239A9282163114300A5B9A0 /* AddFlashCardSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFlashCardSearchController.swift; sourceTree = "<group>"; };
 		D239A92C21636BE700A5B9A0 /* FlashCardSearchCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardSearchCells.swift; sourceTree = "<group>"; };
+		D239A9302164D6C900A5B9A0 /* SlideUpOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUpOptionView.swift; sourceTree = "<group>"; };
 		D2814329211C026000005604 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		D281432D211C03A500005604 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		D281F256213D36FA00548B43 /* FlashCardDeckController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardDeckController.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				D29400A7215CCAF100069DF0 /* EmptyDeckView.swift */,
 				D29400A9215DCD6900069DF0 /* CustomAlertView.swift */,
 				D239A92C21636BE700A5B9A0 /* FlashCardSearchCells.swift */,
+				D239A9302164D6C900A5B9A0 /* SlideUpOptionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				D2113CCF2133EF7600249DD6 /* RecentlyViewedItems.swift in Sources */,
 				D287EB35213FBC61006EBC2C /* CameraController.swift in Sources */,
 				D2E58B4921524AD000B06AEC /* PronounciationKey.swift in Sources */,
+				D239A9312164D6C900A5B9A0 /* SlideUpOptionView.swift in Sources */,
 				D281F257213D36FA00548B43 /* FlashCardDeckController.swift in Sources */,
 				D2D6A0772112FCA9002E0CCE /* WordOfTheDayController.swift in Sources */,
 				D2D45C71211D5EAD008A6CF7 /* WordOfTheDayCells.swift in Sources */,

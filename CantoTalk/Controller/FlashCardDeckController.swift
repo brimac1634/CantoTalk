@@ -81,7 +81,9 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
             addFlashCardController.selectedCardDeck = cardDeck[indexPath.item - 1]
             addFlashCardController.entries = mainRealm.objects(Entries.self)
         }
+        
         navigationController?.pushViewController(addFlashCardController, animated: true)
+        
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -135,6 +137,6 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
     func cancelButtonTapped() {
         print("cancelButtonTapped")
     }
-    
+
 
 }

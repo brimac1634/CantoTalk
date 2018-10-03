@@ -12,14 +12,7 @@ import RealmSwift
 class FlashCardSearchCells: WordCells {
     
     let cellStackTrailingDistance: CGFloat = -45
-    var flashCards: List<FlashCard>?
-    
-    override func setupCellContent(entry: Entries) {
-        super.setupCellContent(entry: entry)
-        
-        
-        
-    }
+
     
     let checkMarkView: UIImageView = {
         let view = UIImageView(image: UIImage(named: "checkMark")?.withRenderingMode(.alwaysTemplate))
