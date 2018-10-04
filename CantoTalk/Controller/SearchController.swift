@@ -74,6 +74,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
     var isHistoryShowing: Bool = false
     let slideUpViewController = SlideUpViewController()
     var searchTrailing: NSLayoutConstraint!
+    var slideUpViewHeight: CGFloat = 0
     
     override func viewDidLoad() {
         
@@ -81,6 +82,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap))
         collectionView.backgroundView = UIView(frame: collectionView.bounds)
         collectionView.backgroundView?.addGestureRecognizer(tapGesture)
+        slideUpViewHeight = (view.frame.height / 3) * 2
     
         setupViews()
         
@@ -143,7 +145,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
         if isHistoryShowing == false {
             if let entry = entries?[indexPath.item] {
                 entryView.selectedEntry = entry
-                slideUpViewController.showEntryView(slideUpView: entryView)
+                slideUpViewController.showEntryView(slideUpView: entryView, viewHeight: slideUpViewHeight)
                 do {
                     try userRealm.write {
                         let recentlyViewedItem = RecentlyViewedItems()
@@ -164,7 +166,7 @@ class SearchController: UIViewController, UICollectionViewDataSource, UICollecti
             if let recent = recentlyViewed?[indexPath.item] {
                 if let entry = homeController?.mainRealm.objects(Entries.self).filter("entryID = \(recent.entryID)").first {
                     entryView.selectedEntry = entry
-                    slideUpViewController.showEntryView(slideUpView: entryView)
+                    slideUpViewController.showEntryView(slideUpView: entryView, viewHeight: slideUpViewHeight)
                 }
             }
         }

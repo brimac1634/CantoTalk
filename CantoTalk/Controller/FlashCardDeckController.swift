@@ -35,7 +35,9 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
     
     let cellID = "cellID"
     var cellWidth: CGFloat = 0
+    var currentDeckSelected: Int = 0
     var cardDecks: Results<FlashCardDeck>?
+    let slideUpViewController = SlideUpViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,13 +78,11 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
     //MARK: - Collection View Methods
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let addFlashCardController = AddFlashCardSearchController()
-        if let cardDeck = cardDecks {
-            addFlashCardController.selectedCardDeck = cardDeck[indexPath.item - 1]
-            addFlashCardController.entries = mainRealm.objects(Entries.self)
-        }
         
-        navigationController?.pushViewController(addFlashCardController, animated: true)
+        let slideUpOtions = SlideUpOptionView()
+        slideUpOtions.flashCardDeckController = self
+        slideUpViewController.showEntryView(slideUpView: slideUpOtions, viewHeight: slideUpOtions.viewHeight + 50)
+        currentDeckSelected = indexPath.item - 1
         
     }
 
@@ -138,5 +138,25 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
         print("cancelButtonTapped")
     }
 
+    //MARK: - Navigational Method
+    
+    func cardDeckOptionHandler(index: Int) {
+        slideUpViewController.handleDismiss()
+        switch index {
+        case 0:
+            print(123)
+        case 1:
+            let addFlashCardController = AddFlashCardSearchController()
+            if let cardDeck = cardDecks {
+                addFlashCardController.selectedCardDeck = cardDeck[currentDeckSelected]
+                addFlashCardController.entries = mainRealm.objects(Entries.self)
+            }
+            navigationController?.pushViewController(addFlashCardController, animated: true)
+        case 2:
+            print(456)
+        default:
+            print("Nothing to do")
+        }
+    }
 
 }

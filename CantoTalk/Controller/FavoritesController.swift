@@ -44,7 +44,7 @@ class FavoritesController: SearchController  {
             if let entry = mainRealm.objects(Entries.self).filter("entryID = \(selectedFavoriteEntry.entryID)").first {
                 view.selectedEntry = entry
                 view.favoritesController = self
-                slideUpViewController.showEntryView(slideUpView: view)
+                slideUpViewController.showEntryView(slideUpView: view, viewHeight: slideUpViewHeight)
                 return
             }
         }

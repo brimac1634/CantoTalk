@@ -14,7 +14,7 @@ class SlideUpViewController: NSObject {
     var whiteView: UIView?
 
     
-    func showEntryView(slideUpView: UIView) {
+    func showEntryView(slideUpView: UIView, viewHeight: CGFloat) {
         if let window = UIApplication.shared.keyWindow {
             
             blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
@@ -29,7 +29,7 @@ class SlideUpViewController: NSObject {
             
             blackView.frame = window.frame
             blackView.alpha = 0
-            let height = (window.frame.height / 3) * 2
+            let height = viewHeight
             let y = window.frame.height - height
             slideUpView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: height)
             slideUpView.backgroundColor = UIColor.cantoWhite(a: 1)
