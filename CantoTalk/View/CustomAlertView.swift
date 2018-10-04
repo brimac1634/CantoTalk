@@ -11,12 +11,43 @@ import UIKit
 class CustomAlertView: BaseView {
     
     
-    var alertViewHeight: CGFloat = 200
+    enum AlertType {
+        case create
+        case rename
+        case delete
+    }
+    var numberOfStacks: Int = 0
+    var alertViewHeight: NSLayoutConstraint!
+    var alertViewHeightFloat: CGFloat!
+    var alertStackView: UIStackView!
+    
+    
+    var alert: AlertType? {
+        didSet {
+            print("alert called now")
+            guard let alertView = alert else {return}
+            switch alertView {
+            case .create:
+                print("Standard alert")
+            case .rename:
+                message.text = "Rename card deck."
+                createButton.setTitle("Save", for: .normal)
+            case .delete:
+                message.text = "Are you sure?"
+                createButton.setTitle("Delete", for: .normal)
+                alertStackView.removeArrangedSubview(textField)
+                textField.alpha = 0
+                numberOfStacks = alertStackView.arrangedSubviews.count
+                alertViewHeight.constant = CGFloat(60 * numberOfStacks)
+                layoutIfNeeded()
+            }
+        }
+    }
     
     let alertView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.cantoWhite(a: 1)
-        view.layer.cornerRadius = 22
+        view.backgroundColor = UIColor.cantoDarkBlue(a: 1)
+        view.layer.cornerRadius = 12
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -28,6 +59,7 @@ class CustomAlertView: BaseView {
         label.text = "Name your flash card deck!"
         label.font = UIFont.systemFont(ofSize: 22)
         label.textColor = UIColor.cantoDarkBlue(a: 1)
+        label.backgroundColor = UIColor.cantoWhite(a: 1)
         return label
     }()
     
@@ -47,20 +79,21 @@ class CustomAlertView: BaseView {
         button.setTitle("Cancel", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 22)
         button.backgroundColor = UIColor.cantoWhite(a: 1)
-        button.setTitleColor(UIColor.lightGray, for: .normal)
+        button.setTitleColor(UIColor.cantoDarkBlue(a: 1), for: .normal)
+        
         return button
     }()
     
     let createButton: UIButton = {
         let button = UIButton()
         button.setTitle("Create", for: .normal)
-        button.setTitleColor(UIColor.cantoWhite(a: 1), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 22)
-        button.backgroundColor = UIColor.cantoDarkBlue(a: 1)
+        button.setTitleColor(UIColor.cantoDarkBlue(a: 1), for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 22)
+        button.backgroundColor = UIColor.cantoWhite(a: 1)
         return button
     }()
     
-
+    
     
     override func setupViews() {
         super.setupViews()
@@ -68,23 +101,27 @@ class CustomAlertView: BaseView {
         let buttonStackView = UIStackView(arrangedSubviews: [cancelButton, createButton])
         buttonStackView.axis = .horizontal
         buttonStackView.distribution = .fillEqually
+        buttonStackView.spacing = 1
         
-        let alertStackView = UIStackView(arrangedSubviews: [message, textField, buttonStackView])
+        alertStackView = UIStackView(arrangedSubviews: [message, textField, buttonStackView])
         alertStackView.axis = .vertical
         alertStackView.distribution = .fillEqually
-        alertStackView.spacing = 8
+        alertStackView.spacing = 1
         alertStackView.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(alertView)
         alertView.addSubview(alertStackView)
-
+        
+        numberOfStacks = alertStackView.arrangedSubviews.count
+        alertViewHeightFloat = CGFloat(60 * numberOfStacks)
+        alertViewHeight = alertView.heightAnchor.constraint(equalToConstant: alertViewHeightFloat)
         
         NSLayoutConstraint.activate([
 
             alertView.centerXAnchor.constraint(equalTo: centerXAnchor),
             alertView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            alertView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
-            alertView.heightAnchor.constraint(equalToConstant: alertViewHeight),
+            alertView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.75),
+            alertViewHeight,
             
             alertStackView.topAnchor.constraint(equalTo: alertView.topAnchor),
             alertStackView.leadingAnchor.constraint(equalTo: alertView.leadingAnchor),

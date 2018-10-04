@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CustomAlertViewDelegate: class {
-    func createButtonTapped(textFieldValue: String)
+    func affirmativeButtonTapped(alertType: Int, textFieldValue: String)
     func cancelButtonTapped()
 }
 
@@ -17,8 +17,25 @@ class CustomAlertController: UIViewController {
     
     let customAlertView = CustomAlertView()
     var delegate: CustomAlertViewDelegate?
-
+    var alertType: Int!
     
+    class func instantiate(type: CustomAlertView.AlertType) -> CustomAlertController {
+        let vc = CustomAlertController()
+        vc.customAlertView.alert = type
+        vc.providesPresentationContextTransitionStyle = true
+        vc.definesPresentationContext = true
+        vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        vc.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        switch type {
+        case .create:
+            vc.alertType = 0
+        case .rename:
+            vc.alertType = 1
+        case .delete:
+            vc.alertType = 2
+        }
+        return vc
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +43,7 @@ class CustomAlertController: UIViewController {
         
         customAlertView.createButton.addTarget(self, action: #selector(handleCreate), for: .touchUpInside)
         customAlertView.cancelButton.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,35 +89,20 @@ class CustomAlertController: UIViewController {
     }
     
     @objc func handleCreate() {
-        customAlertView.textField.resignFirstResponder()
-        delegate?.createButtonTapped(textFieldValue: customAlertView.textField.text!)
+        if let alert = alertType {
+            switch alert {
+            case 0...1:
+                customAlertView.textField.resignFirstResponder()
+                delegate?.affirmativeButtonTapped(alertType: alert, textFieldValue: customAlertView.textField.text!)
+            case 2:
+                delegate?.affirmativeButtonTapped(alertType: alert, textFieldValue: "")
+            default:
+                delegate?.affirmativeButtonTapped(alertType: alert, textFieldValue: "")
+            }
+        }
+        
         self.dismiss(animated: true, completion: nil)
     }
-    
-//    func showAlert() {
-//        if let window = UIApplication.shared.keyWindow {
-//            window.addSubview(customAlertView)
-//            customAlertView.frame = window.frame
-//
-//
-//            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-//                let alert = self.customAlertView
-//                alert.blackView.alpha = 1
-//                alert.alertView.frame = CGRect(x: alert.alertViewX, y: window.frame.height / 2 - self.customAlertView.alertViewHeight / 2, width: alert.alertViewWidth, height: alert.alertViewHeight)
-//            }, completion: nil)
-//
-//        }
-//    }
-//
-//    func dismissAlert() {
-//        if let window = UIApplication.shared.keyWindow {
-//            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-//                let alert = self.customAlertView
-//                alert.blackView.alpha = 0
-//                alert.alertView.frame = CGRect(x: alert.alertViewX, y: window.frame.height, width: alert.alertViewWidth, height: alert.alertViewHeight)
-//            }, completion: nil)
-//        }
-//    }
 
 
 }

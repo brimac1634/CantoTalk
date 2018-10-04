@@ -52,7 +52,7 @@ class CameraDisplay: BaseView {
     let textView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.cantoWhite(a: 1)
-        view.layer.cornerRadius = 14
+        view.layer.cornerRadius = 12
         view.clipsToBounds = true
         view.dropShadow()
         view.translatesAutoresizingMaskIntoConstraints = false

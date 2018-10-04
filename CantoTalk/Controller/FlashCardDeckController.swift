@@ -114,23 +114,36 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
     //MARK: - Create new deck
     
     @objc func handleNewDeck() {
-        let customAlert = CustomAlertController()
-        customAlert.providesPresentationContextTransitionStyle = true
-        customAlert.definesPresentationContext = true
-        customAlert.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        let customAlert = CustomAlertController.instantiate(type: .create)
         customAlert.delegate = self
         self.present(customAlert, animated: true, completion: nil)
     }
     
     
-    func createButtonTapped(textFieldValue: String) {
-        try! userRealm.write {
-            let newDeck = FlashCardDeck()
-            newDeck.deckTitle = textFieldValue
-            newDeck.dateAdded = Date()
-            userRealm.add(newDeck)
+    func affirmativeButtonTapped(alertType: Int, textFieldValue: String) {
+        switch alertType {
+        case 0:
+            try! userRealm.write {
+                let newDeck = FlashCardDeck()
+                newDeck.deckTitle = textFieldValue
+                newDeck.dateAdded = Date()
+                userRealm.add(newDeck)
+            }
+        case 1:
+            try! userRealm.write {
+                guard let deck = cardDecks?[currentDeckSelected] else {return}
+                deck.deckTitle = textFieldValue
+            }
+        case 2:
+            try! userRealm.write {
+                guard let deck = cardDecks?[currentDeckSelected] else {return}
+                userRealm.delete(deck)
+            }
+        default:
+            print("nothing to do")
+            
         }
+        
         loadData()
     }
     
@@ -153,7 +166,13 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
             }
             navigationController?.pushViewController(addFlashCardController, animated: true)
         case 2:
-            print(456)
+            let customAlert = CustomAlertController.instantiate(type: .rename)
+            customAlert.delegate = self
+            self.present(customAlert, animated: true, completion: nil)
+        case 3:
+            let customAlert = CustomAlertController.instantiate(type: .delete)
+            customAlert.delegate = self
+            self.present(customAlert, animated: true, completion: nil)
         default:
             print("Nothing to do")
         }
