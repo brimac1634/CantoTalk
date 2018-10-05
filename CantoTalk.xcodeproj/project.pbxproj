@@ -15,7 +15,8 @@
 		D239A9292163114300A5B9A0 /* AddFlashCardSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239A9282163114300A5B9A0 /* AddFlashCardSearchController.swift */; };
 		D239A92D21636BE700A5B9A0 /* FlashCardSearchCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239A92C21636BE700A5B9A0 /* FlashCardSearchCells.swift */; };
 		D239A9312164D6C900A5B9A0 /* SlideUpOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239A9302164D6C900A5B9A0 /* SlideUpOptionView.swift */; };
-		D239A9332166268500A5B9A0 /* FlashCardSwipController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239A9322166268500A5B9A0 /* FlashCardSwipController.swift */; };
+		D239A9332166268500A5B9A0 /* FlashCardSwipeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239A9322166268500A5B9A0 /* FlashCardSwipeController.swift */; };
+		D239A9532167262E00A5B9A0 /* FlashCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239A9522167262E00A5B9A0 /* FlashCardView.swift */; };
 		D281432A211C026000005604 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2814329211C026000005604 /* SearchController.swift */; };
 		D281432E211C03A500005604 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281432D211C03A500005604 /* SettingsController.swift */; };
 		D281F257213D36FA00548B43 /* FlashCardDeckController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281F256213D36FA00548B43 /* FlashCardDeckController.swift */; };
@@ -65,7 +66,8 @@
 		D239A9282163114300A5B9A0 /* AddFlashCardSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFlashCardSearchController.swift; sourceTree = "<group>"; };
 		D239A92C21636BE700A5B9A0 /* FlashCardSearchCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardSearchCells.swift; sourceTree = "<group>"; };
 		D239A9302164D6C900A5B9A0 /* SlideUpOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUpOptionView.swift; sourceTree = "<group>"; };
-		D239A9322166268500A5B9A0 /* FlashCardSwipController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardSwipController.swift; sourceTree = "<group>"; };
+		D239A9322166268500A5B9A0 /* FlashCardSwipeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardSwipeController.swift; sourceTree = "<group>"; };
+		D239A9522167262E00A5B9A0 /* FlashCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardView.swift; sourceTree = "<group>"; };
 		D2814329211C026000005604 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		D281432D211C03A500005604 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		D281F256213D36FA00548B43 /* FlashCardDeckController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardDeckController.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				D29400A9215DCD6900069DF0 /* CustomAlertView.swift */,
 				D239A92C21636BE700A5B9A0 /* FlashCardSearchCells.swift */,
 				D239A9302164D6C900A5B9A0 /* SlideUpOptionView.swift */,
+				D239A9522167262E00A5B9A0 /* FlashCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -237,7 +240,7 @@
 				D287EB34213FBC61006EBC2C /* CameraController.swift */,
 				D236CB64214F684400F8DDCF /* InfoController.swift */,
 				D29400AB215DE72200069DF0 /* CustomAlertController.swift */,
-				D239A9322166268500A5B9A0 /* FlashCardSwipController.swift */,
+				D239A9322166268500A5B9A0 /* FlashCardSwipeController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -400,7 +403,7 @@
 				D281F257213D36FA00548B43 /* FlashCardDeckController.swift in Sources */,
 				D2D6A0772112FCA9002E0CCE /* WordOfTheDayController.swift in Sources */,
 				D2D45C71211D5EAD008A6CF7 /* WordOfTheDayCells.swift in Sources */,
-				D239A9332166268500A5B9A0 /* FlashCardSwipController.swift in Sources */,
+				D239A9332166268500A5B9A0 /* FlashCardSwipeController.swift in Sources */,
 				D29400A4215C6E7E00069DF0 /* FlashCardDeck.swift in Sources */,
 				D29400AA215DCD6900069DF0 /* CustomAlertView.swift in Sources */,
 				D22E30ED2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift in Sources */,
@@ -420,6 +423,7 @@
 				D2D6A08121144C78002E0CCE /* SlideUpViewController.swift in Sources */,
 				D287EB3821410459006EBC2C /* CameraDisplay.swift in Sources */,
 				D239A92D21636BE700A5B9A0 /* FlashCardSearchCells.swift in Sources */,
+				D239A9532167262E00A5B9A0 /* FlashCardView.swift in Sources */,
 				D2D6A083211452A8002E0CCE /* Entries.swift in Sources */,
 				D2A40EFB212DBF6D00EE39C5 /* WordOfTheDay.swift in Sources */,
 				D29400A6215C6F4600069DF0 /* FlashCard.swift in Sources */,

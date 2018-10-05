@@ -157,7 +157,13 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
         slideUpViewController.handleDismiss()
         switch index {
         case 0:
-            print(123)
+            let flashCardSwipeController = FlashCardSwipeController()
+            if let cardDeck = cardDecks {
+                flashCardSwipeController.flashCardList = cardDeck[currentDeckSelected].cards
+            }
+            navigationController?.navigationBar.barTintColor = UIColor.cantoWhite(a: 1)
+            navigationController?.navigationBar.tintColor = UIColor.cantoDarkBlue(a: 1)
+            navigationController?.pushViewController(flashCardSwipeController, animated: true)
         case 1:
             let addFlashCardController = AddFlashCardSearchController()
             if let cardDeck = cardDecks {
