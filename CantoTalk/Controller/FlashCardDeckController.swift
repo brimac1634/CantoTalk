@@ -78,7 +78,7 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
     //MARK: - Collection View Methods
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        print(indexPath.item)
         let slideUpOtions = SlideUpOptionView()
         slideUpOtions.flashCardDeckController = self
         slideUpViewController.showEntryView(slideUpView: slideUpOtions, viewHeight: slideUpOtions.viewHeight + 50)
@@ -100,7 +100,7 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
             cell.alpha = 0
         } else {
             if let decks = cardDecks?.sorted(byKeyPath: "dateAdded", ascending: false) {
-                cell.cardDeck = decks[indexPath.item - 1]
+                cell.cardDeck = decks[indexPath.item]
             }
         }
         

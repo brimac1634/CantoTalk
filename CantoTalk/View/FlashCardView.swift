@@ -10,6 +10,7 @@ import UIKit
 
 class FlashCardView: BaseView {
     
+    var showEnglishFirst: Bool = true
     
     let cardView: UIView = {
         let view = UIView()
@@ -20,6 +21,14 @@ class FlashCardView: BaseView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    let englishLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 30)
+        label.textColor = UIColor.cantoDarkBlue(a: 1)
+        return label
+    }()
+    
     
     override func setupViews() {
         super.setupViews()
