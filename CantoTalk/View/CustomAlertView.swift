@@ -24,13 +24,12 @@ class CustomAlertView: BaseView {
     
     var alert: AlertType? {
         didSet {
-            print("alert called now")
             guard let alertView = alert else {return}
             switch alertView {
             case .create:
                 print("Standard alert")
             case .rename:
-                message.text = "Rename card deck."
+                message.text = "Rename card deck"
                 createButton.setTitle("Save", for: .normal)
             case .delete:
                 message.text = "Are you sure?"

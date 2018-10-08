@@ -11,11 +11,12 @@ import RealmSwift
 
 class AddFlashCardSearchController: SearchController {
     
+    let mainRealm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: true))
     var flashCards: List<FlashCard>?
     
     var selectedCardDeck: FlashCardDeck? {
         didSet {
-            loadData()
+            collectionView.reloadData()
             flashCards = selectedCardDeck?.cards
         }
     }
@@ -29,9 +30,9 @@ class AddFlashCardSearchController: SearchController {
     
     override func setupViews() {
         super.setupViews()
-        navigationController?.navigationBar.backItem?.title = "Save Flashcards"
         searchBarButton.setBackgroundImage(UIImage(named: "checkMark")?.withRenderingMode(.alwaysTemplate), for: .normal)
     }
+    
 
     //MARK: - CollectionView Methods
     
@@ -112,6 +113,7 @@ class AddFlashCardSearchController: SearchController {
     }
     
     override func handleSearchBarButton() {
+        resetEntriesList()
         isShowingCheckedEntries = !isShowingCheckedEntries
         UISearchBar.resignIfFirstResponder(searchBar: searchBar)
         searchBar.text = ""
@@ -122,4 +124,20 @@ class AddFlashCardSearchController: SearchController {
         guard flashCards?.count != 0 else {return}
         collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
     }
+    
+    
+    //MARK: - Search Methods
+    
+    override func resetEntriesList() {
+        entries = mainRealm.objects(Entries.self)
+        collectionView.reloadData()
+    }
+    
+    override func hideHistoryView() {
+        isShowingCheckedEntries = false
+        searchBarButton.tintColor = UIColor.cantoWhite(a: 1)
+        loadData()
+    }
+    
+    
 }

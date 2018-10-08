@@ -37,6 +37,7 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
     var cellWidth: CGFloat = 0
     var currentDeckSelected: Int = 0
     var cardDecks: Results<FlashCardDeck>?
+    var numberOfCells: Int!
     let slideUpViewController = SlideUpViewController()
     
     override func viewDidLoad() {
@@ -47,6 +48,10 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
     
     func loadData() {
         cardDecks = userRealm.objects(FlashCardDeck.self).sorted(byKeyPath: "dateAdded", ascending: false)
+        numberOfCells = cardDecks?.count
+        if numberOfCells != nil {
+            numberOfCells += 1
+        }
         collectionView.reloadData()
     }
     
@@ -87,7 +92,7 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cardDecks?.count ?? 0
+        return numberOfCells
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -100,7 +105,7 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
             cell.alpha = 0
         } else {
             if let decks = cardDecks?.sorted(byKeyPath: "dateAdded", ascending: false) {
-                cell.cardDeck = decks[indexPath.item]
+                cell.cardDeck = decks[indexPath.item - 1]
             }
         }
         
@@ -170,6 +175,7 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
                 addFlashCardController.selectedCardDeck = cardDeck[currentDeckSelected]
                 addFlashCardController.entries = mainRealm.objects(Entries.self)
             }
+            navigationController?.navigationBar.backItem?.title = "Save Flashcards"
             navigationController?.pushViewController(addFlashCardController, animated: true)
         case 2:
             let customAlert = CustomAlertController.instantiate(type: .rename)

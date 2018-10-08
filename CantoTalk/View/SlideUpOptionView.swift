@@ -10,7 +10,7 @@ import UIKit
 
 class SlideUpOptionView: MenuBar {
     
-    var optionTitles: [String] = ["Play Deck", "Add Cards to Deck","Rename Deck", "Delete Deck"]
+    var optionTitles: [String] = ["Play Deck", "Add or Remove Cards","Rename Deck", "Delete Deck"]
     let cellHeight: CGFloat = 50
     var viewHeight: CGFloat = 0
     var flashCardDeckController: FlashCardDeckController?

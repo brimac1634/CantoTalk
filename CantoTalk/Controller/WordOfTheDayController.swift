@@ -61,7 +61,7 @@ class WordOfTheDayController: HorizontalPeekingPagesCollectionViewController {
     
     //MARK: - Word of the day methods
     
-    private func loadWordOfTheDay() {
+    func loadWordOfTheDay() {
 
         let currentDate = Date()
         let dateFormatter = DateFormatter()
