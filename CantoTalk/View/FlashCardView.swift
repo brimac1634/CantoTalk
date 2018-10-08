@@ -12,6 +12,12 @@ class FlashCardView: BaseView {
     
     var showEnglishFirst: Bool = true
     
+    var flashCard: FlashCard? {
+        didSet {
+            
+        }
+    }
+    
     let cardView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.cantoWhite(a: 1)
@@ -26,6 +32,8 @@ class FlashCardView: BaseView {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 30)
         label.textColor = UIColor.cantoDarkBlue(a: 1)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -36,12 +44,18 @@ class FlashCardView: BaseView {
         translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(cardView)
+        addSubview(englishLabel)
         
         NSLayoutConstraint.activate([
             cardView.topAnchor.constraint(equalTo: topAnchor),
             cardView.leadingAnchor.constraint(equalTo: leadingAnchor),
             cardView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            cardView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            cardView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            englishLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            englishLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            englishLabel.widthAnchor.constraint(equalTo: widthAnchor),
+            englishLabel.heightAnchor.constraint(equalToConstant: 50)
             ])
     }
 }

@@ -58,6 +58,7 @@ class FlashCardSwipeController: UIViewController {
         viewWidth = view.frame.width
         changeActionPoint = viewWidth / 4
         setupViews()
+        loadData()
 
     }
     
@@ -109,6 +110,10 @@ class FlashCardSwipeController: UIViewController {
         UIApplication.shared.statusBarStyle = .lightContent
         navigationController?.navigationBar.barTintColor = UIColor.cantoDarkBlue(a: 1)
         navigationController?.navigationBar.tintColor = UIColor.cantoWhite(a: 1)
+    }
+    
+    private func loadData() {
+        
     }
     
     @objc func handlePan(gesture: UIPanGestureRecognizer) {
