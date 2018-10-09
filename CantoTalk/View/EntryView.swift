@@ -27,44 +27,7 @@ class EntryView: BaseView {
     var selectedEntry: Entries? {
         didSet {
             guard let entry = selectedEntry else {return}
-            let topText = NSMutableAttributedString(string: entry.cantoWord, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 35), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
-            if entry.classifier != "" {
-                topText.append(NSAttributedString(string: " (cl:\(entry.classifier))", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
-            }
-            topText.append(NSAttributedString(string: "\n\(entry.jyutping)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
-            
-            
-            cantoWordLabel.attributedText = topText
-            
-            let englishWordText = NSMutableAttributedString(string: "En: ", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.cantoLightBlue(a: 0.8)])
-            englishWordText.append(NSAttributedString(string: entry.englishWord, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
-            englishWordLabel.attributedText = englishWordText
-            
-            let mandarinWordText = NSMutableAttributedString(string: "普: ", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.cantoLightBlue(a: 0.8)])
-            mandarinWordText.append(NSAttributedString(string: entry.mandarinWord, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
-            mandarinWordLabel.attributedText = mandarinWordText
-            
-            let sentenceText = NSMutableAttributedString(string: "\(entry.cantoSentence)\n\(entry.jyutpingSentence)\n\(entry.englishSentence)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
-            sentenceLabel.attributedText = sentenceText
-            
-            
-            currentEntry = userRealm.objects(Favorites.self).filter("entryID = \(String(entry.entryID))").first
-            if currentEntry != nil {
-                isFavorited = true
-                heartButton.isSelected = true
-                heartButton.tintColor = selectedHeartColor
-            } else {
-                isFavorited = false
-                heartButton.isSelected = false
-                heartButton.tintColor = unselectedHeartColor
-            }
-            
-            if entry.cantoWord.containsChineseCharacters == false {
-                speakerButton.alpha = 0
-                heartButtonTopConstraint.constant = -40
-            }
-            
-            speakerButton.cantoWord = entry.cantoWord
+            handleEntry(entry: entry)
         }
     }
     
@@ -136,6 +99,47 @@ class EntryView: BaseView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    func handleEntry(entry: Entries) {
+        let topText = NSMutableAttributedString(string: entry.cantoWord, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 35), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
+        if entry.classifier != "" {
+            topText.append(NSAttributedString(string: " (cl:\(entry.classifier))", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+        }
+        topText.append(NSAttributedString(string: "\n\(entry.jyutping)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+        
+        
+        cantoWordLabel.attributedText = topText
+        
+        let englishWordText = NSMutableAttributedString(string: "En: ", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.cantoLightBlue(a: 0.8)])
+        englishWordText.append(NSAttributedString(string: entry.englishWord, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+        englishWordLabel.attributedText = englishWordText
+        
+        let mandarinWordText = NSMutableAttributedString(string: "普: ", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.cantoLightBlue(a: 0.8)])
+        mandarinWordText.append(NSAttributedString(string: entry.mandarinWord, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)]))
+        mandarinWordLabel.attributedText = mandarinWordText
+        
+        let sentenceText = NSMutableAttributedString(string: "\(entry.cantoSentence)\n\(entry.jyutpingSentence)\n\(entry.englishSentence)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18), NSAttributedString.Key.foregroundColor: UIColor.cantoDarkBlue(a: 1)])
+        sentenceLabel.attributedText = sentenceText
+        
+        
+        currentEntry = userRealm.objects(Favorites.self).filter("entryID = \(String(entry.entryID))").first
+        if currentEntry != nil {
+            isFavorited = true
+            heartButton.isSelected = true
+            heartButton.tintColor = selectedHeartColor
+        } else {
+            isFavorited = false
+            heartButton.isSelected = false
+            heartButton.tintColor = unselectedHeartColor
+        }
+        
+        if entry.cantoWord.containsChineseCharacters == false {
+            speakerButton.alpha = 0
+            heartButtonTopConstraint.constant = -40
+        }
+        
+        speakerButton.cantoWord = entry.cantoWord
+    }
 
     @objc func handleFavorite() {
         if isFavorited == false {

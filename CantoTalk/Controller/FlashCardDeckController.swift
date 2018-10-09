@@ -164,6 +164,7 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
         case 0:
             let flashCardSwipeController = FlashCardSwipeController()
             if let cardDeck = cardDecks {
+                print("cards are here")
                 flashCardSwipeController.flashCardList = cardDeck[currentDeckSelected].cards
             }
             navigationController?.navigationBar.barTintColor = UIColor.cantoWhite(a: 1)
@@ -175,7 +176,8 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
                 addFlashCardController.selectedCardDeck = cardDeck[currentDeckSelected]
                 addFlashCardController.entries = mainRealm.objects(Entries.self)
             }
-            navigationController?.navigationBar.backItem?.title = "Save Flashcards"
+            let navBar = addFlashCardController.navigationController?.navigationBar
+            navBar?.backItem?.title = "Save"
             navigationController?.pushViewController(addFlashCardController, animated: true)
         case 2:
             let customAlert = CustomAlertController.instantiate(type: .rename)

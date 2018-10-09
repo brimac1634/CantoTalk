@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8AF88F06A050B72BA3F9F4FD /* Pods_CantoTalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D7916B28C01480D1110757F /* Pods_CantoTalk.framework */; };
 		D2113CCF2133EF7600249DD6 /* RecentlyViewedItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2113CCE2133EF7600249DD6 /* RecentlyViewedItems.swift */; };
+		D227C90F216C97D200CD0A69 /* BackOfFlashCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D227C90E216C97D200CD0A69 /* BackOfFlashCard.swift */; };
 		D22E30ED2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22E30EC2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift */; };
 		D236CB65214F684400F8DDCF /* InfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236CB64214F684400F8DDCF /* InfoController.swift */; };
 		D236CB67214F8DE100F8DDCF /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236CB66214F8DE100F8DDCF /* CircleView.swift */; };
@@ -60,6 +61,7 @@
 		4663D8A86CF49ED59902881C /* Pods-CantoTalk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoTalk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CantoTalk/Pods-CantoTalk.debug.xcconfig"; sourceTree = "<group>"; };
 		A7F127D3C5D096AF1602DDE3 /* Pods-CantoTalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoTalk.release.xcconfig"; path = "Pods/Target Support Files/Pods-CantoTalk/Pods-CantoTalk.release.xcconfig"; sourceTree = "<group>"; };
 		D2113CCE2133EF7600249DD6 /* RecentlyViewedItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyViewedItems.swift; sourceTree = "<group>"; };
+		D227C90E216C97D200CD0A69 /* BackOfFlashCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackOfFlashCard.swift; sourceTree = "<group>"; };
 		D22E30EC2154D903003F1DC6 /* HorizontalPagesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalPagesCollectionViewController.swift; sourceTree = "<group>"; };
 		D236CB64214F684400F8DDCF /* InfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoController.swift; sourceTree = "<group>"; };
 		D236CB66214F8DE100F8DDCF /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				D239A92C21636BE700A5B9A0 /* FlashCardSearchCells.swift */,
 				D239A9302164D6C900A5B9A0 /* SlideUpOptionView.swift */,
 				D239A9522167262E00A5B9A0 /* FlashCardView.swift */,
+				D227C90E216C97D200CD0A69 /* BackOfFlashCard.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 				D29400A2215C67D500069DF0 /* CantoTalkTestClassifier.mlmodel in Sources */,
 				D236CB67214F8DE100F8DDCF /* CircleView.swift in Sources */,
 				D2D6A05321105AA4002E0CCE /* AppDelegate.swift in Sources */,
+				D227C90F216C97D200CD0A69 /* BackOfFlashCard.swift in Sources */,
 				D239A9292163114300A5B9A0 /* AddFlashCardSearchController.swift in Sources */,
 				D2E58B4721520B0900B06AEC /* KeyCell.swift in Sources */,
 				D2EEFD7D215B7F2600D599DF /* FlashCardDeckCell.swift in Sources */,

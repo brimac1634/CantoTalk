@@ -7,14 +7,21 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FlashCardView: BaseView {
     
-    var showEnglishFirst: Bool = true
+    let mainRealm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: true))
+    
+    var showingFront: Bool = true
+    var flashCardCenterX: NSLayoutConstraint!
+    var flashCardCenterY: NSLayoutConstraint!
     
     var flashCard: FlashCard? {
         didSet {
-            
+            guard let card = mainRealm.objects(Entries.self).filter("entryID = %@", flashCard?.entryID).first else {return}
+            englishLabel.text = card.englishWord
+            backView.selectedEntry = card
         }
     }
     
@@ -30,11 +37,18 @@ class FlashCardView: BaseView {
     
     let englishLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 30)
+        label.font = UIFont.systemFont(ofSize: 42)
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    let backView: BackOfFlashCard = {
+        let view = BackOfFlashCard()
+        view.layer.cornerRadius = 12
+        view.clipsToBounds = true
+        return view
     }()
     
     
@@ -44,7 +58,10 @@ class FlashCardView: BaseView {
         translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(cardView)
-        addSubview(englishLabel)
+        cardView.addSubview(englishLabel)
+        cardView.addSubview(backView)
+        
+        
         
         NSLayoutConstraint.activate([
             cardView.topAnchor.constraint(equalTo: topAnchor),
@@ -55,7 +72,35 @@ class FlashCardView: BaseView {
             englishLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             englishLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             englishLabel.widthAnchor.constraint(equalTo: widthAnchor),
-            englishLabel.heightAnchor.constraint(equalToConstant: 50)
+            englishLabel.heightAnchor.constraint(equalToConstant: 50),
+            
+            backView.topAnchor.constraint(equalTo: topAnchor),
+            backView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            backView.bottomAnchor.constraint(equalTo: bottomAnchor),
+
             ])
+        backView.alpha = 0
+        
     }
+    
+    func flip() {
+        
+        if showingFront {
+            
+            UIView.transition(with: cardView, duration: 1, options: .transitionFlipFromLeft, animations: {
+                self.englishLabel.alpha = 0
+                self.backView.alpha = 1
+            }, completion: nil)
+            showingFront = false
+        } else {
+            UIView.transition(with: cardView, duration: 1, options: .transitionFlipFromRight, animations: {
+                self.englishLabel.alpha = 1
+                self.backView.alpha = 0
+            }, completion: nil)
+            showingFront = true
+        }
+        
+    }
+    
 }

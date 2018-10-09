@@ -72,7 +72,7 @@ class SpeakerButton: BaseView, AVSpeechSynthesizerDelegate {
         } else {
             speakerButton.tintColor = UIColor.cantoPink(a: 1)
             let audioSession = AVAudioSession.sharedInstance()
-//            try? audioSession.setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playback), with: .duckOthers)
+
             try? audioSession.setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playback)), mode: .default, options: .duckOthers)
             
             let voice = AVSpeechSynthesisVoice(language: "zh-HK")
