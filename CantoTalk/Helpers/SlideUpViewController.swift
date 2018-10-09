@@ -91,6 +91,7 @@ class SlideUpViewController: NSObject {
         print(velocityY)
         if changeInY > 0 {
             slideUpViewBottomAnchor.constant = changeInY
+            blackView.alpha = 1 - ((changeInY * 100) / whiteViewHeight) * 0.01
             
             if gesture.state == .ended {
                 if changeInY > whiteViewHeight * 0.7 || velocityY > 800 {
