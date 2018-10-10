@@ -41,7 +41,12 @@ class FlashCardSwipeController: UIViewController {
         }
     }
 
-    
+    let backgroundImage: UIImageView = {
+        let image = UIImageView(image: UIImage(named: "gradientBackgroundLong")?.withRenderingMode(.alwaysOriginal))
+        image.contentMode = .scaleAspectFill
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
     
     let checkImage: UIImageView = {
         let image = UIImageView(image: UIImage(named: "checkLarge")?.withRenderingMode(.alwaysTemplate))
@@ -71,6 +76,7 @@ class FlashCardSwipeController: UIViewController {
         let image = UIImage(named: "checkLarge")?.withRenderingMode(.alwaysTemplate)
         button.contentMode = .scaleAspectFit
         button.setBackgroundImage(image, for: .normal)
+        button.clipsToBounds = true
         button.backgroundColor = UIColor.cantoWhite(a: 1)
         button.tintColor = UIColor.cantoDarkBlue(a: 1)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -83,10 +89,16 @@ class FlashCardSwipeController: UIViewController {
         let image = UIImage(named: "xLarge")?.withRenderingMode(.alwaysTemplate)
         button.contentMode = .scaleAspectFit
         button.setBackgroundImage(image, for: .normal)
+        button.clipsToBounds = true
         button.backgroundColor = UIColor.cantoWhite(a: 1)
         button.tintColor = UIColor.cantoDarkBlue(a: 1)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(handleX), for: .touchUpInside)
+        return button
+    }()
+    
+    let exitButton: UIButton = {
+        let button = UIButton()
         return button
     }()
     
@@ -98,6 +110,8 @@ class FlashCardSwipeController: UIViewController {
     var flashCard: FlashCardView!
     var topCard: FlashCardView!
     var previousCard: FlashCardView!
+    var backgroundtop: NSLayoutConstraint!
+    var backgroundBottom: NSLayoutConstraint!
     var checkLeading: NSLayoutConstraint!
     var checkTrailing: NSLayoutConstraint!
     var xLeading: NSLayoutConstraint!
@@ -109,27 +123,30 @@ class FlashCardSwipeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        loadData()
-
+        animateBackground(duration: 10)
     }
     
     func setupViews() {
         viewWidth = view.frame.width
         changeActionPoint = viewWidth / 4
         checkImageWidth = viewWidth * 0.2
-        view.backgroundColor = UIColor.cantoWhite(a: 1)
+        let buttonHeight: CGFloat = (view.frame.height * (1 - flashCardHeightMultiplier)) / 2 - 32
+        view.backgroundColor = .clear
         checkImage.layer.cornerRadius = checkImageWidth / 2
         xImage.layer.cornerRadius = checkImageWidth / 2
+        checkButton.layer.cornerRadius = buttonHeight / 2
+        xButton.layer.cornerRadius = buttonHeight / 2
         
         guard let window = UIApplication.shared.keyWindow else {return}
         
-        let buttonHeight: CGFloat = (view.frame.height * (1 - flashCardHeightMultiplier)) / 2 - 32
-        
-        
+        window.addSubview(backgroundImage)
         window.addSubview(checkImage)
         window.addSubview(xImage)
         view.addSubview(checkButton)
         view.addSubview(xButton)
+        
+        backgroundtop = backgroundImage.topAnchor.constraint(equalTo: window.topAnchor)
+        backgroundBottom = backgroundImage.bottomAnchor.constraint(equalTo: window.bottomAnchor)
         
         checkTrailing = checkImage.trailingAnchor.constraint(equalTo: window.trailingAnchor)
         checkLeading = checkImage.leadingAnchor.constraint(equalTo: window.trailingAnchor)
@@ -138,6 +155,11 @@ class FlashCardSwipeController: UIViewController {
         xLeading = xImage.leadingAnchor.constraint(equalTo: window.leadingAnchor)
         
         NSLayoutConstraint.activate([
+            backgroundBottom,
+            backgroundImage.leadingAnchor.constraint(equalTo: window.leadingAnchor),
+            backgroundImage.trailingAnchor.constraint(equalTo: window.trailingAnchor),
+            backgroundImage.heightAnchor.constraint(equalToConstant: 1500),
+            
             checkImage.widthAnchor.constraint(equalToConstant: checkImageWidth),
             checkImage.heightAnchor.constraint(equalToConstant: checkImageWidth),
             checkImage.centerYAnchor.constraint(equalTo: window.centerYAnchor),
@@ -160,6 +182,7 @@ class FlashCardSwipeController: UIViewController {
     
             ])
 
+        window.sendSubviewToBack(backgroundImage)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -173,12 +196,26 @@ class FlashCardSwipeController: UIViewController {
             card.removeFromSuperview()
         }
         UIApplication.shared.statusBarStyle = .lightContent
-        navigationController?.navigationBar.barTintColor = UIColor.cantoDarkBlue(a: 1)
-        navigationController?.navigationBar.tintColor = UIColor.cantoWhite(a: 1)
+        navigationController?.isNavigationBarHidden = false
+//        navigationController?.navigationBar.barTintColor = UIColor.cantoDarkBlue(a: 1)
+//        navigationController?.navigationBar.tintColor = UIColor.cantoWhite(a: 1)
     }
     
-    private func loadData() {
-        
+    private func animateBackground(duration: Double) {
+        guard let window = UIApplication.shared.keyWindow else {return}
+        UIView.animate(withDuration: duration, delay: 0, options: .curveLinear, animations: {
+            self.backgroundBottom.isActive = false
+            self.backgroundtop.isActive = true
+            window.layoutIfNeeded()
+        }) { finished in
+            UIView.animate(withDuration: duration, delay: 0, options: .curveLinear, animations: {
+                self.backgroundBottom.isActive = true
+                self.backgroundtop.isActive = false
+                window.layoutIfNeeded()
+            }, completion: { finished in
+                self.animateBackground(duration: duration)
+            })
+        }
     }
     
     @objc func handlePan(gesture: UIPanGestureRecognizer) {

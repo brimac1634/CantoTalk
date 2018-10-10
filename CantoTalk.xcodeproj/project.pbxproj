@@ -27,6 +27,7 @@
 		D287EB35213FBC61006EBC2C /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB34213FBC61006EBC2C /* CameraController.swift */; };
 		D287EB3821410459006EBC2C /* CameraDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB3721410459006EBC2C /* CameraDisplay.swift */; };
 		D287EB4021465D90006EBC2C /* SpeakerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287EB3F21465D8F006EBC2C /* SpeakerButton.swift */; };
+		D2883619216E10400001B296 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2883618216E10400001B296 /* Assets.xcassets */; };
 		D28CD659211997AD001A613F /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD658211997AD001A613F /* MenuBar.swift */; };
 		D28CD65D2119AB1C001A613F /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28CD65C2119AB1C001A613F /* FavoritesController.swift */; };
 		D29400A2215C67D500069DF0 /* CantoTalkTestClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D29400A1215C67D500069DF0 /* CantoTalkTestClassifier.mlmodel */; };
@@ -40,7 +41,6 @@
 		D2D6A05321105AA4002E0CCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A05221105AA4002E0CCE /* AppDelegate.swift */; };
 		D2D6A05521105AA4002E0CCE /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A05421105AA4002E0CCE /* HomeController.swift */; };
 		D2D6A05821105AA5002E0CCE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2D6A05621105AA5002E0CCE /* Main.storyboard */; };
-		D2D6A05A21105AA9002E0CCE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2D6A05921105AA9002E0CCE /* Assets.xcassets */; };
 		D2D6A05D21105AA9002E0CCE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2D6A05B21105AA9002E0CCE /* LaunchScreen.storyboard */; };
 		D2D6A06921105C87002E0CCE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A06821105C87002E0CCE /* Extensions.swift */; };
 		D2D6A06B21106140002E0CCE /* WordCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6A06A21106140002E0CCE /* WordCells.swift */; };
@@ -79,6 +79,7 @@
 		D287EB34213FBC61006EBC2C /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		D287EB3721410459006EBC2C /* CameraDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDisplay.swift; sourceTree = "<group>"; };
 		D287EB3F21465D8F006EBC2C /* SpeakerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerButton.swift; sourceTree = "<group>"; };
+		D2883618216E10400001B296 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D28CD658211997AD001A613F /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		D28CD65C2119AB1C001A613F /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
 		D29400A1215C67D500069DF0 /* CantoTalkTestClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CantoTalkTestClassifier.mlmodel; sourceTree = "<group>"; };
@@ -93,7 +94,6 @@
 		D2D6A05221105AA4002E0CCE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2D6A05421105AA4002E0CCE /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		D2D6A05721105AA5002E0CCE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D2D6A05921105AA9002E0CCE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D2D6A05C21105AA9002E0CCE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D2D6A05E21105AA9002E0CCE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2D6A06821105C87002E0CCE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -144,7 +144,7 @@
 			children = (
 				D29400A1215C67D500069DF0 /* CantoTalkTestClassifier.mlmodel */,
 				D2EEFD7A215B720500D599DF /* default.realm */,
-				D2D6A05921105AA9002E0CCE /* Assets.xcassets */,
+				D2883618216E10400001B296 /* Assets.xcassets */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -322,8 +322,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2D6A05D21105AA9002E0CCE /* LaunchScreen.storyboard in Resources */,
+				D2883619216E10400001B296 /* Assets.xcassets in Resources */,
 				D2EEFD7B215B720500D599DF /* default.realm in Resources */,
-				D2D6A05A21105AA9002E0CCE /* Assets.xcassets in Resources */,
 				D2D6A05821105AA5002E0CCE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

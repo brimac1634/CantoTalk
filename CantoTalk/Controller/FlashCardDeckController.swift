@@ -164,11 +164,11 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
         case 0:
             let flashCardSwipeController = FlashCardSwipeController()
             if let cardDeck = cardDecks {
-                print("cards are here")
                 flashCardSwipeController.flashCardList = cardDeck[currentDeckSelected].cards
             }
-            navigationController?.navigationBar.barTintColor = UIColor.cantoWhite(a: 1)
-            navigationController?.navigationBar.tintColor = UIColor.cantoDarkBlue(a: 1)
+//            navigationController?.navigationBar.barTintColor = .clear
+//            navigationController?.navigationBar.tintColor = UIColor.cantoDarkBlue(a: 1)
+            navigationController?.isNavigationBarHidden = true
             navigationController?.pushViewController(flashCardSwipeController, animated: true)
         case 1:
             let addFlashCardController = AddFlashCardSearchController()

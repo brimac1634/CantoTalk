@@ -21,7 +21,7 @@ class MenuBar: BaseView, UICollectionViewDataSource, UICollectionViewDelegate, U
     }()
 
     let cellID = "cellID"
-    let imageStrings = ["search", "heart", "calendar", "head_gear"]
+    let imageStrings = ["search", "heart", "calendar", "learn"]
     var homeController: HomeController?
     var searchController: SearchController?
     
