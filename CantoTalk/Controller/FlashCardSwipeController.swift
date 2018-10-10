@@ -49,7 +49,6 @@ class FlashCardSwipeController: UIViewController {
         image.contentMode = .scaleAspectFit
         image.alpha = 0
         image.tintColor = UIColor.cantoDarkBlue(a: 1)
-        image.layer.cornerRadius = 22
         image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
@@ -98,6 +97,7 @@ class FlashCardSwipeController: UIViewController {
     var checkImageWidth: CGFloat!
     var flashCard: FlashCardView!
     var topCard: FlashCardView!
+    var previousCard: FlashCardView!
     var checkLeading: NSLayoutConstraint!
     var checkTrailing: NSLayoutConstraint!
     var xLeading: NSLayoutConstraint!
@@ -108,16 +108,18 @@ class FlashCardSwipeController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewWidth = view.frame.width
-        changeActionPoint = viewWidth / 4
-        checkImageWidth = viewWidth * 0.2
         setupViews()
         loadData()
 
     }
     
     func setupViews() {
+        viewWidth = view.frame.width
+        changeActionPoint = viewWidth / 4
+        checkImageWidth = viewWidth * 0.2
         view.backgroundColor = UIColor.cantoWhite(a: 1)
+        checkImage.layer.cornerRadius = checkImageWidth / 2
+        xImage.layer.cornerRadius = checkImageWidth / 2
         
         guard let window = UIApplication.shared.keyWindow else {return}
         
@@ -181,7 +183,6 @@ class FlashCardSwipeController: UIViewController {
     
     @objc func handlePan(gesture: UIPanGestureRecognizer) {
         guard let window = UIApplication.shared.keyWindow else {return}
-        topCard = cardArray[currentCard]
         let location = gesture.translation(in: topCard)
         
         let i = location.x
@@ -254,37 +255,39 @@ class FlashCardSwipeController: UIViewController {
     }
     
     @objc func handleCheck() {
+        previousCard = topCard
+        currentCard -= 1
+        if currentCard >= 0 {
+            topCard = cardArray[currentCard]
+        }
+        
         guard let window = UIApplication.shared.keyWindow else {return}
-        UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-            self.topCard.flashCardCenterX.constant = self.viewWidth * 2
-            self.topCard.transform = CGAffineTransform(rotationAngle: 0.244)
+        UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.previousCard.flashCardCenterX.constant = self.viewWidth * 1.5
+            self.previousCard.transform = CGAffineTransform(rotationAngle: 0.244)
             self.switchCheckImage(showImage: false)
-            self.currentCard -= 1
             window.layoutIfNeeded()
         }) { (_) in
-            self.topCard.removeFromSuperview()
-            guard self.currentCard >= 0 else {return}
-            self.topCard = self.cardArray[self.currentCard]
+            self.previousCard.removeFromSuperview()
         }
-        print(currentCard)
         
     }
     
     @objc func handleX() {
+        previousCard = topCard
+        currentCard -= 1
+        if currentCard >= 0 {
+            topCard = cardArray[currentCard]
+        }
         guard let window = UIApplication.shared.keyWindow else {return}
-        UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-            self.topCard.flashCardCenterX.constant = -(self.viewWidth * 2)
-            self.topCard.transform = CGAffineTransform(rotationAngle: -0.244)
+        UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.previousCard.flashCardCenterX.constant = -(self.viewWidth * 1.5)
+            self.previousCard.transform = CGAffineTransform(rotationAngle: -0.244)
             self.switchXImage(showImage: false)
-            self.currentCard -= 1
             window.layoutIfNeeded()
         }) { (_) in
-            self.topCard.removeFromSuperview()
-            guard self.currentCard >= 0 else {return}
-            self.topCard = self.cardArray[self.currentCard]
+            self.previousCard.removeFromSuperview()
         }
-        print(currentCard)
-        
     }
     
     
