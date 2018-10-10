@@ -34,8 +34,8 @@ class CustomAlertView: BaseView {
             case .delete:
                 message.text = "Are you sure?"
                 createButton.setTitle("Delete", for: .normal)
-                alertStackView.removeArrangedSubview(textField)
-                textField.alpha = 0
+                alertStackView.removeArrangedSubview(textFieldContainer)
+                textFieldContainer.alpha = 0
                 numberOfStacks = alertStackView.arrangedSubviews.count
                 alertViewHeight.constant = CGFloat(60 * numberOfStacks)
                 layoutIfNeeded()
@@ -64,13 +64,21 @@ class CustomAlertView: BaseView {
     
     let textField: UITextField = {
         let tF = UITextField()
-        tF.placeholder = "Ex.: \"Home\", \"Fruits\", etc."
+        tF.placeholder = "\"Home\", \"Fruits\", etc."
         tF.borderStyle = .roundedRect
         tF.autocorrectionType = .no
         tF.keyboardType = .default
         tF.returnKeyType = .done
         tF.clearButtonMode = .whileEditing
+        tF.translatesAutoresizingMaskIntoConstraints = false
         return tF
+    }()
+    
+    let textFieldContainer: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.cantoWhite(a: 1)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     let cancelButton: UIButton = {
@@ -79,7 +87,6 @@ class CustomAlertView: BaseView {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 22)
         button.backgroundColor = UIColor.cantoWhite(a: 1)
         button.setTitleColor(UIColor.cantoDarkBlue(a: 1), for: .normal)
-        
         return button
     }()
     
@@ -102,7 +109,9 @@ class CustomAlertView: BaseView {
         buttonStackView.distribution = .fillEqually
         buttonStackView.spacing = 1
         
-        alertStackView = UIStackView(arrangedSubviews: [message, textField, buttonStackView])
+        textFieldContainer.addSubview(textField)
+        
+        alertStackView = UIStackView(arrangedSubviews: [message, textFieldContainer, buttonStackView])
         alertStackView.axis = .vertical
         alertStackView.distribution = .fillEqually
         alertStackView.spacing = 1
@@ -121,6 +130,11 @@ class CustomAlertView: BaseView {
             alertView.centerYAnchor.constraint(equalTo: centerYAnchor),
             alertView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.75),
             alertViewHeight,
+            
+            textField.centerXAnchor.constraint(equalTo: textFieldContainer.centerXAnchor),
+            textField.centerYAnchor.constraint(equalTo: textFieldContainer.centerYAnchor),
+            textField.widthAnchor.constraint(equalTo: textFieldContainer.widthAnchor, multiplier: 0.9),
+            textField.heightAnchor.constraint(equalTo: textFieldContainer.heightAnchor, multiplier: 0.7),
             
             alertStackView.topAnchor.constraint(equalTo: alertView.topAnchor),
             alertStackView.leadingAnchor.constraint(equalTo: alertView.leadingAnchor),

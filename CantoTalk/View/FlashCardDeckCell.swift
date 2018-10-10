@@ -20,16 +20,9 @@ class FlashCardDeckCell: BaseCell {
     let card: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.cantoWhite(a: 1)
+        view.layer.cornerRadius = 12
+        view.clipsToBounds = true
         view.dropShadow()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let card2: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.cantoWhite(a: 1)
-        view.dropShadow()
-        view.transform = CGAffineTransform(rotationAngle: 0.087)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -37,7 +30,6 @@ class FlashCardDeckCell: BaseCell {
     let deckImage: UIImageView = {
         let image = UIImageView(image: UIImage(named: "CantoTalkIconCircle"))
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.alpha = 0.2
         image.contentMode = .scaleAspectFit
         return image
     }()
@@ -56,8 +48,6 @@ class FlashCardDeckCell: BaseCell {
         super.setupViews()
         backgroundColor = UIColor.cantoWhite(a: 1)
         
-        
-        addSubview(card2)
         addSubview(card)
         card.addSubview(deckImage)
         addSubview(deckTitle)
@@ -66,11 +56,6 @@ class FlashCardDeckCell: BaseCell {
             deckTitle.bottomAnchor.constraint(equalTo: bottomAnchor),
             deckTitle.widthAnchor.constraint(equalTo: widthAnchor),
             deckTitle.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2),
-            
-            card2.centerXAnchor.constraint(equalTo: centerXAnchor),
-            card2.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
-            card2.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8),
-            card2.bottomAnchor.constraint(equalTo: deckTitle.topAnchor),
             
             card.centerXAnchor.constraint(equalTo: centerXAnchor),
             card.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),

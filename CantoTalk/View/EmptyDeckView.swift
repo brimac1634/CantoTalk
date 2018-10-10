@@ -13,6 +13,8 @@ class EmptyDeckView: UIButton {
     let emptyCard: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 12
+        view.clipsToBounds = true
         view.backgroundColor = UIColor.lightGray
         view.isUserInteractionEnabled = false
         return view
