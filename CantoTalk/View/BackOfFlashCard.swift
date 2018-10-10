@@ -13,7 +13,7 @@ class BackOfFlashCard: EntryView {
     override func handleEntry(entry: Entries) {
         super.handleEntry(entry: entry)
         
-        let topText = NSMutableAttributedString(string: entry.cantoWord, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 42), NSAttributedString.Key.foregroundColor: UIColor.cantoWhite(a: 1)])
+        let topText = NSMutableAttributedString(string: entry.cantoWord, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 38), NSAttributedString.Key.foregroundColor: UIColor.cantoWhite(a: 1)])
         if entry.classifier != "" {
             topText.append(NSAttributedString(string: " (cl:\(entry.classifier))", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18), NSAttributedString.Key.foregroundColor: UIColor.cantoWhite(a: 1)]))
         }

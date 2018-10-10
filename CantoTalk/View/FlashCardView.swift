@@ -22,6 +22,7 @@ class FlashCardView: BaseView {
             guard let card = mainRealm.objects(Entries.self).filter("entryID = %@", flashCard?.entryID).first else {return}
             englishLabel.text = card.englishWord
             backView.selectedEntry = card
+            backView.speakerButton.cantoWord = card.cantoWord
         }
     }
     
@@ -35,10 +36,13 @@ class FlashCardView: BaseView {
         return view
     }()
     
-    let englishLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 42)
+    let englishLabel: UITextView = {
+        let label = UITextView()
+        label.isEditable = false
+        label.isSelectable = false
+        label.font = UIFont.systemFont(ofSize: 38)
         label.textColor = UIColor.cantoDarkBlue(a: 1)
+        label.backgroundColor = UIColor.cantoWhite(a: 1)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -72,7 +76,7 @@ class FlashCardView: BaseView {
             englishLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             englishLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             englishLabel.widthAnchor.constraint(equalTo: widthAnchor),
-            englishLabel.heightAnchor.constraint(equalToConstant: 50),
+            englishLabel.heightAnchor.constraint(equalToConstant: 100),
             
             backView.topAnchor.constraint(equalTo: topAnchor),
             backView.leadingAnchor.constraint(equalTo: leadingAnchor),
