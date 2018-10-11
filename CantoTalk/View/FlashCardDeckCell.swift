@@ -47,7 +47,6 @@ class FlashCardDeckCell: BaseCell {
     let deckTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Home"
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textAlignment = .center

@@ -204,11 +204,10 @@ class FlashCardSwipeController: UIViewController {
         }
         UIApplication.shared.statusBarStyle = .lightContent
         navigationController?.isNavigationBarHidden = false
-//        navigationController?.navigationBar.barTintColor = UIColor.cantoDarkBlue(a: 1)
-//        navigationController?.navigationBar.tintColor = UIColor.cantoWhite(a: 1)
     }
     
     private func layoutCards() {
+        cardArray = [FlashCardView]()
         guard let cards = flashCardList else {return}
         for i in 0..<cards.count {
             flashCard = FlashCardView()
@@ -259,11 +258,12 @@ class FlashCardSwipeController: UIViewController {
     
     @objc func handleReset() {
         layoutCards()
+        
     }
     
     @objc func handlePan(gesture: UIPanGestureRecognizer) {
         let location = gesture.translation(in: topCard)
-        
+        print(topCard.englishLabel.text)
         let i = location.x
         let j = location.y
         
