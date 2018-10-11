@@ -240,10 +240,10 @@
 				D281432D211C03A500005604 /* SettingsController.swift */,
 				D281F256213D36FA00548B43 /* FlashCardDeckController.swift */,
 				D239A9282163114300A5B9A0 /* AddFlashCardSearchController.swift */,
+				D239A9322166268500A5B9A0 /* FlashCardSwipeController.swift */,
 				D287EB34213FBC61006EBC2C /* CameraController.swift */,
 				D236CB64214F684400F8DDCF /* InfoController.swift */,
 				D29400AB215DE72200069DF0 /* CustomAlertController.swift */,
-				D239A9322166268500A5B9A0 /* FlashCardSwipeController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
