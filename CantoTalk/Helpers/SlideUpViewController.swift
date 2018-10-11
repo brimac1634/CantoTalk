@@ -88,7 +88,7 @@ class SlideUpViewController: NSObject {
         guard let window = UIApplication.shared.keyWindow else {return}
         let changeInY = gesture.translation(in: whiteView).y
         let velocityY = gesture.velocity(in: whiteView).y
-        print(velocityY)
+        
         if changeInY > 0 {
             slideUpViewBottomAnchor.constant = changeInY
             blackView.alpha = 1 - ((changeInY * 100) / whiteViewHeight) * 0.01
@@ -103,15 +103,9 @@ class SlideUpViewController: NSObject {
                     }, completion: nil)
                 }
             }
-            
-            
+   
         }
-        
-        
-        
-           
-        
-        
+   
     }
     
 }

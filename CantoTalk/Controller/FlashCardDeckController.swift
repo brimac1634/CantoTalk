@@ -35,6 +35,7 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
     
     let cellID = "cellID"
     var cellWidth: CGFloat = 0
+    var cellHeight: CGFloat = 0
     var currentDeckSelected: Int = 0
     var cardDecks: Results<FlashCardDeck>?
     var numberOfCells: Int!
@@ -44,6 +45,16 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
         super.viewDidLoad()
         loadData()
         setupViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        collectionView.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        let backButton = UIBarButtonItem()
+        backButton.title = "Save"
+        navigationItem.backBarButtonItem = backButton
     }
     
     func loadData() {
@@ -58,6 +69,7 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
     func setupViews() {
         view.backgroundColor = UIColor.cantoWhite(a: 1)
         cellWidth = view.frame.width / 2.5
+        cellHeight = cellWidth * 1.3
         
         view.addSubview(collectionView)
         collectionView.addSubview(emptyCard)
@@ -71,7 +83,7 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
             emptyCard.topAnchor.constraint(equalTo: collectionView.topAnchor),
             emptyCard.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor),
             emptyCard.widthAnchor.constraint(equalToConstant: cellWidth),
-            emptyCard.heightAnchor.constraint(equalToConstant: cellWidth)
+            emptyCard.heightAnchor.constraint(equalToConstant: cellHeight)
             ])
         
         
@@ -96,7 +108,7 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: cellWidth, height: cellWidth)
+        return CGSize(width: cellWidth, height: cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -166,8 +178,6 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
             if let cardDeck = cardDecks {
                 flashCardSwipeController.flashCardList = cardDeck[currentDeckSelected].cards
             }
-//            navigationController?.navigationBar.barTintColor = .clear
-//            navigationController?.navigationBar.tintColor = UIColor.cantoDarkBlue(a: 1)
             navigationController?.isNavigationBarHidden = true
             navigationController?.pushViewController(flashCardSwipeController, animated: true)
         case 1:

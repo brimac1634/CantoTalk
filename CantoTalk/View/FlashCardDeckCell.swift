@@ -27,6 +27,16 @@ class FlashCardDeckCell: BaseCell {
         return view
     }()
     
+    let backgroundImage: UIImageView = {
+        let image = UIImageView(image: UIImage(named: "WaveBackground"))
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.layer.cornerRadius = 12
+        image.clipsToBounds = true
+        image.alpha = 0.9
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
+    
     let deckImage: UIImageView = {
         let image = UIImageView(image: UIImage(named: "CantoTalkIconCircle"))
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +49,7 @@ class FlashCardDeckCell: BaseCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Home"
         label.textColor = UIColor.cantoDarkBlue(a: 1)
-        label.font = UIFont.systemFont(ofSize: 18)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textAlignment = .center
         return label
     }()
@@ -49,6 +59,7 @@ class FlashCardDeckCell: BaseCell {
         backgroundColor = UIColor.cantoWhite(a: 1)
         
         addSubview(card)
+        card.addSubview(backgroundImage)
         card.addSubview(deckImage)
         addSubview(deckTitle)
         
@@ -61,6 +72,11 @@ class FlashCardDeckCell: BaseCell {
             card.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
             card.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8),
             card.bottomAnchor.constraint(equalTo: deckTitle.topAnchor),
+            
+            backgroundImage.topAnchor.constraint(equalTo: card.topAnchor),
+            backgroundImage.leadingAnchor.constraint(equalTo: card.leadingAnchor),
+            backgroundImage.trailingAnchor.constraint(equalTo: card.trailingAnchor),
+            backgroundImage.bottomAnchor.constraint(equalTo: card.bottomAnchor),
             
             deckImage.widthAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.6),
             deckImage.heightAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.6),

@@ -33,8 +33,6 @@ class HomeController: UIViewController {
         addView(menuIndex: 0)
         setupNavBar()
         setupLayout()
-        
-        print(view.frame.width, view.frame.height)
 
     }
     

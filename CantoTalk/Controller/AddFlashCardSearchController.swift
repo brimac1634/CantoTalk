@@ -17,11 +17,15 @@ class AddFlashCardSearchController: SearchController {
     var selectedCardDeck: FlashCardDeck? {
         didSet {
             collectionView.reloadData()
-            flashCards = selectedCardDeck?.cards
+            guard let deck = selectedCardDeck else {return}
+            flashCards = deck.cards
+            deckTitle = deck.deckTitle
+            updateTitle()
         }
     }
     
     var isShowingCheckedEntries: Bool = false
+    var deckTitle: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +37,9 @@ class AddFlashCardSearchController: SearchController {
         searchBarButton.setBackgroundImage(UIImage(named: "checkMark")?.withRenderingMode(.alwaysTemplate), for: .normal)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        setupNavBar()
+    }
 
     //MARK: - CollectionView Methods
     
@@ -80,6 +87,26 @@ class AddFlashCardSearchController: SearchController {
         
         return cell
     }
+    
+    private func setupNavBar() {
+        guard let navBar = navigationController?.navigationBar else {return}
+        navBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.cantoWhite(a: 1)]
+        
+        let saveButton = UIButton(type: .custom)
+        guard let image = UIImage(named: "save") else {return}
+        saveButton.navBarButtonSetup(image: image)
+        saveButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: saveButton)
+    }
+    
+    @objc func handleSave() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func updateTitle() {
+        guard let numberOfCards = flashCards?.count else {return}
+        navigationItem.title = "\(deckTitle): \(numberOfCards) Flashcards"
+    }
 
     
     private func didSelectEntry(entry: Entries) {
@@ -90,6 +117,7 @@ class AddFlashCardSearchController: SearchController {
             newFlashCard.dateAdded = Date()
             selectedCardDeck?.cards.append(newFlashCard)
         }
+        updateTitle()
         collectionView.reloadData()
         
     }
@@ -99,12 +127,13 @@ class AddFlashCardSearchController: SearchController {
         try! userRealm.write {
             userRealm.delete(flashCardEntry)
         }
+        updateTitle()
         collectionView.reloadData()
     }
     
     private func updateCellFormat(entry: Entries, cell: FlashCardSearchCells) {
         if flashCards?.filter("entryID = %@", entry.entryID).first != nil {
-            cell.backgroundColor = UIColor.lightGray
+            cell.backgroundColor = UIColor.cantoPink(a: 1)
             cell.checkMarkView.alpha = 1
         } else {
             cell.backgroundColor = UIColor.cantoWhite(a: 1)

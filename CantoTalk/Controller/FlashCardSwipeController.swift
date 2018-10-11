@@ -14,32 +14,7 @@ class FlashCardSwipeController: UIViewController {
     
     var flashCardList: List<FlashCard>? {
         didSet {
-            guard let cards = flashCardList else {return}
-//            guard let window = UIApplication.shared.keyWindow else {return}
-            for i in 0..<cards.count {
-                flashCard = FlashCardView()
-                flashCard.flashCard = cards[i]
-                view.addSubview(flashCard)
-                
-                flashCard.flashCardCenterX = flashCard.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0)
-                flashCard.flashCardCenterY = flashCard.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0)
-                
-                NSLayoutConstraint.activate([
-                    flashCard.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
-                    flashCard.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: flashCardHeightMultiplier),
-                    flashCard.flashCardCenterX,
-                    flashCard.flashCardCenterY,
-                    ])
-                
-                flashCard.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
-                flashCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
-                
-                cardArray.append(flashCard)
-                currentCard = i
-                topCard = cardArray[currentCard]
-                view.bringSubviewToFront(checkImage)
-                view.bringSubviewToFront(xImage)
-            }
+            layoutCards()
         }
     }
 
@@ -110,6 +85,17 @@ class FlashCardSwipeController: UIViewController {
         return button
     }()
     
+    let resetButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(named: "reset")?.withRenderingMode(.alwaysTemplate)
+        button.setBackgroundImage(image, for: .normal)
+        button.contentMode = .scaleAspectFit
+        button.tintColor = UIColor.cantoDarkBlue(a: 1)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(handleReset), for: .touchUpInside)
+        return button
+    }()
+    
     let flashCardHeightMultiplier: CGFloat = 0.7
     var cardArray = [FlashCardView]()
     var currentCard: Int!
@@ -131,7 +117,7 @@ class FlashCardSwipeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        animateBackground(duration: 10)
+        animateBackground(duration: 8)
     }
     
     func setupViews() {
@@ -151,6 +137,7 @@ class FlashCardSwipeController: UIViewController {
         view.addSubview(checkImage)
         view.addSubview(xImage)
         view.addSubview(exitButton)
+        view.addSubview(resetButton)
         view.addSubview(checkButton)
         view.addSubview(xButton)
         
@@ -173,6 +160,11 @@ class FlashCardSwipeController: UIViewController {
             exitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             exitButton.widthAnchor.constraint(equalToConstant: 40),
             exitButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            resetButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            resetButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            resetButton.widthAnchor.constraint(equalToConstant: 40),
+            resetButton.heightAnchor.constraint(equalToConstant: 40),
             
             checkImage.widthAnchor.constraint(equalToConstant: checkImageWidth),
             checkImage.heightAnchor.constraint(equalToConstant: checkImageWidth),
@@ -197,6 +189,7 @@ class FlashCardSwipeController: UIViewController {
             ])
 
         window.sendSubviewToBack(backgroundImage)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -213,6 +206,34 @@ class FlashCardSwipeController: UIViewController {
         navigationController?.isNavigationBarHidden = false
 //        navigationController?.navigationBar.barTintColor = UIColor.cantoDarkBlue(a: 1)
 //        navigationController?.navigationBar.tintColor = UIColor.cantoWhite(a: 1)
+    }
+    
+    private func layoutCards() {
+        guard let cards = flashCardList else {return}
+        for i in 0..<cards.count {
+            flashCard = FlashCardView()
+            flashCard.flashCard = cards[i]
+            view.addSubview(flashCard)
+            
+            flashCard.flashCardCenterX = flashCard.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0)
+            flashCard.flashCardCenterY = flashCard.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0)
+            
+            NSLayoutConstraint.activate([
+                flashCard.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
+                flashCard.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: flashCardHeightMultiplier),
+                flashCard.flashCardCenterX,
+                flashCard.flashCardCenterY,
+                ])
+            
+            flashCard.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
+            flashCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+            
+            cardArray.append(flashCard)
+            currentCard = i
+            topCard = cardArray[currentCard]
+            view.bringSubviewToFront(checkImage)
+            view.bringSubviewToFront(xImage)
+        }
     }
     
     private func animateBackground(duration: Double) {
@@ -233,7 +254,11 @@ class FlashCardSwipeController: UIViewController {
     }
     
     @objc func handleExit() {
-        navigationController?.popToRootViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func handleReset() {
+        layoutCards()
     }
     
     @objc func handlePan(gesture: UIPanGestureRecognizer) {
@@ -315,7 +340,6 @@ class FlashCardSwipeController: UIViewController {
             topCard = cardArray[currentCard]
         }
         
-        guard let window = UIApplication.shared.keyWindow else {return}
         UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.previousCard.flashCardCenterX.constant = self.viewWidth * 1.5
             self.previousCard.transform = CGAffineTransform(rotationAngle: 0.244)
@@ -333,7 +357,6 @@ class FlashCardSwipeController: UIViewController {
         if currentCard >= 0 {
             topCard = cardArray[currentCard]
         }
-        guard let window = UIApplication.shared.keyWindow else {return}
         UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.previousCard.flashCardCenterX.constant = -(self.viewWidth * 1.5)
             self.previousCard.transform = CGAffineTransform(rotationAngle: -0.244)
