@@ -146,6 +146,7 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
                 newDeck.dateAdded = Date()
                 userRealm.add(newDeck)
             }
+            createDeckAnimation()
         case 1:
             try! userRealm.write {
                 guard let deck = cardDecks?[currentDeckSelected] else {return}
@@ -199,6 +200,38 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
             self.present(customAlert, animated: true, completion: nil)
         default:
             print("Nothing to do")
+        }
+    }
+    
+    //MARK: - Animation
+    
+    private func createDeckAnimation() {
+        let deck = FlashCardDeckCell()
+        deck.backgroundColor = .clear
+        deck.translatesAutoresizingMaskIntoConstraints = false
+        deck.deckTitle.alpha = 0
+        deck.alpha = 0
+        
+        view.addSubview(deck)
+        
+        NSLayoutConstraint.activate([
+            deck.centerXAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 0.75),
+            deck.centerYAnchor.constraint(equalTo: view.topAnchor, constant: cellHeight / 2 + 32),
+            deck.widthAnchor.constraint(equalToConstant: cellWidth),
+            deck.heightAnchor.constraint(equalToConstant: cellHeight)
+            ])
+        
+//        deck.frame.origin.x = deck.frame.origin.x - 100
+        deck.frame.origin.y = deck.frame.origin.y - 100
+        
+        UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            deck.alpha = 1
+//            deck.frame.origin.x = deck.frame.origin.x + 100
+            deck.frame.origin.y = deck.frame.origin.y + 100
+            self.view.layoutIfNeeded()
+        }) { finished in
+            deck.alpha = 0
+            print("animation complete")
         }
     }
 

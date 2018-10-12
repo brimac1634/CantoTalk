@@ -263,7 +263,7 @@ class FlashCardSwipeController: UIViewController {
     
     @objc func handlePan(gesture: UIPanGestureRecognizer) {
         let location = gesture.translation(in: topCard)
-        print(topCard.englishLabel.text)
+        
         let i = location.x
         let j = location.y
         
