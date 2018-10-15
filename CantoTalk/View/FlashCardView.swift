@@ -14,6 +14,8 @@ class FlashCardView: BaseView {
     let mainRealm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: true))
     
     var showingFront: Bool = true
+    var flashCardWidth: NSLayoutConstraint!
+    var flashCardHeight: NSLayoutConstraint!
     var flashCardCenterX: NSLayoutConstraint!
     var flashCardCenterY: NSLayoutConstraint!
     
@@ -40,6 +42,7 @@ class FlashCardView: BaseView {
         let label = UITextView()
         label.isEditable = false
         label.isSelectable = false
+        label.isScrollEnabled = false
         label.font = UIFont.systemFont(ofSize: 38)
         label.textColor = UIColor.cantoDarkBlue(a: 1)
         label.backgroundColor = UIColor.cantoWhite(a: 1)

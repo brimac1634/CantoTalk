@@ -30,6 +30,10 @@ class BackOfFlashCard: EntryView {
         cantoWordLabel.backgroundColor = UIColor.cantoDarkBlue(a: 1)
         speakerButton.normalColor = UIColor.cantoWhite(a: 1)
         
+        cantoWordLabel.isSelectable = false
+        cantoWordLabel.isEditable = false
+        cantoWordLabel.isScrollEnabled = false
+        
         backgroundColor = UIColor.cantoDarkBlue(a: 1)
         
         addSubview(cantoWordLabel)
