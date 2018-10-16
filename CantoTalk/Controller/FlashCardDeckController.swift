@@ -146,13 +146,15 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
                 newDeck.dateAdded = Date()
                 userRealm.add(newDeck)
             }
-            createDeckAnimation()
+            openAddCardController()
         case 1:
             try! userRealm.write {
                 guard let deck = cardDecks?[currentDeckSelected] else {return}
                 deck.deckTitle = textFieldValue
             }
         case 2:
+            openAddCardController()
+        case 3:
             try! userRealm.write {
                 guard let deck = cardDecks?[currentDeckSelected] else {return}
                 userRealm.delete(deck)
@@ -175,21 +177,19 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
         slideUpViewController.handleDismiss()
         switch index {
         case 0:
-            let flashCardSwipeController = FlashCardSwipeController()
-            if let cardDeck = cardDecks {
+            guard let cardDeck = cardDecks else {return}
+            if cardDeck[currentDeckSelected].cards.count != 0{
+                let flashCardSwipeController = FlashCardSwipeController()
                 flashCardSwipeController.flashCardList = cardDeck[currentDeckSelected].cards
+                navigationController?.isNavigationBarHidden = true
+                navigationController?.pushViewController(flashCardSwipeController, animated: true)
+            } else {
+                let customAlert = CustomAlertController.instantiate(type: .addCards)
+                customAlert.delegate = self
+                self.present(customAlert, animated: true, completion: nil)
             }
-            navigationController?.isNavigationBarHidden = true
-            navigationController?.pushViewController(flashCardSwipeController, animated: true)
         case 1:
-            let addFlashCardController = AddFlashCardSearchController()
-            if let cardDeck = cardDecks {
-                addFlashCardController.selectedCardDeck = cardDeck[currentDeckSelected]
-                addFlashCardController.entries = mainRealm.objects(Entries.self)
-            }
-            let navBar = addFlashCardController.navigationController?.navigationBar
-            navBar?.backItem?.title = "Save"
-            navigationController?.pushViewController(addFlashCardController, animated: true)
+            openAddCardController()
         case 2:
             let customAlert = CustomAlertController.instantiate(type: .rename)
             customAlert.delegate = self
@@ -203,36 +203,14 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
         }
     }
     
-    //MARK: - Animation
-    
-    private func createDeckAnimation() {
-        let deck = FlashCardDeckCell()
-        deck.backgroundColor = .clear
-        deck.translatesAutoresizingMaskIntoConstraints = false
-        deck.deckTitle.alpha = 0
-        deck.alpha = 0
-        
-        view.addSubview(deck)
-        
-        NSLayoutConstraint.activate([
-            deck.centerXAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 0.75),
-            deck.centerYAnchor.constraint(equalTo: view.topAnchor, constant: cellHeight / 2 + 32),
-            deck.widthAnchor.constraint(equalToConstant: cellWidth),
-            deck.heightAnchor.constraint(equalToConstant: cellHeight)
-            ])
-        
-//        deck.frame.origin.x = deck.frame.origin.x - 100
-        deck.frame.origin.y = deck.frame.origin.y - 100
-        
-        UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            deck.alpha = 1
-//            deck.frame.origin.x = deck.frame.origin.x + 100
-            deck.frame.origin.y = deck.frame.origin.y + 100
-            self.view.layoutIfNeeded()
-        }) { finished in
-            deck.alpha = 0
-            print("animation complete")
+    private func openAddCardController() {
+        let addFlashCardController = AddFlashCardSearchController()
+        if let cardDeck = cardDecks {
+            addFlashCardController.selectedCardDeck = cardDeck[currentDeckSelected]
+            addFlashCardController.entries = mainRealm.objects(Entries.self)
         }
+        navigationController?.pushViewController(addFlashCardController, animated: true)
     }
+
 
 }

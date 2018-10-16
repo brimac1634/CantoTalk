@@ -14,18 +14,39 @@ class AddFlashCardSearchController: SearchController {
     let mainRealm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: true))
     var flashCards: List<FlashCard>?
     
+    lazy var bottomBarView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.cantoPink(a: 1)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSave)))
+        return view
+    }()
+    
+    let bottomBarText: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.cantoDarkBlue(a: 1)
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 22)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     var selectedCardDeck: FlashCardDeck? {
         didSet {
             collectionView.reloadData()
             guard let deck = selectedCardDeck else {return}
             flashCards = deck.cards
             deckTitle = deck.deckTitle
+            numberOfCardsToStart = flashCards?.count ?? 0
             updateTitle()
         }
     }
     
     var isShowingCheckedEntries: Bool = false
     var deckTitle: String = ""
+    var numberOfCardsToStart: Int = 0
+    var bottomBarBottomConstraint: NSLayoutConstraint!
+    var bottomBarTopConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,11 +55,32 @@ class AddFlashCardSearchController: SearchController {
     
     override func setupViews() {
         super.setupViews()
+        setupBottomBar()
         searchBarButton.setBackgroundImage(UIImage(named: "checkMark")?.withRenderingMode(.alwaysTemplate), for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         setupNavBar()
+    }
+    
+    private func setupBottomBar() {
+        view.addSubview(bottomBarView)
+        bottomBarView.addSubview(bottomBarText)
+        
+        bottomBarBottomConstraint = bottomBarView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        bottomBarTopConstraint = bottomBarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        
+        
+        NSLayoutConstraint.activate([
+            bottomBarView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
+            bottomBarView.heightAnchor.constraint(equalToConstant: 60),
+            bottomBarTopConstraint,
+            
+            bottomBarText.topAnchor.constraint(equalTo: bottomBarView.topAnchor),
+            bottomBarText.leadingAnchor.constraint(equalTo: bottomBarView.leadingAnchor),
+            bottomBarText.trailingAnchor.constraint(equalTo: bottomBarView.trailingAnchor),
+            bottomBarText.bottomAnchor.constraint(equalTo: bottomBarView.bottomAnchor)
+            ])
     }
 
     //MARK: - CollectionView Methods
@@ -63,8 +105,8 @@ class AddFlashCardSearchController: SearchController {
             } else {
                 didSelectEntry(entry: entry)
             }
-            collectionView.reloadData()
         }
+        moveBottomBar()
         
     }
     
@@ -92,20 +134,21 @@ class AddFlashCardSearchController: SearchController {
         guard let navBar = navigationController?.navigationBar else {return}
         navBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.cantoWhite(a: 1)]
         
-        let saveButton = UIButton(type: .custom)
-        guard let image = UIImage(named: "save") else {return}
-        saveButton.navBarButtonSetup(image: image)
-        saveButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: saveButton)
+//        let saveButton = UIButton(type: .custom)
+//        guard let image = UIImage(named: "save") else {return}
+//        saveButton.navBarButtonSetup(image: image)
+//        saveButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: saveButton)
     }
     
     @objc func handleSave() {
+        print(123)
         self.navigationController?.popViewController(animated: true)
     }
     
     private func updateTitle() {
-        guard let numberOfCards = flashCards?.count else {return}
-        navigationItem.title = "\(deckTitle): \(numberOfCards) Flashcards"
+//        guard let numberOfCards = flashCards?.count else {return}
+        navigationItem.title = "\(deckTitle) Flashcard Deck"
     }
 
     
@@ -118,7 +161,7 @@ class AddFlashCardSearchController: SearchController {
             selectedCardDeck?.cards.append(newFlashCard)
         }
         updateTitle()
-        collectionView.reloadData()
+//        collectionView.reloadData()
         
     }
     
@@ -128,12 +171,12 @@ class AddFlashCardSearchController: SearchController {
             userRealm.delete(flashCardEntry)
         }
         updateTitle()
-        collectionView.reloadData()
+//        collectionView.reloadData()
     }
     
     private func updateCellFormat(entry: Entries, cell: FlashCardSearchCells) {
         if flashCards?.filter("entryID = %@", entry.entryID).first != nil {
-            cell.backgroundColor = UIColor.cantoPink(a: 1)
+            cell.backgroundColor = UIColor.cantoPink(a: 0.2)
             cell.checkMarkView.alpha = 1
         } else {
             cell.backgroundColor = UIColor.cantoWhite(a: 1)
@@ -169,4 +212,29 @@ class AddFlashCardSearchController: SearchController {
     }
     
     
+    private func moveBottomBar() {
+        guard let deck = selectedCardDeck else {return}
+        if deck.cards.count != numberOfCardsToStart {
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                self.bottomBarTopConstraint.isActive = false
+                self.bottomBarBottomConstraint.isActive = true
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+            guard let numberOfCards = flashCards?.count else {return}
+            if deck.cards.count < numberOfCardsToStart {
+                bottomBarText.text = "Remove \(numberOfCardsToStart - deck.cards.count) Card(s) - \(numberOfCards) Total"
+            } else if deck.cards.count > numberOfCardsToStart {
+                bottomBarText.text = "Add \(deck.cards.count - numberOfCardsToStart) Card(s) - \(numberOfCards) Total"
+            }
+        } else {
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                self.bottomBarTopConstraint.isActive = true
+                self.bottomBarBottomConstraint.isActive = false
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        }
+        
+        collectionView.reloadData()
+    }
+
 }

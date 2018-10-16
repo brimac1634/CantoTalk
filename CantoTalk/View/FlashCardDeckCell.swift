@@ -37,11 +37,18 @@ class FlashCardDeckCell: BaseCell {
         return image
     }()
     
-    let deckImage: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "CantoTalkIconCircle"))
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.contentMode = .scaleAspectFit
-        return image
+    let numberOfCardsLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.cantoPink(a: 1)
+        label.font = UIFont.systemFont(ofSize: 22)
+        return label
+    }()
+    
+    let percentLearned: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.cantoPink(a: 1)
+        label.font = UIFont.systemFont(ofSize: 22)
+        return label
     }()
     
     let deckTitle: UILabel = {
@@ -59,7 +66,7 @@ class FlashCardDeckCell: BaseCell {
         
         addSubview(card)
         card.addSubview(backgroundImage)
-        card.addSubview(deckImage)
+//        card.addSubview(deckImage)
         addSubview(deckTitle)
         
         NSLayoutConstraint.activate([
@@ -77,10 +84,10 @@ class FlashCardDeckCell: BaseCell {
             backgroundImage.trailingAnchor.constraint(equalTo: card.trailingAnchor),
             backgroundImage.bottomAnchor.constraint(equalTo: card.bottomAnchor),
             
-            deckImage.widthAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.6),
-            deckImage.heightAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.6),
-            deckImage.centerXAnchor.constraint(equalTo: card.centerXAnchor),
-            deckImage.centerYAnchor.constraint(equalTo: card.centerYAnchor)
+//            deckImage.widthAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.6),
+//            deckImage.heightAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.6),
+//            deckImage.centerXAnchor.constraint(equalTo: card.centerXAnchor),
+//            deckImage.centerYAnchor.constraint(equalTo: card.centerYAnchor)
             ])
         
     }

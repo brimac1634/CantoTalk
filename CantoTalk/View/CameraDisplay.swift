@@ -84,7 +84,7 @@ class CameraDisplay: BaseView {
         label.isEditable = false
         label.isScrollEnabled = false
         label.textAlignment = .center
-        label.backgroundColor = UIColor.cantoWhite(a: 1)
+        label.backgroundColor = .clear
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -147,6 +147,7 @@ class CameraDisplay: BaseView {
         
     }
     
+
     
     
 }

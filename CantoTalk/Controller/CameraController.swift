@@ -28,9 +28,22 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
         return view
     }()
     
+    lazy var exitButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(named: "back")?.withRenderingMode(.alwaysTemplate)
+        button.setBackgroundImage(image, for: .normal)
+        button.contentMode = .scaleAspectFit
+        button.tintColor = UIColor.cantoWhite(a: 1)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        mySelf = self
+        button.addTarget(mySelf, action: #selector(handleExit), for: .touchUpInside)
+        return button
+    }()
+    
     var entries: Results<Entries>?
     var entryArray: [Entries]?
     var resultFound: Bool = false
+    var mySelf: CameraController!
 
     private var requests = [VNRequest]()
     private lazy var cameraLayer: AVCaptureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
@@ -63,21 +76,31 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
     
     override func viewWillDisappear(_ animated: Bool) {
         self.captureSession.stopRunning()
+        navigationController?.isNavigationBarHidden = false
+//        guard let window = UIApplication.shared.keyWindow else {return}
+        exitButton.removeFromSuperview()
     }
     
     //MARK: - View Setup Methods
     
     func setupViews() {
+        guard let window = UIApplication.shared.keyWindow else {return}
         view.addSubview(cameraView)
         cameraView.layer.addSublayer(self.cameraLayer)
+        window.addSubview(exitButton)
+        
+        
 
         NSLayoutConstraint.activate([
+            exitButton.topAnchor.constraint(equalTo: window.topAnchor, constant: 32),
+            exitButton.leadingAnchor.constraint(equalTo: window.leadingAnchor, constant: 16),
+            exitButton.widthAnchor.constraint(equalToConstant: 34),
+            exitButton.heightAnchor.constraint(equalToConstant: 34),
+            
             cameraView.topAnchor.constraint(equalTo: view.topAnchor),
             cameraView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             cameraView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             cameraView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            
-            
             ])
 
     }
@@ -116,11 +139,11 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
         guard let observations = request.results as? [VNClassificationObservation] else { print("no results: \(error!)"); return }
         guard let firstResult = observations.first?.identifier else {return}
         guard let firstResultConfidence = observations.first?.confidence else {return}
-        print("\(firstResult): \(firstResultConfidence)")
+//        print("\(firstResult): \(firstResultConfidence)")
         guard let entryList = entries else {return}
         
         DispatchQueue.main.async {
-            if firstResultConfidence > 0.7 {
+            if firstResultConfidence > 0.8 {
                 guard let entry = entryList.filter("englishWord = %@", firstResult).first else {return}
                 self.cameraDisplay.selectedEntry = entry
                 self.resultFound = true
@@ -166,4 +189,9 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
         }
     }
     
+    //MARK: - Navigation Method
+    
+    @objc func handleExit() {
+        self.navigationController?.popViewController(animated: true)
+    }
 }

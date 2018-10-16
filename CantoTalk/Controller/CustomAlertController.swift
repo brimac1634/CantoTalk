@@ -31,16 +31,20 @@ class CustomAlertController: UIViewController {
             vc.alertType = 0
         case .rename:
             vc.alertType = 1
-        case .delete:
+        case .addCards:
             vc.alertType = 2
+        case .delete:
+            vc.alertType = 3
         }
         return vc
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        customAlertView.textField.becomeFirstResponder()
-        
+        if alertType < 2 {
+            customAlertView.textField.becomeFirstResponder()
+        }
+
         customAlertView.createButton.addTarget(self, action: #selector(handleCreate), for: .touchUpInside)
         customAlertView.cancelButton.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
         
@@ -94,7 +98,7 @@ class CustomAlertController: UIViewController {
             case 0...1:
                 customAlertView.textField.resignFirstResponder()
                 delegate?.affirmativeButtonTapped(alertType: alert, textFieldValue: customAlertView.textField.text!)
-            case 2:
+            case 2...3:
                 delegate?.affirmativeButtonTapped(alertType: alert, textFieldValue: "")
             default:
                 delegate?.affirmativeButtonTapped(alertType: alert, textFieldValue: "")

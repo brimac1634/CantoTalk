@@ -245,7 +245,6 @@ class FlashCardSwipeController: UIViewController {
         let i = location.x
         let j = location.y
         
-        
         topCard.flashCardCenterX.constant = i
         topCard.flashCardCenterY.constant = j
         
@@ -291,7 +290,7 @@ class FlashCardSwipeController: UIViewController {
                 self.view.layoutIfNeeded()
             }, completion: nil)
             if gesture.state == .ended {
-                UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+                UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
                     self.topCard.flashCardCenterX.constant = 0
                     self.topCard.flashCardCenterY.constant = 0
                     self.topCard.transform = CGAffineTransform.identity
@@ -305,7 +304,7 @@ class FlashCardSwipeController: UIViewController {
     
     @objc func handleTap() {
         nextCard.alpha = 1
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
             self.topCard.flip()
         }, completion: nil)
 

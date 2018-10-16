@@ -14,6 +14,7 @@ class CustomAlertView: BaseView {
     enum AlertType {
         case create
         case rename
+        case addCards
         case delete
     }
     var numberOfStacks: Int = 0
@@ -27,18 +28,18 @@ class CustomAlertView: BaseView {
             guard let alertView = alert else {return}
             switch alertView {
             case .create:
-                print("Standard alert")
+                message.text = "Name your flash card deck"
             case .rename:
                 message.text = "Rename card deck"
                 createButton.setTitle("Save", for: .normal)
+            case .addCards:
+                message.text = "Would you like to add cards now?"
+                createButton.setTitle("Add", for: .normal)
+                removeTextField()
             case .delete:
                 message.text = "Are you sure?"
                 createButton.setTitle("Delete", for: .normal)
-                alertStackView.removeArrangedSubview(textFieldContainer)
-                textFieldContainer.alpha = 0
-                numberOfStacks = alertStackView.arrangedSubviews.count
-                alertViewHeight.constant = CGFloat(60 * numberOfStacks)
-                layoutIfNeeded()
+                removeTextField()
             }
         }
     }
@@ -55,10 +56,9 @@ class CustomAlertView: BaseView {
     let message: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.text = "Name your flash card deck!"
-        label.font = UIFont.systemFont(ofSize: 22)
-        label.textColor = UIColor.cantoDarkBlue(a: 1)
         label.backgroundColor = UIColor.cantoWhite(a: 1)
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.textColor = UIColor.cantoDarkBlue(a: 1)
         return label
     }()
     
@@ -84,7 +84,7 @@ class CustomAlertView: BaseView {
     let cancelButton: UIButton = {
         let button = UIButton()
         button.setTitle("Cancel", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 22)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         button.backgroundColor = UIColor.cantoWhite(a: 1)
         button.setTitleColor(UIColor.cantoDarkBlue(a: 1), for: .normal)
         return button
@@ -94,7 +94,7 @@ class CustomAlertView: BaseView {
         let button = UIButton()
         button.setTitle("Create", for: .normal)
         button.setTitleColor(UIColor.cantoDarkBlue(a: 1), for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 22)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.backgroundColor = UIColor.cantoWhite(a: 1)
         return button
     }()
@@ -143,5 +143,13 @@ class CustomAlertView: BaseView {
             ])
         
         
+    }
+    
+    private func removeTextField() {
+        alertStackView.removeArrangedSubview(textFieldContainer)
+        textFieldContainer.alpha = 0
+        numberOfStacks = alertStackView.arrangedSubviews.count
+        alertViewHeight.constant = CGFloat(60 * numberOfStacks)
+        layoutIfNeeded()
     }
 }

@@ -112,6 +112,7 @@ class HomeController: UIViewController {
     
     @objc func handleCamera() {
         cameraController = CameraController()
+        navigationController?.isNavigationBarHidden = true
         navigationController?.pushViewController(cameraController, animated: true)
     }
     func addView(menuIndex: Int) {
@@ -168,16 +169,7 @@ class HomeController: UIViewController {
             contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: menuBar.topAnchor)
             ])
-        
-        
-        
-
-
-
     }
-    
-
-
 
 }
 
