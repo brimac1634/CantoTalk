@@ -14,8 +14,15 @@ class FlashCardDeckCell: BaseCell {
         didSet {
             guard let deck = cardDeck else {return}
             deckTitle.text = deck.deckTitle
+            numberOfCardsLabel.text = "\(deck.cards.count) Cards"
+            percentLearned.text = "60%"
+            progressBarWidthAnchor.constant = 60 * progressBarWidth / 100
+            layoutIfNeeded()
         }
     }
+    
+    var progressBarWidth: CGFloat = 0
+    var progressBarWidthAnchor: NSLayoutConstraint!
     
     let card: UIView = {
         let view = UIView()
@@ -27,28 +34,39 @@ class FlashCardDeckCell: BaseCell {
         return view
     }()
     
-    let backgroundImage: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "WaveBackground"))
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.layer.cornerRadius = 12
-        image.clipsToBounds = true
-        image.alpha = 0.9
-        image.contentMode = .scaleAspectFill
-        return image
-    }()
+//    let backgroundImage: UIImageView = {
+//        let image = UIImageView(image: UIImage(named: "WaveBackground"))
+//        image.translatesAutoresizingMaskIntoConstraints = false
+//        image.layer.cornerRadius = 12
+//        image.clipsToBounds = true
+//        image.alpha = 0.9
+//        image.contentMode = .scaleAspectFill
+//        return image
+//    }()
     
     let numberOfCardsLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.cantoPink(a: 1)
+        label.textColor = UIColor.cantoDarkBlue(a: 1)
+        label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 22)
         return label
     }()
     
     let percentLearned: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.cantoPink(a: 1)
+        label.textColor = UIColor.cantoDarkBlue(a: 1)
+        label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 22)
         return label
+    }()
+    
+    let progressBar: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.cantoLightBlue(a: 1)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 5
+        view.clipsToBounds = true
+        return view
     }()
     
     let deckTitle: UILabel = {
@@ -62,12 +80,22 @@ class FlashCardDeckCell: BaseCell {
     
     override func setupViews() {
         super.setupViews()
+        
+        let cardStackView = UIStackView(arrangedSubviews: [numberOfCardsLabel, percentLearned])
+        cardStackView.translatesAutoresizingMaskIntoConstraints = false
+        cardStackView.axis = .vertical
+        cardStackView.distribution = .fillEqually
+        
         backgroundColor = UIColor.cantoWhite(a: 1)
         
         addSubview(card)
-        card.addSubview(backgroundImage)
+//        card.addSubview(backgroundImage)
+        card.addSubview(cardStackView)
+        card.addSubview(progressBar)
 //        card.addSubview(deckImage)
         addSubview(deckTitle)
+        
+        progressBarWidthAnchor = progressBar.widthAnchor.constraint(equalToConstant: 10)
         
         NSLayoutConstraint.activate([
             deckTitle.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -79,16 +107,29 @@ class FlashCardDeckCell: BaseCell {
             card.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8),
             card.bottomAnchor.constraint(equalTo: deckTitle.topAnchor),
             
-            backgroundImage.topAnchor.constraint(equalTo: card.topAnchor),
-            backgroundImage.leadingAnchor.constraint(equalTo: card.leadingAnchor),
-            backgroundImage.trailingAnchor.constraint(equalTo: card.trailingAnchor),
-            backgroundImage.bottomAnchor.constraint(equalTo: card.bottomAnchor),
+//            backgroundImage.topAnchor.constraint(equalTo: card.topAnchor),
+//            backgroundImage.leadingAnchor.constraint(equalTo: card.leadingAnchor),
+//            backgroundImage.trailingAnchor.constraint(equalTo: card.trailingAnchor),
+//            backgroundImage.bottomAnchor.constraint(equalTo: card.bottomAnchor),
+            
+            cardStackView.centerXAnchor.constraint(equalTo: card.centerXAnchor),
+            cardStackView.centerYAnchor.constraint(equalTo: card.centerYAnchor),
+            cardStackView.widthAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.9),
+            cardStackView.heightAnchor.constraint(equalTo: card.heightAnchor, multiplier: 0.5),
+            
+            progressBar.heightAnchor.constraint(equalToConstant: 10),
+            progressBar.leadingAnchor.constraint(equalTo: cardStackView.leadingAnchor),
+            progressBarWidthAnchor,
+            progressBar.topAnchor.constraint(equalTo: cardStackView.bottomAnchor, constant: 8)
             
 //            deckImage.widthAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.6),
 //            deckImage.heightAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.6),
 //            deckImage.centerXAnchor.constraint(equalTo: card.centerXAnchor),
 //            deckImage.centerYAnchor.constraint(equalTo: card.centerYAnchor)
             ])
+        
+        
+        progressBarWidth = card.frame.width * 0.9
         
     }
 }
