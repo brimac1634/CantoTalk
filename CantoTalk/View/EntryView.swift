@@ -17,6 +17,7 @@ class EntryView: BaseView {
     let unselectedHeartColor = UIColor.cantoLightBlue(a: 1)
     var isFavorited: Bool?
     var currentEntry: Favorites?
+    var isFlashCard : Bool = false
     var heartButtonTopConstraint: NSLayoutConstraint!
     
     override func setupViews() {
@@ -133,7 +134,7 @@ class EntryView: BaseView {
             heartButton.tintColor = unselectedHeartColor
         }
         
-        if entry.cantoWord.containsChineseCharacters == false {
+        if entry.cantoWord.containsChineseCharacters == false && isFlashCard == false {
             speakerButton.alpha = 0
             heartButtonTopConstraint.constant = -40
         }

@@ -27,6 +27,13 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
         return cv
     }()
     
+    lazy var whiteView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.cantoWhite(a: 1)
+        return view
+    }()
+    
     lazy var emptyCard: EmptyDeckView = {
         let view = EmptyDeckView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -72,6 +79,7 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
         cellHeight = cellWidth * 1.3
         
         view.addSubview(collectionView)
+        collectionView.addSubview(whiteView)
         collectionView.addSubview(emptyCard)
         
         NSLayoutConstraint.activate([
@@ -79,6 +87,11 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            whiteView.topAnchor.constraint(equalTo: collectionView.topAnchor, constant: -10),
+            whiteView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor, constant: -5),
+            whiteView.widthAnchor.constraint(equalToConstant: cellWidth + 5),
+            whiteView.heightAnchor.constraint(equalToConstant: cellHeight + 5),
             
             emptyCard.topAnchor.constraint(equalTo: collectionView.topAnchor),
             emptyCard.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor),

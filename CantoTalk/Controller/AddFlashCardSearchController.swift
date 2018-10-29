@@ -72,7 +72,9 @@ class AddFlashCardSearchController: SearchController, CustomAlertViewDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(presentAlert), userInfo: nil, repeats: false)
+        if cardIDs.count == 0 {
+            timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(presentAlert), userInfo: nil, repeats: false)
+        }
     }
     
     

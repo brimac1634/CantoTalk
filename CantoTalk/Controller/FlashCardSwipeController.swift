@@ -11,12 +11,12 @@ import RealmSwift
 
 class FlashCardSwipeController: UIViewController {
     
+    let userRealm = try! Realm()
     
     var flashCardDeck: FlashCardDeck? {
         didSet {
             guard let deck = flashCardDeck else {return}
             flashCardList = deck.cards
-            progress = deck.progress
             layoutTopCard()
         }
     }
@@ -99,6 +99,19 @@ class FlashCardSwipeController: UIViewController {
         return button
     }()
     
+    let endLabel: UITextView = {
+        let label = UITextView()
+        label.isEditable = false
+        label.isSelectable = false
+        label.isScrollEnabled = false
+        label.textColor = UIColor.cantoDarkBlue(a: 1)
+        label.font = UIFont.boldSystemFont(ofSize: 36)
+        label.backgroundColor = .clear
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     var flashCardList: List<FlashCard>?
     var cardArray = [FlashCardView]()
     let nextCardConstant: CGFloat = 40
@@ -123,7 +136,7 @@ class FlashCardSwipeController: UIViewController {
     var isXShowing: Bool = false
     var isCheckShowing: Bool = false
     
-    var progress: Int = 0
+    var deckProgress: CGFloat = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,6 +160,7 @@ class FlashCardSwipeController: UIViewController {
         guard let window = UIApplication.shared.keyWindow else {return}
         
         window.addSubview(backgroundImage)
+        view.addSubview(endLabel)
         view.addSubview(checkImage)
         view.addSubview(xImage)
         view.addSubview(exitButton)
@@ -168,6 +182,11 @@ class FlashCardSwipeController: UIViewController {
             backgroundImage.leadingAnchor.constraint(equalTo: window.leadingAnchor),
             backgroundImage.trailingAnchor.constraint(equalTo: window.trailingAnchor),
             backgroundImage.heightAnchor.constraint(equalToConstant: 1500),
+            
+            endLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            endLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            endLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+            endLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5),
             
             exitButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             exitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -200,7 +219,7 @@ class FlashCardSwipeController: UIViewController {
             xButton.centerXAnchor.constraint(equalTo: view.leadingAnchor, constant: viewWidth / 4)
     
             ])
-
+        resetButton.alpha = 0
         window.sendSubviewToBack(backgroundImage)
         
     }
@@ -241,6 +260,12 @@ class FlashCardSwipeController: UIViewController {
     }
     
     @objc func handleReset() {
+        UIView.animate(withDuration: 0.5) {
+            self.checkButton.alpha = 1
+            self.xButton.alpha = 1
+            self.resetButton.alpha = 0
+            self.view.layoutIfNeeded()
+        }
         layoutTopCard()
         
     }
@@ -332,7 +357,17 @@ class FlashCardSwipeController: UIViewController {
     
     @objc func handleCheck() {
         nextCard.alpha = 1
+        if let flashCard = topCard.flashCard {
+            if flashCard.cardProgress < 1 {
+                try! userRealm.write {
+                    flashCard.cardProgress = flashCard.cardProgress + 0.25
+                    deckProgress += 0.25
+                }
+            }
+        }
+        updateProgress()
         layoutNextCard()
+        
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.topCard.flashCardWidth.constant = self.topCardWidth
             self.topCard.flashCardHeight.constant = self.topCardHeight
@@ -364,6 +399,7 @@ class FlashCardSwipeController: UIViewController {
     //MARK: - Card Layout Methods
     
     private func layoutTopCard() {
+        deckProgress = 0
         cardArray = [FlashCardView]()
         guard let cards = flashCardList else {return}
         for i in 0..<cards.count {
@@ -393,16 +429,22 @@ class FlashCardSwipeController: UIViewController {
         
         view.bringSubviewToFront(checkImage)
         view.bringSubviewToFront(xImage)
+        
+        for card in cards {
+            deckProgress += card.cardProgress
+        }
+        updateProgress()
     }
         
         
     
     private func layoutNextCard() {
         previousCard = topCard
+        updateEndView()
         guard nextCardIndex < cardArray.count else {return}
         topCard = cardArray[nextCardIndex]
         nextCardIndex += 1
-        
+
         guard nextCardIndex < cardArray.count else {return}
         nextCard = cardArray[nextCardIndex]
         nextCard.alpha = 0
@@ -425,9 +467,32 @@ class FlashCardSwipeController: UIViewController {
         
         nextCard.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
         nextCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
-
-        print(topCard.englishLabel.text)
+    }
+    
+    private func updateProgress() {
+        guard let deck = flashCardDeck else {return}
+        let progressPercent = deckProgress * 100 / CGFloat(deck.cards.count)
+        try! userRealm.write {
+            deck.progress = Int(progressPercent)
+        }
+    }
+    
+    private func updateEndView() {
+        updateEndLabel()
+        if nextCardIndex == cardArray.count {
+            UIView.animate(withDuration: 0.5) {
+                self.checkButton.alpha = 0
+                self.xButton.alpha = 0
+                self.resetButton.alpha = 1
+                self.view.layoutIfNeeded()
+            }
+        }
     }
 
+    private func updateEndLabel() {
+        guard let deck = flashCardDeck else {return}
+        endLabel.text = "Congratulations!\nYou are \(deck.progress)% complete"
+        view.layoutIfNeeded()
+    }
 
 }

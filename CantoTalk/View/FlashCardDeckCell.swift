@@ -33,15 +33,15 @@ class FlashCardDeckCell: BaseCell {
         return view
     }()
     
-//    let backgroundImage: UIImageView = {
-//        let image = UIImageView(image: UIImage(named: "WaveBackground"))
-//        image.translatesAutoresizingMaskIntoConstraints = false
-//        image.layer.cornerRadius = 12
-//        image.clipsToBounds = true
-//        image.alpha = 0.9
-//        image.contentMode = .scaleAspectFill
-//        return image
-//    }()
+    let backgroundImage: UIImageView = {
+        let image = UIImageView(image: UIImage(named: "WaveBackground"))
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.layer.cornerRadius = 12
+        image.clipsToBounds = true
+        image.alpha = 0.3
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
     
     let numberOfCardsLabel: UILabel = {
         let label = UILabel()
@@ -88,10 +88,9 @@ class FlashCardDeckCell: BaseCell {
         backgroundColor = UIColor.cantoWhite(a: 1)
         
         addSubview(card)
-//        card.addSubview(backgroundImage)
+        card.addSubview(backgroundImage)
         card.addSubview(cardStackView)
         card.addSubview(progressBar)
-//        card.addSubview(deckImage)
         addSubview(deckTitle)
         
         progressBarWidthAnchor = progressBar.widthAnchor.constraint(equalToConstant: 50)
@@ -108,13 +107,13 @@ class FlashCardDeckCell: BaseCell {
             card.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8),
             card.bottomAnchor.constraint(equalTo: deckTitle.topAnchor),
             
-//            backgroundImage.topAnchor.constraint(equalTo: card.topAnchor),
-//            backgroundImage.leadingAnchor.constraint(equalTo: card.leadingAnchor),
-//            backgroundImage.trailingAnchor.constraint(equalTo: card.trailingAnchor),
-//            backgroundImage.bottomAnchor.constraint(equalTo: card.bottomAnchor),
+            backgroundImage.topAnchor.constraint(equalTo: card.topAnchor),
+            backgroundImage.leadingAnchor.constraint(equalTo: card.leadingAnchor),
+            backgroundImage.trailingAnchor.constraint(equalTo: card.trailingAnchor),
+            backgroundImage.bottomAnchor.constraint(equalTo: card.bottomAnchor),
             
             cardStackView.centerXAnchor.constraint(equalTo: card.centerXAnchor),
-            cardStackView.centerYAnchor.constraint(equalTo: card.centerYAnchor),
+            cardStackView.centerYAnchor.constraint(equalTo: card.centerYAnchor, constant: -15),
             cardStackView.widthAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.9),
             cardStackView.heightAnchor.constraint(equalTo: card.heightAnchor, multiplier: 0.5),
             
@@ -122,11 +121,6 @@ class FlashCardDeckCell: BaseCell {
             progressBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: leadingConstant),
             progressBarWidthAnchor,
             progressBar.topAnchor.constraint(equalTo: cardStackView.bottomAnchor, constant: 8)
-            
-//            deckImage.widthAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.6),
-//            deckImage.heightAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.6),
-//            deckImage.centerXAnchor.constraint(equalTo: card.centerXAnchor),
-//            deckImage.centerYAnchor.constraint(equalTo: card.centerYAnchor)
             ])
         
         

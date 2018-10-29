@@ -24,6 +24,7 @@ class BackOfFlashCard: EntryView {
     }
     
     override func setupView() {
+        isFlashCard = true
         
         translatesAutoresizingMaskIntoConstraints = false
         cantoWordLabel.textAlignment = .center
