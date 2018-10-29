@@ -24,7 +24,7 @@ class AddFlashCardSearchController: SearchController, CustomAlertViewDelegate {
     
     let bottomBarText: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.cantoDarkBlue(a: 1)
+        label.textColor = UIColor.cantoWhite(a: 1)
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 22)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -37,15 +37,22 @@ class AddFlashCardSearchController: SearchController, CustomAlertViewDelegate {
             guard let deck = selectedCardDeck else {return}
             flashCards = deck.cards
             deckTitle = deck.deckTitle
-            numberOfCardsToStart = flashCards?.count ?? 0
             updateTitle()
+            
+            for card in deck.cards {
+                cardIDs.append(card.entryID)
+            }
+            numberOfCardsToStart = cardIDs.count
+            collectionView.reloadData()
         }
     }
     
     var isShowingCheckedEntries: Bool = false
     var deckTitle: String = ""
     var numberOfCardsToStart: Int = 0
+    var cardIDs = [Int]()
     var timer: Timer!
+    var saveButtonPressed: Bool = false
     var bottomBarBottomConstraint: NSLayoutConstraint!
     var bottomBarTopConstraint: NSLayoutConstraint!
     
@@ -65,10 +72,9 @@ class AddFlashCardSearchController: SearchController, CustomAlertViewDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        timer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(presentAlert), userInfo: nil, repeats: false)
-        
-
+        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(presentAlert), userInfo: nil, repeats: false)
     }
+    
     
     private func setupBottomBar() {
         view.addSubview(bottomBarView)
@@ -94,23 +100,23 @@ class AddFlashCardSearchController: SearchController, CustomAlertViewDelegate {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if isShowingCheckedEntries {
-            return flashCards?.count ?? 0
+            return cardIDs.count
         } else {
             return entries?.count ?? 0
         }
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         if isShowingCheckedEntries {
-            guard let flashEntry = flashCards?[indexPath.item] else {return}
-            guard let entry = entries?.filter("entryID = %@", flashEntry.entryID).first else {return}
-            didUnselectEntry(entry: entry)
+            let entry = cardIDs[indexPath.item]
+            didUnselectEntry(entryID: entry)
         } else {
-            guard let entry = entries?[indexPath.item] else {return}
-            if flashCards?.filter("entryID = %@", entry.entryID).first != nil {
-                didUnselectEntry(entry: entry)
+            guard let entry = entries?[indexPath.item].entryID else {return}
+            if cardIDs.contains(entry) {
+                didUnselectEntry(entryID: entry)
             } else {
-                didSelectEntry(entry: entry)
+                didSelectEntry(entryID: entry)
             }
         }
         moveBottomBar()
@@ -121,12 +127,12 @@ class AddFlashCardSearchController: SearchController, CustomAlertViewDelegate {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! FlashCardSearchCells
         
         if isShowingCheckedEntries {
-            if let flashEntry = flashCards?[indexPath.item] {
-                if let entry = entries?.filter("entryID = %@", flashEntry.entryID).first {
-                    cell.selectedEntry = entry
-                    updateCellFormat(entry: entry, cell: cell)
-                }
+            let flashEntry = cardIDs[indexPath.item]
+            if let entry = entries?.filter("entryID = %@", flashEntry).first {
+                cell.selectedEntry = entry
+                updateCellFormat(entry: entry, cell: cell)
             }
+            
         } else {
             if let entry = entries?[indexPath.item] {
                 cell.selectedEntry = entry
@@ -140,49 +146,49 @@ class AddFlashCardSearchController: SearchController, CustomAlertViewDelegate {
     private func setupNavBar() {
         guard let navBar = navigationController?.navigationBar else {return}
         navBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.cantoWhite(a: 1)]
-        
-//        let saveButton = UIButton(type: .custom)
-//        guard let image = UIImage(named: "save") else {return}
-//        saveButton.navBarButtonSetup(image: image)
-//        saveButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: saveButton)
     }
     
+    
+    //MARK: - Data Manipulation Methods
+    
     @objc func handleSave() {
-        print(123)
+        saveButtonPressed = true
+        guard let deck = selectedCardDeck else {return}
+        try! userRealm.write {
+            deck.cards.removeAll()
+        }
+        for card in cardIDs {
+            try! userRealm.write {
+                let newFlashCard = FlashCard()
+                newFlashCard.entryID = card
+                newFlashCard.dateAdded = Date()
+                deck.cards.append(newFlashCard)
+            }
+        }
         self.navigationController?.popViewController(animated: true)
     }
     
     private func updateTitle() {
-//        guard let numberOfCards = flashCards?.count else {return}
-        navigationItem.title = "\(deckTitle) Flashcard Deck"
+        navigationItem.title = "\"\(deckTitle)\" Card Deck"
     }
 
     
-    private func didSelectEntry(entry: Entries) {
-        guard flashCards?.filter("entryID = %@", entry.entryID).first == nil else {return}
-        try! userRealm.write {
-            let newFlashCard = FlashCard()
-            newFlashCard.entryID = entry.entryID
-            newFlashCard.dateAdded = Date()
-            selectedCardDeck?.cards.append(newFlashCard)
-        }
+    private func didSelectEntry(entryID: Int) {
+        cardIDs.append(entryID)
         updateTitle()
-//        collectionView.reloadData()
         
     }
     
-    private func didUnselectEntry(entry: Entries) {
-        guard let flashCardEntry = flashCards?.filter("entryID = %@", entry.entryID).first else {return}
-        try! userRealm.write {
-            userRealm.delete(flashCardEntry)
+    private func didUnselectEntry(entryID: Int) {
+        if let index = cardIDs.index(of: entryID) {
+            cardIDs.remove(at: index)
         }
         updateTitle()
-//        collectionView.reloadData()
+        
     }
     
     private func updateCellFormat(entry: Entries, cell: FlashCardSearchCells) {
-        if flashCards?.filter("entryID = %@", entry.entryID).first != nil {
+        if cardIDs.contains(entry.entryID) {
             cell.backgroundColor = UIColor.cantoPink(a: 0.2)
             cell.checkMarkView.alpha = 1
         } else {
@@ -200,7 +206,7 @@ class AddFlashCardSearchController: SearchController, CustomAlertViewDelegate {
         view.layoutIfNeeded()
         collectionView.reloadData()
         guard isShowingCheckedEntries else {return}
-        guard flashCards?.count != 0 else {return}
+        guard cardIDs.count != 0 else {return}
         collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
     }
     
@@ -220,19 +226,21 @@ class AddFlashCardSearchController: SearchController, CustomAlertViewDelegate {
     
     
     private func moveBottomBar() {
-        guard let deck = selectedCardDeck else {return}
-        if deck.cards.count != numberOfCardsToStart {
+        let cardCount = cardIDs.count
+        if cardCount != numberOfCardsToStart {
             UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
                 self.bottomBarTopConstraint.isActive = false
                 self.bottomBarBottomConstraint.isActive = true
                 self.view.layoutIfNeeded()
             }, completion: nil)
-            guard let numberOfCards = flashCards?.count else {return}
-            if deck.cards.count < numberOfCardsToStart {
-                bottomBarText.text = "Remove \(numberOfCardsToStart - deck.cards.count) Card(s) - \(numberOfCards) Total"
-            } else if deck.cards.count > numberOfCardsToStart {
-                bottomBarText.text = "Add \(deck.cards.count - numberOfCardsToStart) Card(s) - \(numberOfCards) Total"
-            }
+            
+        bottomBarText.text = "Update Cards - \(cardCount) Total"
+            
+//            if cardIDs.count < numberOfCardsToStart {
+//                bottomBarText.text = "Remove \(numberOfCardsToStart - cardCount) Card(s) - \(cardCount) Total"
+//            } else if cardCount > numberOfCardsToStart {
+//                bottomBarText.text = "Add \(cardCount - numberOfCardsToStart) Card(s) - \(cardCount) Total"
+//            }
         } else {
             UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
                 self.bottomBarTopConstraint.isActive = true
@@ -248,7 +256,6 @@ class AddFlashCardSearchController: SearchController, CustomAlertViewDelegate {
     //MARK: - Alert Methods
     
     @objc func presentAlert() {
-        print("timer completed")
         let customAlert = CustomAlertController.instantiate(type: .editCards)
         customAlert.delegate = self
         self.present(customAlert, animated: true, completion: nil)
