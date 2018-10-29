@@ -35,6 +35,8 @@ class CustomAlertController: UIViewController {
             vc.alertType = 2
         case .delete:
             vc.alertType = 3
+        case .editCards:
+            vc.alertType = 4
         }
         return vc
     }
@@ -98,7 +100,7 @@ class CustomAlertController: UIViewController {
             case 0...1:
                 customAlertView.textField.resignFirstResponder()
                 delegate?.affirmativeButtonTapped(alertType: alert, textFieldValue: customAlertView.textField.text!)
-            case 2...3:
+            case 2...4:
                 delegate?.affirmativeButtonTapped(alertType: alert, textFieldValue: "")
             default:
                 delegate?.affirmativeButtonTapped(alertType: alert, textFieldValue: "")

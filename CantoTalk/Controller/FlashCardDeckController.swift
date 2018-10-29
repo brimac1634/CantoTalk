@@ -95,7 +95,6 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
     //MARK: - Collection View Methods
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.item)
         let slideUpOtions = SlideUpOptionView()
         slideUpOtions.flashCardDeckController = self
         slideUpViewController.showEntryView(slideUpView: slideUpOtions, viewHeight: slideUpOtions.viewHeight + 50)
@@ -180,7 +179,7 @@ class FlashCardDeckController: UIViewController, UICollectionViewDelegate, UICol
             guard let cardDeck = cardDecks else {return}
             if cardDeck[currentDeckSelected].cards.count != 0{
                 let flashCardSwipeController = FlashCardSwipeController()
-                flashCardSwipeController.flashCardList = cardDeck[currentDeckSelected].cards
+                flashCardSwipeController.flashCardDeck = cardDeck[currentDeckSelected]
                 navigationController?.isNavigationBarHidden = true
                 navigationController?.pushViewController(flashCardSwipeController, animated: true)
             } else {

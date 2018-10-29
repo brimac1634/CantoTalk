@@ -12,6 +12,7 @@ import RealmSwift
 class FlashCardDeck: Object {
     @objc dynamic var deckTitle: String = ""
     @objc dynamic var dateAdded: Date?
+    @objc dynamic var progress: Int = 0
     
     let cards = List<FlashCard>()
 }

@@ -15,9 +15,8 @@ class FlashCardDeckCell: BaseCell {
             guard let deck = cardDeck else {return}
             deckTitle.text = deck.deckTitle
             numberOfCardsLabel.text = "\(deck.cards.count) Cards"
-            percentLearned.text = "60%"
-            progressBarWidthAnchor.constant = 60 * progressBarWidth / 100
-            layoutIfNeeded()
+            percentLearned.text = "\(deck.progress)%"
+            progressBarWidthAnchor.constant = CGFloat(deck.progress) * progressBarWidth / 100
         }
     }
     
@@ -95,7 +94,9 @@ class FlashCardDeckCell: BaseCell {
 //        card.addSubview(deckImage)
         addSubview(deckTitle)
         
-        progressBarWidthAnchor = progressBar.widthAnchor.constraint(equalToConstant: 10)
+        progressBarWidthAnchor = progressBar.widthAnchor.constraint(equalToConstant: 50)
+        progressBarWidth = frame.width * 0.6
+        let leadingConstant: CGFloat = (frame.width - progressBarWidth) / 2
         
         NSLayoutConstraint.activate([
             deckTitle.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -118,7 +119,7 @@ class FlashCardDeckCell: BaseCell {
             cardStackView.heightAnchor.constraint(equalTo: card.heightAnchor, multiplier: 0.5),
             
             progressBar.heightAnchor.constraint(equalToConstant: 10),
-            progressBar.leadingAnchor.constraint(equalTo: cardStackView.leadingAnchor),
+            progressBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: leadingConstant),
             progressBarWidthAnchor,
             progressBar.topAnchor.constraint(equalTo: cardStackView.bottomAnchor, constant: 8)
             
@@ -129,7 +130,6 @@ class FlashCardDeckCell: BaseCell {
             ])
         
         
-        progressBarWidth = card.frame.width * 0.9
         
     }
 }

@@ -12,8 +12,11 @@ import RealmSwift
 class FlashCardSwipeController: UIViewController {
     
     
-    var flashCardList: List<FlashCard>? {
+    var flashCardDeck: FlashCardDeck? {
         didSet {
+            guard let deck = flashCardDeck else {return}
+            flashCardList = deck.cards
+            progress = deck.progress
             layoutTopCard()
         }
     }
@@ -96,6 +99,7 @@ class FlashCardSwipeController: UIViewController {
         return button
     }()
     
+    var flashCardList: List<FlashCard>?
     var cardArray = [FlashCardView]()
     let nextCardConstant: CGFloat = 40
     var nextCardIndex: Int!
@@ -118,6 +122,8 @@ class FlashCardSwipeController: UIViewController {
     var changeActionPoint: CGFloat!
     var isXShowing: Bool = false
     var isCheckShowing: Bool = false
+    
+    var progress: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()

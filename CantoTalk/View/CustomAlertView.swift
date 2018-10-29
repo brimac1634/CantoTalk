@@ -16,11 +16,13 @@ class CustomAlertView: BaseView {
         case rename
         case addCards
         case delete
+        case editCards
     }
     var numberOfStacks: Int = 0
     var alertViewHeight: NSLayoutConstraint!
     var alertViewHeightFloat: CGFloat!
     var alertStackView: UIStackView!
+    var buttonStackView: UIStackView!
     
     
     var alert: AlertType? {
@@ -40,6 +42,11 @@ class CustomAlertView: BaseView {
                 message.text = "Are you sure?"
                 createButton.setTitle("Delete", for: .normal)
                 removeTextField()
+            case .editCards:
+                message.text = "Add or remove cards here"
+                createButton.setTitle("Okay", for: .normal)
+                removeTextField()
+                removeCancelButton()
             }
         }
     }
@@ -104,7 +111,7 @@ class CustomAlertView: BaseView {
     override func setupViews() {
         super.setupViews()
         
-        let buttonStackView = UIStackView(arrangedSubviews: [cancelButton, createButton])
+        buttonStackView = UIStackView(arrangedSubviews: [cancelButton, createButton])
         buttonStackView.axis = .horizontal
         buttonStackView.distribution = .fillEqually
         buttonStackView.spacing = 1
@@ -150,6 +157,12 @@ class CustomAlertView: BaseView {
         textFieldContainer.alpha = 0
         numberOfStacks = alertStackView.arrangedSubviews.count
         alertViewHeight.constant = CGFloat(60 * numberOfStacks)
+        layoutIfNeeded()
+    }
+    
+    private func removeCancelButton() {
+        buttonStackView.removeArrangedSubview(cancelButton)
+        cancelButton.alpha = 0
         layoutIfNeeded()
     }
 }

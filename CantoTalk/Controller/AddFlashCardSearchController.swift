@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class AddFlashCardSearchController: SearchController {
+class AddFlashCardSearchController: SearchController, CustomAlertViewDelegate {
     
     let mainRealm = try! Realm(configuration: Realm.Configuration(fileURL: Bundle.main.url(forResource: "default", withExtension: "realm"), readOnly: true))
     var flashCards: List<FlashCard>?
@@ -45,6 +45,7 @@ class AddFlashCardSearchController: SearchController {
     var isShowingCheckedEntries: Bool = false
     var deckTitle: String = ""
     var numberOfCardsToStart: Int = 0
+    var timer: Timer!
     var bottomBarBottomConstraint: NSLayoutConstraint!
     var bottomBarTopConstraint: NSLayoutConstraint!
     
@@ -61,6 +62,12 @@ class AddFlashCardSearchController: SearchController {
     
     override func viewWillAppear(_ animated: Bool) {
         setupNavBar()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        timer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(presentAlert), userInfo: nil, repeats: false)
+        
+
     }
     
     private func setupBottomBar() {
@@ -235,6 +242,24 @@ class AddFlashCardSearchController: SearchController {
         }
         
         collectionView.reloadData()
+    }
+    
+    
+    //MARK: - Alert Methods
+    
+    @objc func presentAlert() {
+        print("timer completed")
+        let customAlert = CustomAlertController.instantiate(type: .editCards)
+        customAlert.delegate = self
+        self.present(customAlert, animated: true, completion: nil)
+    }
+    
+    func affirmativeButtonTapped(alertType: Int, textFieldValue: String) {
+        print("alert dismissed")
+    }
+    
+    func cancelButtonTapped() {
+        print("")
     }
 
 }
