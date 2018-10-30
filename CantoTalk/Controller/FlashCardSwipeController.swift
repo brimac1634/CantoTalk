@@ -487,7 +487,12 @@ class FlashCardSwipeController: UIViewController {
         guard let deck = flashCardDeck else {return}
         guard let cards = flashCardList else {return}
         
-        endLabel.text = "Congratulations!\n\nYou got \(cardsCorrect) out of \(cards.count) correct!\n\nYou have this deck \(deck.progress)% memorized."
+        let style = NSMutableParagraphStyle()
+        style.alignment = .center
+        let endMessage = NSMutableAttributedString(string: "Congratulations!", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 36), NSAttributedString.Key.paragraphStyle: style])
+        endMessage.append(NSMutableAttributedString(string: "\n\nYou got \(cardsCorrect) out of \(cards.count) correct!\n\nYou have this deck \(deck.progress)% memorized.", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 28), NSAttributedString.Key.paragraphStyle: style]))
+        
+        endLabel.attributedText = endMessage
         
         if nextCardIndex == cardArray.count {
             UIView.animate(withDuration: 0.5) {
