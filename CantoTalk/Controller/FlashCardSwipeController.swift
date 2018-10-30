@@ -145,6 +145,12 @@ class FlashCardSwipeController: UIViewController {
         animateBackground(duration: 6)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveLinear, animations: {
+            self.view.backgroundColor = .clear
+        }, completion: nil)
+    }
+    
     func setupViews() {
         viewWidth = view.frame.width
         topCardWidth = viewWidth * 0.9
@@ -152,7 +158,7 @@ class FlashCardSwipeController: UIViewController {
         changeActionPoint = viewWidth / 4
         checkImageWidth = viewWidth * 0.2
         let buttonHeight: CGFloat = (view.frame.height - topCardHeight) / 2 - 32
-        view.backgroundColor = .clear
+        view.backgroundColor = UIColor.cantoWhite(a: 1)
         checkImage.layer.cornerRadius = checkImageWidth / 2
         xImage.layer.cornerRadius = checkImageWidth / 2
         checkButton.layer.cornerRadius = buttonHeight / 2

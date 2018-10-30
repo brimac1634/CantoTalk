@@ -72,6 +72,9 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
     
     override func viewDidAppear(_ animated: Bool) {
         setupDisplay()
+        UIView.animate(withDuration: 0.25, delay: 0.25, options: .curveLinear, animations: {
+            self.view.backgroundColor = .clear
+        }, completion: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -84,6 +87,7 @@ class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBufferDe
     //MARK: - View Setup Methods
     
     func setupViews() {
+        view.backgroundColor = UIColor.black
         guard let window = UIApplication.shared.keyWindow else {return}
         view.addSubview(cameraView)
         cameraView.layer.addSublayer(self.cameraLayer)
