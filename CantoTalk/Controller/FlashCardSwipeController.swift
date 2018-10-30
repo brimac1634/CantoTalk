@@ -137,6 +137,7 @@ class FlashCardSwipeController: UIViewController {
     var isCheckShowing: Bool = false
     
     var deckProgress: CGFloat = 0
+    var cardsCorrect: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -219,6 +220,8 @@ class FlashCardSwipeController: UIViewController {
             xButton.centerXAnchor.constraint(equalTo: view.leadingAnchor, constant: viewWidth / 4)
     
             ])
+        
+        endLabel.alpha = 0
         resetButton.alpha = 0
         window.sendSubviewToBack(backgroundImage)
         
@@ -261,6 +264,7 @@ class FlashCardSwipeController: UIViewController {
     
     @objc func handleReset() {
         UIView.animate(withDuration: 0.5) {
+            self.endLabel.alpha = 0
             self.checkButton.alpha = 1
             self.xButton.alpha = 1
             self.resetButton.alpha = 0
@@ -356,6 +360,7 @@ class FlashCardSwipeController: UIViewController {
     }
     
     @objc func handleCheck() {
+        cardsCorrect += 1
         nextCard.alpha = 1
         if let flashCard = topCard.flashCard {
             if flashCard.cardProgress < 1 {
@@ -400,6 +405,7 @@ class FlashCardSwipeController: UIViewController {
     
     private func layoutTopCard() {
         deckProgress = 0
+        cardsCorrect = 0
         cardArray = [FlashCardView]()
         guard let cards = flashCardList else {return}
         for i in 0..<cards.count {
@@ -478,9 +484,14 @@ class FlashCardSwipeController: UIViewController {
     }
     
     private func updateEndView() {
-        updateEndLabel()
+        guard let deck = flashCardDeck else {return}
+        guard let cards = flashCardList else {return}
+        
+        endLabel.text = "Congratulations!\n\nYou got \(cardsCorrect) out of \(cards.count) correct!\n\nYou have this deck \(deck.progress)% memorized."
+        
         if nextCardIndex == cardArray.count {
             UIView.animate(withDuration: 0.5) {
+                self.endLabel.alpha = 1
                 self.checkButton.alpha = 0
                 self.xButton.alpha = 0
                 self.resetButton.alpha = 1
@@ -489,10 +500,5 @@ class FlashCardSwipeController: UIViewController {
         }
     }
 
-    private func updateEndLabel() {
-        guard let deck = flashCardDeck else {return}
-        endLabel.text = "Congratulations!\nYou are \(deck.progress)% complete"
-        view.layoutIfNeeded()
-    }
 
 }

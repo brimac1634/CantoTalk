@@ -40,6 +40,7 @@ class AddFlashCardSearchController: SearchController, CustomAlertViewDelegate {
             updateTitle()
             
             for card in deck.cards {
+                initialCardIDs.append(card.entryID)
                 cardIDs.append(card.entryID)
             }
             numberOfCardsToStart = cardIDs.count
@@ -50,6 +51,7 @@ class AddFlashCardSearchController: SearchController, CustomAlertViewDelegate {
     var isShowingCheckedEntries: Bool = false
     var deckTitle: String = ""
     var numberOfCardsToStart: Int = 0
+    var initialCardIDs = [Int]()
     var cardIDs = [Int]()
     var timer: Timer!
     var saveButtonPressed: Bool = false
@@ -156,17 +158,30 @@ class AddFlashCardSearchController: SearchController, CustomAlertViewDelegate {
     @objc func handleSave() {
         saveButtonPressed = true
         guard let deck = selectedCardDeck else {return}
-        try! userRealm.write {
-            deck.cards.removeAll()
-        }
+
         for card in cardIDs {
-            try! userRealm.write {
-                let newFlashCard = FlashCard()
-                newFlashCard.entryID = card
-                newFlashCard.dateAdded = Date()
-                deck.cards.append(newFlashCard)
+            if initialCardIDs.contains(card) {
+                
+            } else {
+                try! userRealm.write {
+                    let newFlashCard = FlashCard()
+                    newFlashCard.entryID = card
+                    newFlashCard.dateAdded = Date()
+                    deck.cards.append(newFlashCard)
+                }
             }
         }
+        for card in initialCardIDs {
+            if cardIDs.contains(card) {
+                
+            } else {
+                guard let flashCardEntry = flashCards?.filter("entryID = %@", card).first else {return}
+                try! userRealm.write {
+                    userRealm.delete(flashCardEntry)
+                }
+            }
+        }
+        updateProgress()
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -212,6 +227,18 @@ class AddFlashCardSearchController: SearchController, CustomAlertViewDelegate {
         collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
     }
     
+    private func updateProgress() {
+        var deckProgress: CGFloat = 0
+        guard let cards = flashCards else {return}
+        for card in cards {
+            deckProgress += card.cardProgress
+        }
+        guard let deck = selectedCardDeck else {return}
+        let progressPercent = deckProgress * 100 / CGFloat(cards.count)
+        try! userRealm.write {
+            deck.progress = Int(progressPercent)
+        }
+    }
     
     //MARK: - Search Methods
     
@@ -228,29 +255,21 @@ class AddFlashCardSearchController: SearchController, CustomAlertViewDelegate {
     
     
     private func moveBottomBar() {
-        let cardCount = cardIDs.count
-        if cardCount != numberOfCardsToStart {
-            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-                self.bottomBarTopConstraint.isActive = false
-                self.bottomBarBottomConstraint.isActive = true
-                self.view.layoutIfNeeded()
-            }, completion: nil)
-            
-        bottomBarText.text = "Update Cards - \(cardCount) Total"
-            
-//            if cardIDs.count < numberOfCardsToStart {
-//                bottomBarText.text = "Remove \(numberOfCardsToStart - cardCount) Card(s) - \(cardCount) Total"
-//            } else if cardCount > numberOfCardsToStart {
-//                bottomBarText.text = "Add \(cardCount - numberOfCardsToStart) Card(s) - \(cardCount) Total"
-//            }
-        } else {
+        if cardIDs.containsSameElements(as: initialCardIDs) {
             UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
                 self.bottomBarTopConstraint.isActive = true
                 self.bottomBarBottomConstraint.isActive = false
                 self.view.layoutIfNeeded()
             }, completion: nil)
+        } else {
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                self.bottomBarTopConstraint.isActive = false
+                self.bottomBarBottomConstraint.isActive = true
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+            let cardCount = cardIDs.count
+            bottomBarText.text = "Update Cards - \(cardCount) Total"
         }
-        
         collectionView.reloadData()
     }
     
