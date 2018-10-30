@@ -452,7 +452,10 @@ class FlashCardSwipeController: UIViewController {
     
     private func layoutNextCard() {
         previousCard = topCard
-        updateEndView()
+        if nextCardIndex == cardArray.count {
+            updateEndView()
+        }
+        
         guard nextCardIndex < cardArray.count else {return}
         topCard = cardArray[nextCardIndex]
         nextCardIndex += 1
@@ -500,14 +503,12 @@ class FlashCardSwipeController: UIViewController {
         
         endLabel.attributedText = endMessage
         
-        if nextCardIndex == cardArray.count {
-            UIView.animate(withDuration: 0.5) {
-                self.endLabel.alpha = 1
-                self.checkButton.alpha = 0
-                self.xButton.alpha = 0
-                self.resetButton.alpha = 1
-                self.view.layoutIfNeeded()
-            }
+        UIView.animate(withDuration: 0.5) {
+            self.endLabel.alpha = 1
+            self.checkButton.alpha = 0
+            self.xButton.alpha = 0
+            self.resetButton.alpha = 1
+            self.view.layoutIfNeeded()
         }
     }
 
