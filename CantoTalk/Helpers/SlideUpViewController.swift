@@ -30,6 +30,8 @@ class SlideUpViewController: NSObject {
             whiteViewHeight = viewHeight
             slideUpView.translatesAutoresizingMaskIntoConstraints = false
             slideUpView.backgroundColor = UIColor.cantoWhite(a: 1)
+            slideUpView.layer.cornerRadius = 12
+            slideUpView.clipsToBounds = false
             
             window.addSubview(blackView)
             window.addSubview(slideUpView)

@@ -16,6 +16,8 @@ class SlideUpOptionView: MenuBar {
     var flashCardDeckController: FlashCardDeckController?
     
     override func setupViews() {
+        collectionView.layer.cornerRadius = 12
+        collectionView.clipsToBounds = true
         collectionView.register(SlideUpOptionCells.self, forCellWithReuseIdentifier: cellID)
         collectionView.backgroundColor = UIColor.cantoWhite(a: 1)
         
@@ -83,6 +85,7 @@ class SlideUpOptionCells: BaseCell {
     }()
     
     override func setupViews() {
+        
         
         super.setupViews()
         
