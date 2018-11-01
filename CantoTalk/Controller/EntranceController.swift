@@ -19,7 +19,7 @@ class EntranceController: UIViewController {
         navController.modalTransitionStyle = .coverVertical
         
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             
             self.present(navController, animated: true, completion: nil)
         }
