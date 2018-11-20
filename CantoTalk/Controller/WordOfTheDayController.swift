@@ -13,6 +13,19 @@ class WordOfTheDayController: HorizontalPeekingPagesCollectionViewController {
  
     let defaults = UserDefaults.standard
     
+    let backView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let backgroundImage: UIImageView = {
+        let image = UIImageView(image: UIImage(named: "gradientBackgroundLong")?.withRenderingMode(.alwaysOriginal))
+        image.contentMode = .scaleAspectFill
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
     let userRealm = try! Realm()
     var homeController: HomeController?
     var wordOfTheDay: Results<WordOfTheDay>?
@@ -21,6 +34,9 @@ class WordOfTheDayController: HorizontalPeekingPagesCollectionViewController {
     var lastDateString: String?
     var numberOfEntries: Int?
     var currentOffset: CGFloat = 0
+    
+    var backgroundtop: NSLayoutConstraint!
+    var backgroundBottom: NSLayoutConstraint!
 
     var entries: Results<Entries>? {
         didSet {
@@ -46,6 +62,7 @@ class WordOfTheDayController: HorizontalPeekingPagesCollectionViewController {
             let lastItemIndex = IndexPath(item: numberOfEntries - 1, section: 0)
             collectionView.scrollToItem(at: lastItemIndex, at: .right, animated: false)
         }
+        animateBackground(duration: 6)
     }
     
     private func updateData() {
@@ -55,7 +72,26 @@ class WordOfTheDayController: HorizontalPeekingPagesCollectionViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = UIColor.cantoDarkBlue(a: 1)
+        view.backgroundColor = .clear
+        
+        view.addSubview(backView)
+        backView.addSubview(backgroundImage)
+        
+        backgroundtop = backgroundImage.topAnchor.constraint(equalTo: backView.topAnchor, constant: -200)
+        backgroundBottom = backgroundImage.bottomAnchor.constraint(equalTo: backView.bottomAnchor)
+        
+        NSLayoutConstraint.activate([
+            backView.topAnchor.constraint(equalTo: view.topAnchor),
+            backView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            backgroundBottom,
+            backgroundImage.leadingAnchor.constraint(equalTo: backView.leadingAnchor),
+            backgroundImage.trailingAnchor.constraint(equalTo: backView.trailingAnchor),
+            backgroundImage.heightAnchor.constraint(equalToConstant: 1500),
+            ])
+        
         collectionView.register(WordOfTheDayCells.self, forCellWithReuseIdentifier: cellID)
     }
     
@@ -141,6 +177,25 @@ class WordOfTheDayController: HorizontalPeekingPagesCollectionViewController {
             
         }
         return cell
+    }
+    
+    
+    //MARK: - Animation Method
+    
+    private func animateBackground(duration: Double) {
+        UIView.animate(withDuration: duration, delay: 0, options: .curveLinear, animations: {
+            self.backgroundBottom.isActive = false
+            self.backgroundtop.isActive = true
+            self.backView.layoutIfNeeded()
+        }) { finished in
+            UIView.animate(withDuration: duration, delay: 0, options: .curveLinear, animations: {
+                self.backgroundBottom.isActive = true
+                self.backgroundtop.isActive = false
+                self.backView.layoutIfNeeded()
+            }, completion: { finished in
+                self.animateBackground(duration: duration)
+            })
+        }
     }
     
 }

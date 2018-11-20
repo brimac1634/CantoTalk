@@ -8,12 +8,29 @@
 
 import UIKit
 import RealmSwift
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
+    var openMenuIndex: Int = 0
 
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+    
+            window = UIWindow(frame: UIScreen.main.bounds)
+            window?.makeKeyAndVisible()
+            let entrance = EntranceController()
+            window?.rootViewController = entrance
+        if response.notification.request.identifier == "WordOfTheDayController" {
+            openMenuIndex = 2
+        }
+        completionHandler()
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -33,7 +50,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             statusBarBackgroundView.heightAnchor.constraint(equalToConstant: 20).isActive = true
         }
         
-        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
+        let notification = UNUserNotificationCenter.current()
+        notification.delegate = self
+        notification.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+            print("granted: \(granted)")
+        }
+        
+//        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
         
         return true
     }

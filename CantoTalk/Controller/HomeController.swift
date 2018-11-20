@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import UserNotifications
 
 class HomeController: UIViewController {
 
@@ -23,29 +24,30 @@ class HomeController: UIViewController {
     var viewControllers: [UIViewController]!
     
     var lastVCIndex: Int = 0
+    var notificationTime = DateComponents()
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//    var openMenuIndex: Int = 0
  
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
         setupViewControllers()
         loadData()
         addView(menuIndex: 0)
         setupNavBar()
         setupLayout()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        
-
+        let openMenuIndex = appDelegate.openMenuIndex
+        setupNotification()
+        menuBar.selectView(index: openMenuIndex)
+        menuBar.animateViewChange(index: openMenuIndex)
     }
     
     func setupViewControllers() {
@@ -100,6 +102,25 @@ class HomeController: UIViewController {
 
     }
     
+    func setupNotification() {
+        let content = UNMutableNotificationContent()
+        content.title = "CantoTalk Word of the Day"
+        content.body = "You have a new word of the day!"
+        content.sound = UNNotificationSound.default
+        
+        
+        notificationTime.hour = 9
+//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 6, repeats: false)
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: notificationTime, repeats: true)
+        let request = UNNotificationRequest(identifier: "WordOfTheDayController", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+    }
+    
+    
+    //MARK:- Action Handlers
+    
     @objc func handleSettings() {
         let settingsController = SettingsController()
         navigationController?.pushViewController(settingsController, animated: true)
@@ -115,7 +136,7 @@ class HomeController: UIViewController {
         navigationController?.isNavigationBarHidden = true
         navigationController?.pushViewController(cameraController, animated: true)
     }
-    func addView(menuIndex: Int) {
+    func addView(menuIndex: Int = 0) {
         if lastVCIndex != menuIndex {
             let previousVC = viewControllers[lastVCIndex]
             previousVC.willMove(toParent: nil)
@@ -169,6 +190,8 @@ class HomeController: UIViewController {
             contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: menuBar.topAnchor)
             ])
+        
+        view.sendSubviewToBack(contentView)
     }
 
 }

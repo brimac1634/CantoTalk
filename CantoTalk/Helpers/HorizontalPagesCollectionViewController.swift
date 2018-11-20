@@ -23,7 +23,7 @@ class HorizontalPeekingPagesCollectionViewController: UIViewController, UICollec
     lazy var collectionView: UICollectionView = {
         guard let layout = collectionViewFlowLayout else {return UICollectionView()}
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = UIColor.cantoDarkBlue(a: 1)
+        cv.backgroundColor = UIColor.clear
         cv.showsHorizontalScrollIndicator = false
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.dataSource = self

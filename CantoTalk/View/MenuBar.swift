@@ -43,8 +43,7 @@ class MenuBar: BaseView, UICollectionViewDataSource, UICollectionViewDelegate, U
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
             ])
         
-        let selectedIndexPath = IndexPath(item: 0, section: 0)
-        collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .bottom)
+        selectView(index: 0)
     }
 
     var horizontalBarLeftAnchorConstraint: NSLayoutConstraint?
@@ -61,21 +60,12 @@ class MenuBar: BaseView, UICollectionViewDataSource, UICollectionViewDelegate, U
         horizontalBar.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1 / 4).isActive = true
         horizontalBar.heightAnchor.constraint(equalToConstant: 4).isActive = true
         
-        
-        
     }
     
     //MARK: - CollectionView Methods
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let x = CGFloat(indexPath.item) * (frame.width / 4)
-        self.horizontalBarLeftAnchorConstraint?.constant = x
-        
-        homeController?.addView(menuIndex: indexPath.item)
-        
-        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.layoutIfNeeded()
-        }, completion: nil)
+        animateViewChange(index: indexPath.item)
         
     }
     
@@ -95,6 +85,22 @@ class MenuBar: BaseView, UICollectionViewDataSource, UICollectionViewDelegate, U
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    func selectView(index: Int) {
+        let selectedIndexPath = IndexPath(item: index, section: 0)
+        collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .bottom)
+    }
+    
+    func animateViewChange(index: Int) {
+        
+        let x = CGFloat(index) * (frame.width / CGFloat(imageStrings.count))
+        self.horizontalBarLeftAnchorConstraint?.constant = x
+        homeController?.addView(menuIndex: index)
+        
+        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.layoutIfNeeded()
+        }, completion: nil)
     }
     
     

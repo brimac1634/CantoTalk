@@ -15,20 +15,21 @@ class WordOfTheDayCells: BaseCell {
         view.backgroundColor = UIColor.cantoWhite(a: 1)
         view.layer.cornerRadius = 14
         view.clipsToBounds = true
+        view.dropShadow()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     let dividerView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.cantoDarkBlue(a: 1)
+        view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     let trailingDividerView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.cantoDarkBlue(a: 1)
+        view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -54,7 +55,7 @@ class WordOfTheDayCells: BaseCell {
     
     override func setupViews() {
         super.setupViews()
-        backgroundColor = UIColor.cantoDarkBlue(a: 1)
+        backgroundColor = .clear
         
         addSubview(dividerView)
         addSubview(cellView)
